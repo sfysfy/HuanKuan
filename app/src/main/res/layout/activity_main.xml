@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#fff"
-    tools:context="com.repayment.money.ui.activity.MainActivity">
+    tools:context="com.repayment.money.ui.activity.LogincAtivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -154,7 +154,6 @@
             android:id="@+id/tv_wj_activity_main"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_marginRight="-50dp"
             android:layout_weight="1"
             android:background="#fff"

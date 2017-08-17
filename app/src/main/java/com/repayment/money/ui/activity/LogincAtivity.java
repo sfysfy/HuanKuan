@@ -1,13 +1,16 @@
 package com.repayment.money.ui.activity;
 
+import android.content.Intent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.mylibrary.base.BaseActivity;
 import com.repayment.money.R;
+import com.repayment.money.common.utils.UtilForUserAndPwd;
 
-public class MainActivity extends BaseActivity {
+public class LogincAtivity extends BaseActivity {
 
     private EditText mEdtUserLoginActivity;
     private EditText mEdtPwdLoginActivity;
@@ -40,6 +43,20 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
+        mBtLoginLoginActivity.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String userNme=mEdtUserLoginActivity.getText().toString().trim();
+                String userPwd=mEdtPwdLoginActivity.getText().toString().trim();
+
+               if (UtilForUserAndPwd.checkNameAndPwd(userNme,userPwd)){
+                   Intent intent=new Intent(mBaseActivitySelf,HomeActivity.class);
+                   startActivity(intent);
+               }
+
+            }
+        });
 
     }
 }

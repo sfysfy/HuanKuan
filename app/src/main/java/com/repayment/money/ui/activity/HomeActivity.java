@@ -18,10 +18,11 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        setTitleCenter("还款王");
 
     }
 
-    @Override
+
     protected void initListener() {
 
     }
