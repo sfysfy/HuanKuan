@@ -104,7 +104,9 @@
             android:hint="请输入6-16位的密码"
             android:inputType="textPassword"
             android:maxLength="16"
-            android:text="123edfsdf"
+            android:text="1dd23edfsdf"
+
+
             android:singleLine="true"
             android:textSize="14sp"
             android:layout_marginRight="30dp"/>
