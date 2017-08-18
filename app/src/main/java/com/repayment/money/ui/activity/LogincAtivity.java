@@ -139,4 +139,9 @@ public class LogincAtivity extends BaseActivity {
         });
 
     }
+
+    @Override
+    protected boolean isNotUseTitle() {
+        return false;
+    }
 }
