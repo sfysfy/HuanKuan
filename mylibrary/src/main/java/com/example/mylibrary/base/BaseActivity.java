@@ -15,10 +15,6 @@ import android.widget.TextView;
 import com.example.mylibrary.R;
 import com.example.mylibrary.control.ActivityControl;
 
-/**
- * Created by 马彦虎 on 2017/6/28.
- */
-
 public abstract class BaseActivity extends FragmentActivity {
 
     //封装自己  ,解决内部类上下文等问题

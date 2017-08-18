@@ -8,10 +8,6 @@ import com.example.mylibrary.util.Utils;
 import org.xutils.BuildConfig;
 import org.xutils.x;
 
-/**
- * Created by 马彦虎 on 2017/6/28.
- */
-
 public abstract class BaseApplication extends Application {
     //此静态变量用来存放  标题栏的布局文件
     public static int sLayoutTitle;
