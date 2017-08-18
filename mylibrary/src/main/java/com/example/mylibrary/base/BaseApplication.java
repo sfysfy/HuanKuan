@@ -16,6 +16,7 @@ public abstract class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         //全局的共性的初始化操作  xUtils
         initX();
         //非共性的出示化
