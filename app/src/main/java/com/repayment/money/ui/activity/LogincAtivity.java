@@ -58,9 +58,9 @@ public class LogincAtivity extends BaseActivity {
 
 
 
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }*/
+        }
 
 
     }
@@ -83,6 +83,9 @@ public class LogincAtivity extends BaseActivity {
             public void onClick(View v) {
                 String userNme = mEdtUserLoginActivity.getText().toString().trim();
                 String userPwd = mEdtPwdLoginActivity.getText().toString().trim();
+
+//                CrashReport.testJavaCrash();
+
 
                 if (UtilForUserAndPwd.checkNameAndPwd(userNme, userPwd)) {
                     Intent intent = new Intent(mBaseActivitySelf, HomeActivity.class);
