@@ -1,0 +1,52 @@
+导报  glide  xUtils design包 gson -->net工具包---->Android工具包
+封装共性的activity操作Base类
+   BaseApplication -->initx();   initOthers();
+   BaseActivity--->
+        1:封装通用的成员  Context  Maactivity.this(自己)  FragmengManager  LayoutInflate
+        2:模板模式封装常用的使用流程  三大初始化操作
+        3:网络访问部分
+        4:对于Fragment的快捷操作
+        5:统一封装标题栏
+App model  activity继承BaseActivity
+
+标题栏的开放化(BaseApplication) 显然出该标题栏 动态开放ID title id的布局文件(库)   实现model使用该ID
+    在baseActivity中实例化标题的控件(左右隐藏)    标题栏的三个方法   中间标题栏的控制方法
+
+-------------------------------------------------------------------------------------------
+BaseFragment--->oNcreateView---->跟布局的设置mRootView---->测试
+
+自带网络访问的Activity    一连接网络就展现数据
+
+BaseFragmentWithNet
+
+
+-------------------------------------------------------------------------------------------
+程序入口application
+
+首页布局文件---->实例化
+
+Fragment文件的构建   rb的切换监听  Ac去掉标题栏   fragment标题栏的构建
+
+优化首启动的加载界面----->welcomeFragment(无标题栏 )   无状态栏   发送延迟消息  并且添加状态栏
+
+
+首页的Fragment
+       布局文件--->ScrollView里套纵向的线性布局
+       搜索条焦点问题(BaseFragment)
+       软件盘的弹出,导致界面变形(application)
+       Edt搜索的相关设置
+       自己提供了一个findViewById方法
+       RadioGroup的构建   实例化控件
+       Vp的构建  :
+            网络访问  适配器  无限自动轮播(定时器)  vp添加监听器   同步小红点
+
+       lv的构建:
+            ScrollView嵌套lisview  滚动的嵌套滚动的内部的高度计算有问题
+            解决方案:
+                1:定死其中一个高度   使用的局限性大
+                2:自定义ListView 让他能正确的计算高度
+
+
+       显示抢购:
+
+
