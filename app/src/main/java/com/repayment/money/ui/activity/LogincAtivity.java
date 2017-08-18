@@ -1,7 +1,6 @@
 package com.repayment.money.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.text.Editable;
@@ -41,8 +40,8 @@ public class LogincAtivity extends BaseActivity {
 
 
 
-            getWindow().setNavigationBarColor(Color.BLUE); //写法一
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorAccent));
+          /*  getWindow().setNavigationBarColor(Color.BLUE); //写法一
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorAccent));*/
         }
 
        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

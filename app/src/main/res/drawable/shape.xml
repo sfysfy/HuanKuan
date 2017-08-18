@@ -4,10 +4,10 @@
     <!-- 填充的颜色 -->
 
 
-    <solid android:color="#f5f"/>
+    <solid android:color="#fead00"/>
 
-    <corners android:radius="20dp"/>
-    <stroke android:color="#666" android:width="1dp"/>
+    <corners android:radius="10dp"/>
+
     <padding android:bottom="10dp"    android:right="10dp"  android:top="10dp" android:left="10dp" />
 
 </shape>
