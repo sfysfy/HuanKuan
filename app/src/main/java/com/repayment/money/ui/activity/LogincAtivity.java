@@ -1,6 +1,9 @@
 package com.repayment.money.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -27,8 +30,39 @@ public class LogincAtivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void initData() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//         //透明状态栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            //透明导航栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+
+
+
+            getWindow().setNavigationBarColor(Color.BLUE); //写法一
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorAccent));
+        }
+
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            *//*getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);*//*
+//
+//            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            getWindow().setNavigationBarColor(Color.BLACK); //写法一
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorAccent));
+        }*/
+
+
+
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }*/
+
 
     }
 
