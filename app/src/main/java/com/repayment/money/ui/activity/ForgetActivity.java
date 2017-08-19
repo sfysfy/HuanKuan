@@ -23,16 +23,18 @@ import com.example.mylibrary.util.SPUtils;
 import com.repayment.money.R;
 import com.repayment.money.common.Constant;
 import com.repayment.money.common.utils.CheckString;
+import com.repayment.money.entity.SendCode;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ForgetActivity extends BaseActivity implements View.OnClickListener {
+import static android.R.attr.editable;
+
+public class ForgetActivity extends BaseActivityWithNet<SendCode> implements View.OnClickListener {
     private EditText mEdtFornameForget;
     private EditText mEdtValidateForget;
     private Button mBtValidateForget;
     private EditText mEdtForgetpwd1Forget;
-    private EditText mEdtForgetpwd2Forget;
     private Button mBtForgetForget;
     private TextView mTvLoginForget;
 
@@ -102,6 +104,31 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
+    protected void initNetData() {
+
+    }
+
+    @Override
+    protected void initLocalData() {
+
+    }
+
+    @Override
+    protected void success(SendCode entity) {
+
+    }
+
+    @Override
+    protected void failed(Throwable throwable) {
+
+    }
+
+    @Override
+    protected String gerUrl() {
+        return null;
+    }
+
+    @Override
     protected void initView() {
         if (Build.VERSION.SDK_INT >= 21) {
             int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -121,7 +148,6 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
         mEdtValidateForget = (EditText) findViewById(R.id.edt_validate_forget);
         mBtValidateForget = (Button) findViewById(R.id.bt_validate_forget);
         mEdtForgetpwd1Forget = (EditText) findViewById(R.id.edt_forgetpwd1_forget);
-        mEdtForgetpwd2Forget = (EditText) findViewById(R.id.edt_forgetpwd2_forget);
         mBtForgetForget = (Button) findViewById(R.id.bt_forget_forget);
         mTvLoginForget = (TextView) findViewById(R.id.tv_login_forget);
 
@@ -139,7 +165,6 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
 
     boolean trueVal = false;
     boolean truePwd1 = false;
-    boolean truePwd2 = false;
 
     @Override
     protected void initListener() {
@@ -182,7 +207,7 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
 
                 trueVal = CheckString.isTrueVal(charSequence.toString());
                 Log.e("qq", "trueVal" + trueVal);
-                if (trueVal && truePwd1 && truePwd2) {
+                if (trueVal && truePwd1 ) {
                     mBtForgetForget.setEnabled(true);
 
                 } else {
@@ -205,7 +230,7 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 truePwd1 = CheckString.isTruePwd(charSequence.toString());
-                if (trueVal && truePwd1 && truePwd2) {
+                if (trueVal && truePwd1 ) {
                     mBtForgetForget.setEnabled(true);
 
                 } else {
@@ -218,29 +243,7 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
 
             }
         });
-        mEdtForgetpwd2Forget.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                truePwd2 = CheckString.isTruePwd(charSequence.toString());
-                if (trueVal && truePwd1 && truePwd2) {
-                    mBtForgetForget.setEnabled(true);
-
-                } else {
-                    mBtForgetForget.setEnabled(false);
-                }
-                Log.e("qq", trueVal + "-----" + truePwd1 + "------" + truePwd2);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
     }
 
     @Override
@@ -328,16 +331,10 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
                 startCountDown();
                 break;
             case R.id.bt_forget_forget:
-                if (mEdtForgetpwd1Forget.getText().toString().equals(mEdtForgetpwd2Forget.getText().toString())) {
-                    Toast.makeText(mBaseActivitySelf, "提交成功", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(mBaseActivitySelf, "两次密码不一致,请重新输入", Toast.LENGTH_SHORT).show();
-                    mEdtForgetpwd1Forget.setText("");
-                    mEdtForgetpwd2Forget.setText("");
-                }
+                break;
             case R.id.tv_login_forget:
-//                Intent intent = new Intent(mBaseActivitySelf, ForgetActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(mBaseActivitySelf, LogincAtivity.class);
+                startActivity(intent);
                 break;
 
         }
