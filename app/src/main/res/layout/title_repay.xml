@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="40dp"
-              android:layout_margin="20dp"
-              android:background="#666"
+              android:layout_height="60dp"
+              android:background="#fead00"
               android:orientation="horizontal">
     <TextView
         android:id="@id/title_left"
@@ -16,7 +15,7 @@
     <TextView
         android:id="@id/title_center"
         android:layout_width="0dp"
-        android:background="#f2f"
+        android:background="#fead00"
         android:layout_height="match_parent"
         android:layout_weight="1"
         style="@style/text_title"

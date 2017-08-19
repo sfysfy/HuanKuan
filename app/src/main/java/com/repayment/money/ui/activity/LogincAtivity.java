@@ -110,11 +110,15 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
         TableUser tableUser=new TableUser();
         tableUser.setPhone(mEntityLogin.getResultObj().getName());
         tableUser.setPwd(mEntityLogin.getResultObj().getPassword());
+
         tableUser.setTimestamp(mEntityLogin.getTimestamp());
         tableUser.setUserNo(mEntityLogin.getResultObj().getUserNo());
+
+        tableUser.setIdcard(mEntityLogin.getResultObj().getIdCard());
+        tableUser.setChannel(mEntityLogin.getResultObj().getChannel());
         try {
             mDbManager.saveBindingId(tableUser);
-            Log.d("LogincAtivity", "存储成功");
+            Log.d("LogincAtivity=", "存储成功");
         } catch (DbException e) {
             e.printStackTrace();
         }

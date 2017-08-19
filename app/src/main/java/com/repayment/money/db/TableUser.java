@@ -13,6 +13,7 @@ public class TableUser {
     @Column(name = "id", isId = true)
     private int id;
 
+
     @Column(name = "phone")
     private String phone;
 
@@ -24,6 +25,29 @@ public class TableUser {
 
     @Column(name = "userNo")
     private String userNo;
+
+
+    @Column(name = "channel")
+    private int channel;
+
+    @Column(name = "idcard")
+    private String idcard;
+
+    public int getChannel() {
+        return channel;
+    }
+
+    public void setChannel(int channel) {
+        this.channel = channel;
+    }
+
+    public String getIdcard() {
+        return idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        this.idcard = idcard;
+    }
 
     public int getId() {
         return id;

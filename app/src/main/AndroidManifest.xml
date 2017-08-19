@@ -39,7 +39,8 @@
 
         <activity android:name=".ui.activity.ForgetActivity">
         </activity>
-        <activity android:name=".ui.activity.BoundActivity">
+        <activity android:name=".ui.activity.BoundActivity"
+                  android:windowSoftInputMode="adjustPan">
         </activity>
 
         <activity android:name=".ui.activity.HomeActivity">
