@@ -2,6 +2,7 @@ package com.example.mylibrary.net;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -11,6 +12,8 @@ import org.xutils.x;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * Created by 马彦虎 on 2017/6/27.
@@ -65,7 +68,7 @@ public class NetForJson implements Callback.CommonCallback<String> {
     }
 
     public NetForJson(String url, NetOverListener netOverListener) {
-        this(url, NetForJsonMethod.GET,netOverListener);
+        this(url, NetForJsonMethod.POST,netOverListener);
     }
 
 
@@ -80,11 +83,13 @@ public class NetForJson implements Callback.CommonCallback<String> {
     private void doGet() {
         //发起get访问 this是让本类实现回调接口
         mCancelable = x.http().get(mRequestParams,this);
+        Log.e("qq", "doPost: 执行了get访问");
     }
 
     private void doPost() {
         //post访问
         mCancelable=x.http().post(mRequestParams,this);
+        Log.e("qq", "doPost: 执行了POST访问");
     }
    //取消网络访问
     public void Cancel(){

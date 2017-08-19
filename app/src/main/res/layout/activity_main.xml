@@ -19,7 +19,7 @@
             android:layout_height="114dp"
             android:layout_marginLeft="48dp"
             android:layout_marginStart="48dp"
-            android:src="@drawable/icon"/>
+            android:src="@drawable/icon_hkw"/>
     </RelativeLayout>
 
     <LinearLayout

@@ -7,7 +7,6 @@ import com.example.mylibrary.base.BaseActivity;
 import com.repayment.money.R;
 
 public class HomeActivity extends BaseActivity {
-    private TextView mTvShowActivityHome;
 
 
 
@@ -32,10 +31,6 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
-        mTvShowActivityHome = (TextView) findViewById(R.id.tv_show_activity_home);
-        CharSequence str="暂无账单\n快来添加您的账单吧";
-
-        mTvShowActivityHome.setText(str);
 
     }
 

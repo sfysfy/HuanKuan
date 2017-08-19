@@ -1,10 +1,11 @@
 package com.repayment.money.entity;
 
 /**
- * Created by 马彦虎 on 2017/8/19.
+ * Created by 11250 on 2017/8/19.
  */
 
-public class LoginEntity {
+public class SendCodeEntity {
+
 
     /**
      * code : 0
