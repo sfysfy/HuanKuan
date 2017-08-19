@@ -72,8 +72,6 @@
 -keep class okio.**{*;}
 
 
-
-
 ###########EventBus-Annotation##################
 -keepattributes *Annotation*
 -keepclassmembers class ** {
@@ -104,7 +102,8 @@ public <methods>;
 }
 -keepattributes Signature
 
-###################buggly####################
+###################Bugly####################
+
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
 

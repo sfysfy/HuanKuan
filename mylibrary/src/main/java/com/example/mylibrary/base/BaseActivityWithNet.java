@@ -34,8 +34,8 @@ public abstract class BaseActivityWithNet <T>extends BaseActivity {
     };
 
     @Override
-    protected void initData() {
-        ParameterizedType parameterizedType = (ParameterizedType) this//this指的是实现类的对象!!!!!
+    protected void initData() {//this指的是实现类的对象!!!!!
+        ParameterizedType parameterizedType = (ParameterizedType) this
                 .getClass().getGenericSuperclass();
         Type mClassEntity = parameterizedType.getActualTypeArguments()[0];
 

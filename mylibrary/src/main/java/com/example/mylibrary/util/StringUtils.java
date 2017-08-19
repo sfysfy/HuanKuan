@@ -8,7 +8,7 @@ package com.example.mylibrary.util;
  *     desc  : 字符串相关工具类
  * </pre>
  */
-public final class StringUtils {
+public final class  StringUtils {
 
     private StringUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
