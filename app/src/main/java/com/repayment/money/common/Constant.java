@@ -1,8 +1,7 @@
 package com.repayment.money.common;
 
-/**
- * Created by 马彦虎 on 2017/6/29.
- */
 
 public class Constant {
+    public static final String SP_LOGIN_COUNT_DOWN="loginCD";
+    public static final String SP_LOGIN_ACCOUNT="loginUser";
 }
