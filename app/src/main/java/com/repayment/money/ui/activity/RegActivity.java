@@ -16,16 +16,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mylibrary.base.BaseActivity;
+import com.example.mylibrary.base.BaseActivityWithNet;
 import com.example.mylibrary.util.SPUtils;
 import com.repayment.money.R;
 import com.repayment.money.common.Constant;
 import com.repayment.money.common.utils.CheckString;
+import com.repayment.money.entity.RegEntity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.repayment.money.common.Constant.BASE_URL;
 
-public class RegActivity extends BaseActivity implements View.OnClickListener {
+
+public class RegActivity extends BaseActivityWithNet<RegEntity> implements View.OnClickListener {
 
     private ImageView mImageView;
     private EditText mEdtRegnameReg;
@@ -98,6 +102,31 @@ public class RegActivity extends BaseActivity implements View.OnClickListener {
             mTimeLeft= (int) (timeleft-timePast);
 
         }
+    }
+
+    @Override
+    protected void initNetData() {
+
+    }
+
+    @Override
+    protected void initLocalData() {
+
+    }
+
+    @Override
+    protected void success(RegEntity entity) {
+
+    }
+
+    @Override
+    protected void failed(Throwable throwable) {
+
+    }
+
+    @Override
+    protected String gerUrl() {
+        return BASE_URL+"registerUser?mobile="+mEdtRegnameReg.getText()+"&password="+mEdtRegpwdReg+"&code="+mEdtValidateReg+"";
     }
 //
 //    private void saveUser(String uid, String username) {
@@ -240,7 +269,7 @@ public class RegActivity extends BaseActivity implements View.OnClickListener {
             case R.id.bt_reg_reg:
 
             case R.id.tv_login_reg:
-                Intent intent = new Intent(mBaseActivitySelf, ForgetActivity.class);
+                Intent intent = new Intent(mBaseActivitySelf, LogincAtivity.class);
                 startActivity(intent);
                 break;
 
