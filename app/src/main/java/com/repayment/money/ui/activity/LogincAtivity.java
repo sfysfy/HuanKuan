@@ -2,9 +2,9 @@ package com.repayment.money.ui.activity;
 
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,8 +13,14 @@ import android.widget.Toast;
 
 import com.example.mylibrary.base.BaseActivityWithNet;
 import com.repayment.money.R;
+import com.repayment.money.common.Constant;
 import com.repayment.money.common.utils.UtilForUserAndPwd;
+import com.repayment.money.db.TableUser;
 import com.repayment.money.entity.LoginEntity;
+
+import org.xutils.DbManager;
+import org.xutils.ex.DbException;
+import org.xutils.x;
 
 public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
 
@@ -23,6 +29,8 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
     private Button mBtLoginLoginActivity;
     private TextView mTvRegActivityMain;
     private TextView mTvWjActivityMain;
+    private LoginEntity mEntityLogin;
+    private DbManager mDbManager;
 
 
     @Override
@@ -30,9 +38,11 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
         return R.layout.activity_main;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  //  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
+
     @Override
-    protected void initData() {
+    protected void initNetData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //         //透明状态栏
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -63,33 +73,63 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
 
-
-    }
-
-    @Override
-    protected void initNetData() {
-
     }
 
     @Override
     protected void initLocalData() {
 
+        DbManager.DaoConfig daoConfig=new DbManager.DaoConfig()
+                .setDbName("HKW")
+                .setDbVersion(1);
+        mDbManager = x.getDb(daoConfig);
+
     }
 
     @Override
     protected void success(LoginEntity entity) {
+        mEntityLogin = entity;
+        if (entity.getCode()==1) {
+            Intent intent=new Intent(mBaseActivitySelf,BoundActivity.class);
+            startActivity(intent);
+            System.out.println("entity = ======" + entity);
+            doSaveUserMsg();
+        }else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(mBaseActivitySelf, "用户名密码错误", Toast.LENGTH_SHORT).show();
+                    mEdtUserLoginActivity.setText("");
+                    mEdtUserLoginActivity.setText("");
+                }
+            });
+        }
 
+    }
+
+    private void doSaveUserMsg() {
+        TableUser tableUser=new TableUser();
+        tableUser.setPhone(mEntityLogin.getResultObj().getName());
+        tableUser.setPwd(mEntityLogin.getResultObj().getPassword());
+        tableUser.setTimestamp(mEntityLogin.getTimestamp());
+        tableUser.setUserNo(mEntityLogin.getResultObj().getUserNo());
+        try {
+            mDbManager.saveBindingId(tableUser);
+            Log.d("LogincAtivity", "存储成功");
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     protected void failed(Throwable throwable) {
+        Toast.makeText(mBaseActivitySelf, "连接服务器异常", Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     protected String gerUrl() {
-        return null;
+        return Constant.LOGIN_URL;
     }
 
     @Override
@@ -110,15 +150,14 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
             public void onClick(View v) {
                 String userNme = mEdtUserLoginActivity.getText().toString().trim();
                 String userPwd = mEdtPwdLoginActivity.getText().toString().trim();
-
-//                CrashReport.testJavaCrash();
-
-
                 if (UtilForUserAndPwd.checkNameAndPwd(userNme, userPwd)) {
-                    Intent intent = new Intent(mBaseActivitySelf, HomeActivity.class);
-                    startActivity(intent);
+                    addParam("mobile",userNme);
+                    addParam("password",userPwd);
+                    execute();
+                }else{
+                    Toast.makeText(mBaseActivitySelf, "账号错误", Toast.LENGTH_SHORT).show();
+                    mEdtPwdLoginActivity.setText("");
                 }
-
             }
         });
         //注册监听

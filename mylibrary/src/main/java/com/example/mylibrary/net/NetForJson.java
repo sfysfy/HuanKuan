@@ -65,7 +65,7 @@ public class NetForJson implements Callback.CommonCallback<String> {
     }
 
     public NetForJson(String url, NetOverListener netOverListener) {
-        this(url, NetForJsonMethod.GET,netOverListener);
+        this(url, NetForJsonMethod.POST,netOverListener);
     }
 
 
