@@ -15,4 +15,10 @@ public class RepayMoneyApplication extends BaseApplication {
     protected void initOthets() {
         CrashReport.initCrashReport(getApplicationContext(), "0a6fe297b6", true);
     }
+
+    /*@Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(context);
+        Multidex.install(this);
+    }*/
 }

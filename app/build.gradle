@@ -4,6 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
+
         applicationId "com.repayment.money"
         minSdkVersion 15
         targetSdkVersion 25
@@ -31,6 +32,11 @@ dependencies {
     })
     compile project(':mylibrary')
     compile 'com.android.support:appcompat-v7:25.3.1'
+
+
+
+    compile 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    compile 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.teprinciple:updateapputils:1.2'

@@ -8,36 +8,6 @@
     android:layout_height="match_parent"
     tools:context="com.repayment.money.ui.activity.HomeActivity">
 
-    <LinearLayout
-        android:layout_marginLeft="40dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <ImageButton
-            android:id="@+id/bt_change_lv_gv"
-            android:src="@mipmap/ic_launcher"
-            android:layout_gravity="center"
-            android:background="@drawable/shape"
-            android:layout_width="40dp"
-            android:layout_height="40dp"/>
-        <TextView
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="还款王"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"/>
-        <ImageButton
-            android:layout_marginRight="40dp"
-            android:background="@drawable/shape"
-            android:layout_width="40dp"
-            android:src="@drawable/icon"
-            android:layout_height="40dp"/>
-
-    </LinearLayout>
 
     <ListView
         android:id="@+id/lv_msg_activity_home"
@@ -47,9 +17,19 @@
 
     </ListView>
 
+    <TextView
+        android:id="@+id/tv_show_activity_home"
+        android:layout_gravity="center"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <Button
         android:id="@+id/bt_add_msg_activity_main"
-        android:text="添加还款计划"
+        android:text="新增账单"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
