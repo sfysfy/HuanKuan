@@ -11,11 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mylibrary.base.BaseActivity;
+import com.example.mylibrary.base.BaseActivityWithNet;
 import com.repayment.money.R;
 import com.repayment.money.common.utils.UtilForUserAndPwd;
+import com.repayment.money.entity.LoginEntity;
 
-public class LogincAtivity extends BaseActivity {
+public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
 
     private EditText mEdtUserLoginActivity;
     private EditText mEdtPwdLoginActivity;
@@ -66,6 +67,31 @@ public class LogincAtivity extends BaseActivity {
     }
 
     @Override
+    protected void initNetData() {
+
+    }
+
+    @Override
+    protected void initLocalData() {
+
+    }
+
+    @Override
+    protected void success(LoginEntity entity) {
+
+    }
+
+    @Override
+    protected void failed(Throwable throwable) {
+
+    }
+
+    @Override
+    protected String gerUrl() {
+        return null;
+    }
+
+    @Override
     protected void initView() {
         mEdtUserLoginActivity = (EditText) findViewById(R.id.edt_user_login_activity);
         mEdtPwdLoginActivity = (EditText) findViewById(R.id.edt_pwd_login_activity);
@@ -98,7 +124,7 @@ public class LogincAtivity extends BaseActivity {
         mTvRegActivityMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mBaseActivitySelf, HomeActivity.class);
+                Intent intent = new Intent(mBaseActivitySelf, RegActivity.class);
                 startActivity(intent);
             }
         });
@@ -107,7 +133,7 @@ public class LogincAtivity extends BaseActivity {
         mTvWjActivityMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mBaseActivitySelf, HomeActivity.class);
+                Intent intent = new Intent(mBaseActivitySelf, ForgetActivity.class);
                 startActivity(intent);
             }
         });
@@ -139,9 +165,10 @@ public class LogincAtivity extends BaseActivity {
         });
 
     }
+    
 
     @Override
     protected boolean isNotUseTitle() {
-        return false;
+        return true;
     }
 }

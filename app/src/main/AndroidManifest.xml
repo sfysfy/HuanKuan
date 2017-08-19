@@ -17,8 +17,7 @@
     <!-- android:roundIcon="@mipmap/ic_launcher_round" -->
     <!-- android:supportsRtl="true" -->
     <!-- android:theme="@style/AppTheme"> -->
-=======
->>>>>>> 60a42c1223f82834bc89448203441989e58fe633
+
     <application
         android:name=".RepayMoneyApplication"
         android:allowBackup="true"
@@ -27,18 +26,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.RegActivity">
+
+        <activity android:name=".ui.activity.LogincAtivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.RegActivity">
+
         </activity>
         <activity android:name=".ui.activity.ForgetActivity">
         </activity>
         <activity android:name=".ui.activity.BoundActivity">
         </activity>
-
+        <activity android:name=".ui.activity.HomeActivity"></activity>
 
 
     </application>
