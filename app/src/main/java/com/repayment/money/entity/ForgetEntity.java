@@ -4,7 +4,7 @@ package com.repayment.money.entity;
  * Created by 11250 on 2017/8/19.
  */
 
-public class SendCode {
+public class ForgetEntity {
 
     /**
      * code : 0
@@ -16,7 +16,7 @@ public class SendCode {
     private int code;
     private String message;
     private ResultObjBean resultObj;
-    private int timestamp;
+    private long timestamp;
 
     public int getCode() {
         return code;
@@ -42,7 +42,7 @@ public class SendCode {
         this.resultObj = resultObj;
     }
 
-    public int getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
@@ -51,5 +51,15 @@ public class SendCode {
     }
 
     public static class ResultObjBean {
+    }
+
+    @Override
+    public String toString() {
+        return "ForgetEntity{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", resultObj=" + resultObj +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }

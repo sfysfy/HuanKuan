@@ -5,32 +5,31 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mylibrary.base.BaseActivity;
 import com.example.mylibrary.base.BaseActivityWithNet;
 import com.example.mylibrary.util.SPUtils;
 import com.repayment.money.R;
 import com.repayment.money.common.Constant;
 import com.repayment.money.common.utils.CheckString;
-import com.repayment.money.entity.SendCode;
+import com.repayment.money.common.utils.NetForCode;
+import com.repayment.money.entity.ForgetEntity;
+import com.repayment.money.entity.SendCodeEntity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static android.R.attr.editable;
+import static com.repayment.money.common.Constant.BASE_URL;
+import static com.repayment.money.common.Constant.BASE_URL_RESETPASS;
 
-public class ForgetActivity extends BaseActivityWithNet<SendCode> implements View.OnClickListener {
+public class ForgetActivity extends BaseActivityWithNet<ForgetEntity> implements View.OnClickListener {
     private EditText mEdtFornameForget;
     private EditText mEdtValidateForget;
     private Button mBtValidateForget;
@@ -85,8 +84,10 @@ public class ForgetActivity extends BaseActivityWithNet<SendCode> implements Vie
         return R.layout.activity_forget;
     }
 
+
+
     @Override
-    protected void initData() {
+    protected void initNetData() {
         mSPUtils = SPUtils.getInstance(Constant.SP_LOGIN_COUNT_DOWN);
         //看看之前的倒计时完了没有
         int timeleft = mSPUtils.getInt("timeleft", 0);
@@ -104,28 +105,25 @@ public class ForgetActivity extends BaseActivityWithNet<SendCode> implements Vie
     }
 
     @Override
-    protected void initNetData() {
-
-    }
-
-    @Override
     protected void initLocalData() {
 
     }
 
     @Override
-    protected void success(SendCode entity) {
-
+    protected void success(ForgetEntity entity) {
+        Log.e("qq", "success: 网络访问成功");
+        Toast.makeText(mBaseActivitySelf, "entity:" + entity, Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     protected void failed(Throwable throwable) {
-
+        Log.e("qq", "failed: 网络访问失败");
     }
 
     @Override
     protected String gerUrl() {
-        return null;
+        return BASE_URL_RESETPASS;
     }
 
     @Override
@@ -328,9 +326,23 @@ public class ForgetActivity extends BaseActivityWithNet<SendCode> implements Vie
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_validate_forget:
+
+                String usercodename=mEdtFornameForget.getText().toString();
+                new NetForCode().sendForgetCode(usercodename);
                 startCountDown();
                 break;
             case R.id.bt_forget_forget:
+
+                String username = mEdtFornameForget.getText().toString();
+                String userpwd=mEdtForgetpwd1Forget.getText().toString();
+                String code=mEdtValidateForget.getText().toString();
+
+//                http://101.200.128.107:10028/repayment/user/resetPass?mobile=15731660437&password=123456789&code=961950
+                addParam("mobile",username);
+                addParam("password",userpwd);
+                addParam("code",code);
+                execute();
+
                 break;
             case R.id.tv_login_forget:
                 Intent intent = new Intent(mBaseActivitySelf, LogincAtivity.class);

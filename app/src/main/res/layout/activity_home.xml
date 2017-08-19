@@ -8,8 +8,16 @@
     android:layout_height="match_parent"
     tools:context="com.repayment.money.ui.activity.HomeActivity">
 
+    <ImageView
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/img_shoutu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="visible"/>
 
     <ListView
+        android:visibility="gone"
         android:id="@+id/lv_msg_activity_home"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -18,6 +26,9 @@
     </ListView>
 
     <TextView
+        android:visibility="visible"
+        android:text="暂无账单
+        快来添加您的账单吧"
         android:id="@+id/tv_show_activity_home"
         android:layout_gravity="center"
         android:ellipsize="end"

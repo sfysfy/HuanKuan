@@ -1,5 +1,6 @@
 package com.example.mylibrary.base;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -109,10 +110,10 @@ public abstract class BaseActivity extends FragmentActivity {
         //设置该控件显示
         mViewTitleLeft.setVisibility(View.VISIBLE);
         //设置文本
-        if (mViewTitleCenter instanceof View){
-            TextView textView= (TextView) mViewTitleLeft;
-            textView.setText(text);
-        }
+//        if (mViewTitleCenter instanceof View){
+//            TextView textView= (TextView) mViewTitleLeft;
+//            textView.setText(text);
+//        }
         //设置点击时的监听
         mViewTitleLeft.setOnClickListener(onClickListener);
     }

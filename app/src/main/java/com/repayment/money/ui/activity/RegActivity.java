@@ -21,11 +21,13 @@ import com.example.mylibrary.util.SPUtils;
 import com.repayment.money.R;
 import com.repayment.money.common.Constant;
 import com.repayment.money.common.utils.CheckString;
+import com.repayment.money.common.utils.NetForCode;
 import com.repayment.money.entity.RegEntity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static android.R.attr.password;
 import static com.repayment.money.common.Constant.BASE_URL;
 
 
@@ -79,6 +81,8 @@ public class RegActivity extends BaseActivityWithNet<RegEntity> implements View.
             }
         }
     };
+    private RegEntity mEntity;
+
     @Override
     protected int addRootView() {
         return R.layout.activity_reg;
@@ -86,23 +90,7 @@ public class RegActivity extends BaseActivityWithNet<RegEntity> implements View.
 
     }
 
-    @Override
-    protected void initData() {
-        mSPUtils=SPUtils.getInstance(Constant.SP_LOGIN_COUNT_DOWN);
-        //看看之前的倒计时完了没有
-        int timeleft = mSPUtils.getInt("timeleft",0);
-        //检查一下是不是还需要继续倒计时
-        long timeend=mSPUtils.getLong("timeend",0);
-        long timeNow=System.currentTimeMillis();
-        long timePast=(timeNow-timeend)/1000;
 
-        if (timePast>=timeleft) {
-            //已经倒计时完毕
-        }else {
-            mTimeLeft= (int) (timeleft-timePast);
-
-        }
-    }
 
     @Override
     protected void initNetData() {
@@ -116,17 +104,21 @@ public class RegActivity extends BaseActivityWithNet<RegEntity> implements View.
 
     @Override
     protected void success(RegEntity entity) {
-
+        mEntity = entity;
+        Toast.makeText(mBaseActivitySelf, "网络访问成功", Toast.LENGTH_SHORT).show();
+        Log.d("RegActivity", "entity:" + entity);
+        Intent intent=new Intent(mBaseActivitySelf,LogincAtivity.class);
+        startActivity(intent);
     }
 
     @Override
     protected void failed(Throwable throwable) {
-
+        Log.d("qq", "throwable:" + throwable);
     }
 
     @Override
     protected String gerUrl() {
-        return BASE_URL+"registerUser?mobile="+mEdtRegnameReg.getText()+"&password="+mEdtRegpwdReg+"&code="+mEdtValidateReg+"";
+        return BASE_URL+"registerUser";
     }
 //
 //    private void saveUser(String uid, String username) {
@@ -152,9 +144,6 @@ public class RegActivity extends BaseActivityWithNet<RegEntity> implements View.
         }
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
 
         mImageView = (ImageView) findViewById(R.id.imageView);
         mEdtRegnameReg = (EditText) findViewById(R.id.edt_regname_reg);
@@ -178,6 +167,23 @@ public class RegActivity extends BaseActivityWithNet<RegEntity> implements View.
     boolean truePwd=false;
     @Override
     protected void initListener() {
+
+
+        mSPUtils=SPUtils.getInstance(Constant.SP_LOGIN_COUNT_DOWN);
+        //看看之前的倒计时完了没有
+        int timeleft = mSPUtils.getInt("timeleft",0);
+        //检查一下是不是还需要继续倒计时
+        long timeend=mSPUtils.getLong("timeend",0);
+        long timeNow=System.currentTimeMillis();
+        long timePast=(timeNow-timeend)/1000;
+
+        if (timePast>=timeleft) {
+            //已经倒计时完毕
+        }else {
+            mTimeLeft= (int) (timeleft-timePast);
+
+        }
+
         mBtValidateReg.setOnClickListener(this);
         mBtRegReg.setOnClickListener(this);
         mTvLoginReg.setOnClickListener(this);
@@ -265,9 +271,23 @@ public class RegActivity extends BaseActivityWithNet<RegEntity> implements View.
         switch (view.getId()) {
             case R.id.bt_validate_reg:
                 startCountDown();
+//                addParam();
+                String usercodename=mEdtRegnameReg.getText().toString();
+                new NetForCode().sendRegCode(usercodename);
+
                 break;
             case R.id.bt_reg_reg:
+                String username = mEdtRegnameReg.getText().toString();
+                String userpwd=mEdtRegpwdReg.getText().toString();
+                String code=mEdtValidateReg.getText().toString();
 
+
+//                http://101.200.128.107:10028/repayment/user/registerUser?mobile=321412342314&password=412342134&code=412342314
+                addParam("mobile",username);
+                addParam("password",userpwd);
+                addParam("code",code);
+                execute();
+                break;
             case R.id.tv_login_reg:
                 Intent intent = new Intent(mBaseActivitySelf, LogincAtivity.class);
                 startActivity(intent);
