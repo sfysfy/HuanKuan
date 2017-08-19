@@ -79,6 +79,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
     @Override
     protected void success(LoginEntity entity) {
 
+
     }
 
     @Override
