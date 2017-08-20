@@ -24,7 +24,7 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void initView() {
         setTitleCenter("还款王");
-        setViewTitleRight("添加", new View.OnClickListener() {
+        setViewTitleRight("", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

@@ -49,7 +49,6 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
 
-
           /*  getWindow().setNavigationBarColor(Color.BLUE); //写法一
             getWindow().setNavigationBarColor(getResources().getColor(R.color.colorAccent));*/
         }

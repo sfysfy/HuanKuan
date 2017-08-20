@@ -1,8 +1,15 @@
 <resources>
 
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
+    <string-array name="more_items">
+        <item>我的账户</item>
+        <item>我的订单</item>
+        <item>地址管理</item>
+        <item>收藏夹</item>
+        <item>最近浏览</item>
+        <item>帮助中心</item>
+        <item>关于</item>
+        <item>呵呵</item>
+    </string-array>
 </resources>
