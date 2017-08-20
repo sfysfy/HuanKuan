@@ -1,6 +1,7 @@
 package com.repayment.money.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -42,31 +43,13 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
 
     @Override
     protected void initNetData() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//         //透明状态栏
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            //透明导航栏
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-
-
-          /*  getWindow().setNavigationBarColor(Color.BLUE); //写法一
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorAccent));*/
+        if (Build.VERSION.SDK_INT >= 21) {
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.statusBarColor));
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
-
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            *//*getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);*//*
-//
-//            //透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //透明导航栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            getWindow().setNavigationBarColor(Color.BLACK); //写法一
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorAccent));
-        }*/
-
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
@@ -93,6 +76,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
             if (!isHaveUser()) {
                 doSaveUserMsg();
             }
+            finish();
 
         }else {
             runOnUiThread(new Runnable() {
@@ -100,7 +84,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
                 public void run() {
                     Toast.makeText(mBaseActivitySelf, "用户名密码错误", Toast.LENGTH_SHORT).show();
                     mEdtUserLoginActivity.setText("");
-                    mEdtUserLoginActivity.setText("");
+                    mEdtPwdLoginActivity.setText("");
                 }
             });
         }

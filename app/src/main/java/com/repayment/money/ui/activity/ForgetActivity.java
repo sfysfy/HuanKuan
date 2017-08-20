@@ -112,7 +112,12 @@ public class ForgetActivity extends BaseActivityWithNet<ForgetEntity> implements
     @Override
     protected void success(ForgetEntity entity) {
         Log.e("qq", "success: 网络访问成功");
-        Toast.makeText(mBaseActivitySelf, "entity:" + entity, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mBaseActivitySelf, "entity:" + entity, Toast.LENGTH_SHORT).show();
+        if (entity.getCode()==1) {
+            finish();
+        }else{
+            Toast.makeText(mBaseActivitySelf, "修改失败", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

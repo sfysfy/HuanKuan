@@ -127,7 +127,6 @@ public abstract class BaseActivity extends FragmentActivity {
         if (mViewTitleCenter instanceof View){
             TextView textView= (TextView) mViewTitleRight;
             textView.setText(text);
-
         }
         //设置点击时的监听
         mViewTitleRight.setOnClickListener(onClickListener);

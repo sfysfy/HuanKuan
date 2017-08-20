@@ -37,9 +37,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:background="@null"
-            android:hint="马彦虎"
-            android:text="马彦虎"
             android:textSize="14sp"
+            android:hint="请输入姓名"
             android:textColor="#666"
             android:textColorHint="#999"/>
     </LinearLayout>
@@ -73,11 +72,10 @@
             android:gravity="center_horizontal"
             android:background="@null"
             android:cursorVisible="false"
-            android:hint="请如身份证号"
+            android:hint="请输入身份证号"
             android:maxLength="18"
             android:textSize="14sp"
             android:textColor="#666"
-            android:text="130529199302101318"
             android:textColorHint="#999"/>
     </LinearLayout>
 
@@ -104,19 +102,18 @@
             android:layout_weight="1"/>
         <EditText
             android:id="@+id/edt_num_card_bound_activity"
-            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:background="@null"
-            android:inputType="number"
             android:cursorVisible="false"
+            android:gravity="center_horizontal"
             android:hint="请输入银行卡号"
-            android:text="6217855000016471765"
+            android:inputType="number"
             android:maxLength="19"
-            android:textSize="14sp"
+            android:padding="10dp"
             android:textColor="#666"
-            android:textColorHint="#999"/>
+            android:textColorHint="#999"
+            android:textSize="14sp"/>
     </LinearLayout>
 
     <View
@@ -141,18 +138,17 @@
             android:layout_weight="1"/>
         <EditText
             android:id="@+id/edt_name_bank_bound_activity"
-            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:background="@null"
             android:cursorVisible="false"
+            android:gravity="center_horizontal"
             android:hint="请输入银行名称"
             android:maxLength="15"
-            android:textSize="14sp"
-            android:text="中国银行"
+            android:padding="10dp"
             android:textColor="#666"
-            android:textColorHint="#999"/>
+            android:textColorHint="#999"
+            android:textSize="14sp"/>
     </LinearLayout>
 
     <View
@@ -190,7 +186,6 @@
             android:inputType="number"
             android:maxLength="11"
             android:padding="10dp"
-            android:text="17733478684"
             android:textColor="#666"
             android:textColorHint="#999"
             android:textSize="14sp"/>

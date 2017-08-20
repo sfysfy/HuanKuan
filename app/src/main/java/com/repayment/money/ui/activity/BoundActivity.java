@@ -1,5 +1,7 @@
 package com.repayment.money.ui.activity;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -77,8 +79,7 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
 
     @Override
     protected void initView() {
-
-       /* if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
@@ -87,7 +88,7 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }*/
+        }
 
         setTitleCenter("银行卡认证");
         mBtDoActivityBound = (Button) findViewById(R.id.bt_do_activity_bound);
