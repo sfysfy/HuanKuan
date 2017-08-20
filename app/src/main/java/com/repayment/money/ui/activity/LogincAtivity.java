@@ -87,7 +87,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
     protected void success(LoginEntity entity) {
         mEntityLogin = entity;
         if (entity.getCode()==1) {
-            Intent intent=new Intent(mBaseActivitySelf,BoundActivity.class);
+            Intent intent=new Intent(mBaseActivitySelf,HomeActivity.class);
             startActivity(intent);
             System.out.println("entity = ======" + entity);
             if (!isHaveUser()) {
@@ -119,6 +119,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
         }
         return false;
     }
+
 
     private void doSaveUserMsg() {
         TableUser tableUser=new TableUser();
