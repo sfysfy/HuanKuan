@@ -13,5 +13,6 @@ public class Constant {
 
     public static final String BASE_URL_CODE=BASE_URL+"sendCode";
     public static final String BASE_URL_RESETPASS=BASE_URL+"resetPass";
+    public static final String BASE_URL_CHECKBANKCARD="http://101.200.128.107:10028/repayment/bank/checkBankCard";
 
 }

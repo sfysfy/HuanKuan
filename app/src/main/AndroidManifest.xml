@@ -26,24 +26,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.activity.LogincAtivity">
-
-        </activity>
-        <activity android:name=".ui.activity.RegActivity">
-        </activity>
-        <activity android:name=".ui.activity.ForgetActivity">
-        </activity>
-        <activity android:name=".ui.activity.BoundActivity"
-                  android:windowSoftInputMode="adjustPan">
-        </activity>
-        <activity android:name=".ui.activity.HomeActivity">
-        </activity>
-        <activity android:name=".ui.activity.NewBillActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
                 >
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.RegActivity">
+        </activity>
+        <activity android:name=".ui.activity.ForgetActivity">
+        </activity>
+        <activity
+            android:name=".ui.activity.BoundActivity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity android:name=".ui.activity.HomeActivity">
+        </activity>
+        <activity android:name=".ui.activity.NewBillActivity">
         </activity>
     </application>
 

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,7 +29,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
     private TextView mTvRegActivityMain;
     private TextView mTvWjActivityMain;
     private LoginEntity mEntityLogin;
-    private DbManager mDbManager;
+    public static DbManager mDbManager;
 
 
     @Override
@@ -92,7 +91,10 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
             Intent intent=new Intent(mBaseActivitySelf,BoundActivity.class);
             startActivity(intent);
             System.out.println("entity = ======" + entity);
-            doSaveUserMsg();
+            if (!isHaveUser()) {
+                doSaveUserMsg();
+            }
+
         }else {
             runOnUiThread(new Runnable() {
                 @Override
@@ -106,9 +108,22 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
 
     }
 
+    private boolean isHaveUser()  {
+        TableUser phone = null;
+        try {
+            phone = mDbManager.selector(TableUser.class).where("phone", "=", mEdtUserLoginActivity.getText().toString().trim()).findFirst();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        if (phone!=null){
+            return true;
+        }
+        return false;
+    }
+
     private void doSaveUserMsg() {
         TableUser tableUser=new TableUser();
-        tableUser.setPhone(mEntityLogin.getResultObj().getName());
+        tableUser.setPhone(mEdtUserLoginActivity.getText().toString().trim());
         tableUser.setPwd(mEntityLogin.getResultObj().getPassword());
 
         tableUser.setTimestamp(mEntityLogin.getTimestamp());
@@ -118,7 +133,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
         tableUser.setChannel(mEntityLogin.getResultObj().getChannel());
         try {
             mDbManager.saveBindingId(tableUser);
-            Log.d("LogincAtivity=", "存储成功");
+            System.out.println("======"+"存储成功");
         } catch (DbException e) {
             e.printStackTrace();
         }

@@ -41,6 +41,19 @@ public class TableUser {
         this.channel = channel;
     }
 
+    @Override
+    public String toString() {
+        return "TableUser{" +
+                "id=" + id +
+                ", phone='" + phone + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", timestamp=" + timestamp +
+                ", userNo='" + userNo + '\'' +
+                ", channel=" + channel +
+                ", idcard='" + idcard + '\'' +
+                '}';
+    }
+
     public String getIdcard() {
         return idcard;
     }
