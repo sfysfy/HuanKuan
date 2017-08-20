@@ -53,7 +53,7 @@ public class NewBillActivity extends BaseActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
         setTitleCenter("新增账单");
-        setTitleLeft("<", new View.OnClickListener() {
+        setTitleLeft("", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
