@@ -145,14 +145,22 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
         String monthMoney=mEdtRepayNewbill.getText().toString();
         String hkDay=mSpDateNewbill.getSelectedItem().toString();
         String bankCard=mEdtBankNewbill.getText().toString();
-        addParam("userNo",userNo);
-        addParam("orderType",orderType);
-        addParam("periodsType",periodesType);
-        addParam("periods",periodes);
-        addParam("monthMoney",monthMoney);
-        addParam("hkDay",hkDay);
-        addParam("bankCard",bankCard);
-        execute();
+
+        if (!(orderType.isEmpty()||periodesType.isEmpty()||periodes.isEmpty()||monthMoney.isEmpty()||hkDay.isEmpty()||bankCard.isEmpty())) {
+            addParam("userNo",userNo);
+            addParam("orderType",orderType);
+            addParam("periodsType",periodesType);
+            addParam("periods",periodes);
+            addParam("monthMoney",monthMoney);
+            addParam("hkDay",hkDay);
+            addParam("bankCard",bankCard);
+            execute();
+        }else{
+            //如果有一个没有填写
+
+        }
+
+
 //  /addOrder?userNo=2017081911412784240032&orderType=0&periodsType=M&periods=12&monthMoney=200&hkDay=12&bankCard=621785500000124
     }
 }
