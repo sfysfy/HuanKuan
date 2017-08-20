@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:background="#fead00"
-    android:fitsSystemWindows="false"
+    android:fitsSystemWindows="true"
     >
     <ImageView
         android:layout_centerVertical="true"
