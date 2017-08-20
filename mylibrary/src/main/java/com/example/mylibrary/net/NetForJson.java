@@ -13,8 +13,6 @@ import org.xutils.x;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
-
 /**
  * Created by 马彦虎 on 2017/6/27.
  */

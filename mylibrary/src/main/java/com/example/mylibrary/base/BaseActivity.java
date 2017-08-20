@@ -1,6 +1,5 @@
 package com.example.mylibrary.base;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -128,6 +127,7 @@ public abstract class BaseActivity extends FragmentActivity {
         if (mViewTitleCenter instanceof View){
             TextView textView= (TextView) mViewTitleRight;
             textView.setText(text);
+            getL
         }
         //设置点击时的监听
         mViewTitleRight.setOnClickListener(onClickListener);
