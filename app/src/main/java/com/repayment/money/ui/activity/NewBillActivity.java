@@ -1,5 +1,6 @@
 package com.repayment.money.ui.activity;
 
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.os.Build;
@@ -13,9 +14,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mylibrary.base.BaseActivity;
 import com.example.mylibrary.base.BaseActivityWithNet;
@@ -41,6 +44,8 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
     private TextView mTvBankinfoNewbill;
     private ImageView mImgMoreNewbill;
     private Button mBtAddNewbill;
+    private LinearLayout mXzNewbankBill;
+
 
 
     private ArrayAdapter mSpAdapter;
@@ -66,6 +71,12 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
     protected void success(NewBillEntity entity) {
         Log.d("qq", "NewBill成功了");
         Log.d("qq", "entity:" + entity);
+        if (entity.getCode()==1) {
+            Toast.makeText(mBaseActivitySelf, "添加成功", Toast.LENGTH_SHORT).show();
+            finish();
+        }else{
+            Toast.makeText(mBaseActivitySelf, "添加失败,请检查输入信息", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -85,6 +96,7 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
         setTitleLeft("", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                onBackPressed();
             }
         });
         if (Build.VERSION.SDK_INT >= 21) {
@@ -110,6 +122,7 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
         mTvBankinfoNewbill = (TextView) findViewById(R.id.tv_bankinfo_newbill);
         mImgMoreNewbill = (ImageView) findViewById(R.id.img_more_newbill);
         mBtAddNewbill = (Button) findViewById(R.id.bt_add_newbill);
+        mXzNewbankBill = (LinearLayout) findViewById(R.id.xz_newbank_bill);
 
 
         mRepayType.add("房贷");
@@ -132,6 +145,13 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
     @Override
     protected void initListener() {
         mBtAddNewbill.setOnClickListener(this);
+        mXzNewbankBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(mBaseActivitySelf,BoundActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -157,7 +177,7 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
             execute();
         }else{
             //如果有一个没有填写
-
+            Toast.makeText(mBaseActivitySelf, "内容不可为空", Toast.LENGTH_SHORT).show();
         }
 
 

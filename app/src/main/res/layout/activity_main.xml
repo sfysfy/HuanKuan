@@ -23,21 +23,21 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:paddingTop="15dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        >
+        android:paddingTop="15dp"
+    >
 
         <ImageView
-            android:layout_marginLeft="30dp"
-            android:src="@drawable/phone_num"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            />
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/phone_num"
+        />
 
         <View
             android:layout_width="8dp"
@@ -48,16 +48,15 @@
         </View>
 
         <EditText
-            android:layout_marginRight="30dp"
             android:id="@+id/edt_user_login_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="30dp"
+            android:background="@null"
             android:gravity="center_vertical"
             android:hint="请输入手机号"
-            android:background="@null"
             android:inputType="number"
             android:maxLength="11"
-            android:text="17733478684"
             android:singleLine="true"
             android:textSize="14sp"/>
     </LinearLayout>
@@ -72,21 +71,21 @@
         </View>
 
     <LinearLayout
-        android:paddingTop="15dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        >
+        android:paddingTop="15dp"
+    >
 
         <ImageView
-            android:layout_marginLeft="30dp"
-            android:src="@drawable/phone_num"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            />
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/phone_num"
+        />
 
         <View
             android:layout_width="8dp"
@@ -97,16 +96,15 @@
         </View>
 
         <EditText
-            android:layout_marginRight="30dp"
             android:id="@+id/edt_pwd_login_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="30dp"
+            android:background="@null"
             android:gravity="center_vertical"
             android:hint="请输入6-16位密码"
-            android:background="@null"
             android:inputType="textPassword"
             android:maxLength="16"
-            android:text="123123123"
             android:singleLine="true"
             android:textSize="14sp"/>
     </LinearLayout>
