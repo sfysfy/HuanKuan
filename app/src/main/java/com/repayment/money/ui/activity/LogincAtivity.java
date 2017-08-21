@@ -22,6 +22,8 @@ import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
+import static org.xutils.http.HttpMethod.HEAD;
+
 public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
 
     private EditText mEdtUserLoginActivity;
@@ -71,6 +73,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
         mEntityLogin = entity;
         if (entity.getCode()==1) {
             Intent intent=new Intent(mBaseActivitySelf,MainActivity.class);
+
             startActivity(intent);
             System.out.println("entity = ======" + entity);
             if (!isHaveUser()) {
@@ -103,6 +106,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
         }
         return false;
     }
+
 
     private void doSaveUserMsg() {
         TableUser tableUser=new TableUser();
