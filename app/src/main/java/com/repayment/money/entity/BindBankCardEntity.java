@@ -16,7 +16,7 @@ public class BindBankCardEntity {
     private int code;
     private String message;
     private ResultObjBean resultObj;
-    private int timestamp;
+    private long timestamp;
 
     public int getCode() {
         return code;
@@ -42,14 +42,24 @@ public class BindBankCardEntity {
         this.resultObj = resultObj;
     }
 
-    public int getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(int timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
     public static class ResultObjBean {
+    }
+
+    @Override
+    public String toString() {
+        return "BindBankCardEntity{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", resultObj=" + resultObj +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }

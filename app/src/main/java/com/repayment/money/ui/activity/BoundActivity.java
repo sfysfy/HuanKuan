@@ -57,6 +57,7 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
     private String mIdCard;
     private TableUser mTableUser;
     private String mName;
+    private NetForJson mNetForJson1;
 
     public ArrayAdapter<String> getAdapter() {
         return mAdapter;
@@ -107,47 +108,22 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                             addParam("noAgree",mNo_agree);
                             addParam("name",mName);
                             execute();*/
-
-                           mNetForJson=new NetForJson("http://101.200.128.107:10028/repayment/bank/bindBankCard", new NetOverListener() {
-                               @Override
-                               public void success(Object o) {
-                                   Toast.makeText(mBaseActivitySelf, "二次访问成功", Toast.LENGTH_SHORT).show();
-                               }
-
-                               @Override
-                               public void failed(Throwable throwable) {
-                                   System.out.println("throwable = " + throwable);
-                                   Toast.makeText(mBaseActivitySelf, "网络访问异常", Toast.LENGTH_SHORT).show();
-                               }
-
-                               @Override
-                               public void onCancel() {
-
-                               }
-
-                               @Override
-                               public void onFinish() {
-
-                               }
-                           });
-                            mNetForJson.addParam("mobile",mPhoneNum);
-                            mNetForJson.addParam("bankCard",mBankCardNum);
-                            mNetForJson.addParam("bankName",mSelectBankName);
-                            mNetForJson.addParam("idCard",mIdCard);
-                            mNetForJson.addParam("userNo",mTableUser.getUserNo());
-                            mNetForJson.addParam("channel",mTableUser.getChannel());
-                            mNetForJson.addParam("noAgree",mNo_agree);
-                            mNetForJson.addParam("name",mName);
-                            mNetForJson.setClassEntity(BindBankCardEntity.class);
-                            mNetForJson.execute();
-
-
+                            mNetForJson1.addParam("mobile",mPhoneNum);
+                            mNetForJson1.addParam("bankCard",mBankCardNum);
+                            mNetForJson1.addParam("bankName",mSelectBankName);
+                            mNetForJson1.addParam("idCard",mIdCard);
+                            mNetForJson1.addParam("userNo",mTableUser.getUserNo());
+                            mNetForJson1.addParam("channel",mTableUser.getChannel());
+                            mNetForJson1.addParam("noAgree",mNo_agree);
+                            mNetForJson1.addParam("name",mName);
+                            mNetForJson1.execute();
                             Toast.makeText(mBaseActivitySelf, "值执行完了啊啊啊", Toast.LENGTH_SHORT).show();
                         }  else {
                             // TODO 失败
                             BaseHelper.showDialog(BoundActivity.this, "错误提示", retMsg
                                             + "，交易状态码:" + retCode+" 返回报文:"+strRet,
                                     android.R.drawable.ic_dialog_alert);
+                            System.out.println("retMsg =++++++++===== " + retMsg);
                         }
                     }
                     break;
@@ -282,6 +258,30 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
     protected void initNetData() {
 
          mPayer= new MobileSecurePayer();
+        mNetForJson1=new NetForJson("http://101.200.128.107:10028/repayment/bank/bindBankCard", new NetOverListener<BindBankCardEntity>() {
+            @Override
+            public void success(BindBankCardEntity bindBankCardEntity) {
+                System.out.println("bindBankCardEntity ===========++++= " + bindBankCardEntity);
+
+            }
+
+            @Override
+            public void failed(Throwable throwable) {
+
+            }
+
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
+        mNetForJson1.setClassEntity(BindBankCardEntity.class);
 
     }
 

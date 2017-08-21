@@ -40,6 +40,7 @@
             android:textSize="14sp"
             android:hint="请输入姓名"
             android:textColor="#666"
+            android:text="隋岩"
             android:textColorHint="#999"/>
     </LinearLayout>
     <View
@@ -76,6 +77,7 @@
             android:maxLength="18"
             android:textSize="14sp"
             android:textColor="#666"
+            android:text="152105199508192115"
             android:textColorHint="#999"/>
     </LinearLayout>
 
@@ -112,6 +114,7 @@
             android:maxLength="19"
             android:padding="10dp"
             android:textColor="#666"
+            android:text="6217855000001243443"
             android:textColorHint="#999"
             android:textSize="14sp"/>
     </LinearLayout>
@@ -187,6 +190,7 @@
             android:padding="10dp"
             android:textColor="#666"
             android:textColorHint="#999"
+            android:text="15731660437"
             android:textSize="14sp"/>
     </LinearLayout>
 

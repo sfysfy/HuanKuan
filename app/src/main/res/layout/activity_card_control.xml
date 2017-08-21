@@ -95,6 +95,8 @@
     </LinearLayout>
 
     <ListView
+        android:divider="#fff"
+        android:dividerHeight="3dp"
         android:visibility="gone"
         android:padding="10dp"
         android:id="@+id/lv_card_msg"
