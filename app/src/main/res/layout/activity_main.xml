@@ -22,6 +22,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:layout_marginTop="5dp"
             android:id="@+id/tab_bill_activity_main"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="5dp"
             android:id="@+id/tab_usercenter_activity_main"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
