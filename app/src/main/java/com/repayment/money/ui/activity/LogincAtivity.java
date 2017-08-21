@@ -35,7 +35,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
 
     @Override
     protected int addRootView() {
-        return R.layout.login_main;
+        return R.layout.activity_login;
     }
 
   //  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
