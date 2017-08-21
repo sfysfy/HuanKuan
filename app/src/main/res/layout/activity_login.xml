@@ -29,7 +29,7 @@
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:paddingTop="15dp"
-    >
+        >
 
         <ImageView
             android:layout_width="30dp"
@@ -37,7 +37,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
             android:src="@drawable/phone_num"
-        />
+            />
 
         <View
             android:layout_width="8dp"
@@ -48,6 +48,7 @@
         </View>
 
         <EditText
+            android:text="15731660437"
             android:id="@+id/edt_user_login_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -58,9 +59,7 @@
             android:inputType="number"
             android:maxLength="11"
             android:singleLine="true"
-            android:text="17733478684"
             android:textSize="14sp"/>
-
     </LinearLayout>
     <View
         android:layout_marginLeft="60dp"
@@ -70,7 +69,7 @@
         android:background="#666"
         android:layout_gravity="center_vertical"
         >
-        </View>
+    </View>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,7 +78,7 @@
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:paddingTop="15dp"
-    >
+        >
 
         <ImageView
             android:layout_width="30dp"
@@ -87,7 +86,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
             android:src="@drawable/phone_num"
-        />
+            />
 
         <View
             android:layout_width="8dp"
@@ -98,6 +97,7 @@
         </View>
 
         <EditText
+            android:text="123456"
             android:id="@+id/edt_pwd_login_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -106,7 +106,6 @@
             android:gravity="center_vertical"
             android:hint="请输入6-16位密码"
             android:inputType="textPassword"
-            android:text="123123123"
             android:maxLength="16"
             android:singleLine="true"
             android:textSize="14sp"/>
@@ -138,22 +137,22 @@
         android:textStyle="bold"/>
 
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:background="#fff"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:orientation="horizontal">
 
         <TextView
-            android:clickable="true"
-            android:layout_marginLeft="60dp"
-            android:textColor="#fead00"
-            android:background="#fff"
             android:id="@+id/tv_reg_activity_main"
-            android:text="注册"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"/>
+            android:background="#fff"
+            android:clickable="true"
+            android:text="注册"
+            android:textColor="#fead00"/>
 
         <TextView
             android:id="@+id/tv_wj_activity_main"
