@@ -106,7 +106,7 @@ public class RegActivity extends BaseActivityWithNet<RegEntity> implements View.
     @Override
     protected void success(RegEntity entity) {
         mEntity = entity;
-        Toast.makeText(mBaseActivitySelf, "网络访问成功", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mBaseActivitySelf, "注册成功", Toast.LENGTH_SHORT).show();
         Log.d("RegActivity", "entity:" + entity);
         Intent intent=new Intent(mBaseActivitySelf,LogincAtivity.class);
         startActivity(intent);

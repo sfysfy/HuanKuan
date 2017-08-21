@@ -23,7 +23,13 @@ import android.widget.Toast;
 import com.example.mylibrary.base.BaseActivity;
 import com.example.mylibrary.base.BaseActivityWithNet;
 import com.repayment.money.R;
+import com.repayment.money.common.utils.NetForBankCard;
+import com.repayment.money.db.TableUser;
 import com.repayment.money.entity.NewBillEntity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +38,7 @@ import java.util.List;
 import static android.R.attr.order;
 import static com.repayment.money.common.Constant.BASE_URL;
 import static com.repayment.money.common.Constant.BASE_URL_NEWBILL;
+import static org.greenrobot.eventbus.ThreadMode.MAIN;
 
 public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implements View.OnClickListener {
     private Spinner mSpTypeNewbill;
@@ -51,6 +58,8 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
     private ArrayAdapter mSpAdapter;
     private List<String> mRepayType=new ArrayList<>();
     private List<String> mRepayDate=new ArrayList<>();
+    private boolean mCount;
+
     @Override
     protected int addRootView() {
 
@@ -64,8 +73,13 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
 
     @Override
     protected void initLocalData() {
-
+        EventBus.getDefault().register(this);
     }
+    @Subscribe(threadMode=MAIN)
+    public void onEvent(boolean count){
+        mCount = count;
+    }
+
 
     @Override
     protected void success(NewBillEntity entity) {
@@ -73,7 +87,6 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
         Log.d("qq", "entity:" + entity);
         if (entity.getCode()==1) {
             Toast.makeText(mBaseActivitySelf, "添加成功", Toast.LENGTH_SHORT).show();
-            finish();
         }else{
             Toast.makeText(mBaseActivitySelf, "添加失败,请检查输入信息", Toast.LENGTH_SHORT).show();
         }
@@ -155,29 +168,55 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
     }
 
 
-
+    public static  boolean isyzBankCard=false;
     @Override
     public void onClick(View view) {
-        String userNo= "2017081913083103610004";
-        String orderType= "0"  ;//mSpTypeNewbill.getSelectedItem().toString();
-        String periodesType="M";
-        String periodes = mEdtRepayNumber.getText().toString();
-        String monthMoney=mEdtRepayNewbill.getText().toString();
-        String hkDay=mSpDateNewbill.getSelectedItem().toString();
-        String bankCard=mEdtBankNewbill.getText().toString();
+        TableUser user= null;
+        try {
+            user = LogincAtivity.mDbManager.selector(TableUser.class).where("phone","=","15731660437").findFirst();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        if (user!=null) {
+            String userNo=user.getUserNo();
+            String orderType= "0"  ;//mSpTypeNewbill.getSelectedItem().toString();
+            String periodesType="M";
+            String periodes = mEdtRepayNumber.getText().toString();
+            String monthMoney=mEdtRepayNewbill.getText().toString();
+            String hkDay=mSpDateNewbill.getSelectedItem().toString();
+            String bankCard=mEdtCardNewbill.getText().toString();
+            //内容是否有空
+            boolean isEmpty=!(orderType.isEmpty()||periodesType.isEmpty()||periodes.isEmpty()||monthMoney.isEmpty()||hkDay.isEmpty()||bankCard.isEmpty());
+            if (isEmpty) {
+                new NetForBankCard().yzBankCard(bankCard);
 
-        if (!(orderType.isEmpty()||periodesType.isEmpty()||periodes.isEmpty()||monthMoney.isEmpty()||hkDay.isEmpty()||bankCard.isEmpty())) {
-            addParam("userNo",userNo);
-            addParam("orderType",orderType);
-            addParam("periodsType",periodesType);
-            addParam("periods",periodes);
-            addParam("monthMoney",monthMoney);
-            addParam("hkDay",hkDay);
-            addParam("bankCard",bankCard);
-            execute();
+                if (mCount) {
+                    addParam("userNo",userNo);
+                    addParam("userNo",userNo);
+                    addParam("orderType",orderType);
+                    addParam("periodsType",periodesType);
+                    addParam("periods",periodes);
+                    addParam("monthMoney",monthMoney);
+                    addParam("hkDay",hkDay);
+                    addParam("bankCard",bankCard);
+                    execute();
+                }else{
+                    Toast.makeText(mBaseActivitySelf, "不支持该银行卡", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                //如果有一个没有填写
+                Toast.makeText(mBaseActivitySelf, "内容不可为空", Toast.LENGTH_SHORT).show();
+            }
+
         }else{
-            //如果有一个没有填写
-            Toast.makeText(mBaseActivitySelf, "内容不可为空", Toast.LENGTH_SHORT).show();
+
+        }
+
+        try {
+            user = LogincAtivity.mDbManager.selector(TableUser.class).where("phone","=","15731660437").findFirst();
+            Log.d("qq", "wozhixingl am -------------------------------------------------------------------------------------------------------");
+        } catch (DbException e) {
+            e.printStackTrace();
         }
 
 

@@ -16,7 +16,7 @@ public class RegEntity {
     private int code;
     private String message;
     private ResultObjBean resultObj;
-    private int timestamp;
+    private long timestamp;
 
     public int getCode() {
         return code;
@@ -42,7 +42,7 @@ public class RegEntity {
         this.resultObj = resultObj;
     }
 
-    public int getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
