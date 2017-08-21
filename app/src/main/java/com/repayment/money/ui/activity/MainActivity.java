@@ -74,9 +74,9 @@ public class MainActivity extends BaseActivity {
 
         changeFrag(mHomeFragment);
         mImgBillActivityMain.setImageResource(R.drawable.billy);
-        mTvBillActivityMain.setTextColor(Color.rgb(255,0,44));
+        mTvBillActivityMain.setTextColor(Color.rgb(253,206,0));
         mImgUserActivityMain.setImageResource(R.drawable.usercenterw);
-        mTvUserActivityMain.setTextColor(Color.YELLOW);
+        mTvUserActivityMain.setTextColor(Color.rgb(255,255,255));
         setTitleCenter("还款王");
     }
 
@@ -88,9 +88,9 @@ public class MainActivity extends BaseActivity {
             public void onClick(View view) {
                 changeFrag(mHomeFragment);
                 mImgBillActivityMain.setImageResource(R.drawable.billy);
-                mTvBillActivityMain.setTextColor(Color.parseColor("#ff0"));
+                mTvBillActivityMain.setTextColor(Color.rgb(253,206,0));
                 mImgUserActivityMain.setImageResource(R.drawable.usercenterw);
-                mTvUserActivityMain.setTextColor(Color.parseColor("#fff"));
+                mTvUserActivityMain.setTextColor(Color.rgb(255,255,255));
                 setTitleCenter("还款王");
 
             }
@@ -100,9 +100,9 @@ public class MainActivity extends BaseActivity {
             public void onClick(View view) {
                 changeFrag(mUserCenterFragment);
                 mImgBillActivityMain.setImageResource(R.drawable.billw);
-                mTvBillActivityMain.setTextColor(Color.parseColor("#fff"));
+                mTvBillActivityMain.setTextColor(Color.rgb(255,255,255));
                 mImgUserActivityMain.setImageResource(R.drawable.usercentery);
-                mTvUserActivityMain.setTextColor(Color.parseColor("#ff0"));
+                mTvUserActivityMain.setTextColor(Color.rgb(253,206,0));
                 setTitleCenter("个人中心");
 
             }
