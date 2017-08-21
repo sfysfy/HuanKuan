@@ -21,12 +21,10 @@ import com.repayment.money.common.Constant;
 import com.repayment.money.common.utils.CheckString;
 import com.repayment.money.common.utils.NetForCode;
 import com.repayment.money.entity.ForgetEntity;
-import com.repayment.money.entity.SendCodeEntity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.repayment.money.common.Constant.BASE_URL;
 import static com.repayment.money.common.Constant.BASE_URL_RESETPASS;
 
 public class ForgetActivity extends BaseActivityWithNet<ForgetEntity> implements View.OnClickListener {

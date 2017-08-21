@@ -125,7 +125,7 @@
     <LinearLayout
         android:padding="14dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="65dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -136,16 +136,15 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
-        <EditText
-            android:id="@+id/edt_name_bank_bound_activity"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/spinner_name_bank_bound_activity"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:cursorVisible="false"
             android:gravity="center_horizontal"
             android:hint="请输入银行名称"
             android:maxLength="15"
-            android:padding="10dp"
+            android:padding="5dp"
+
             android:textColor="#666"
             android:textColorHint="#999"
             android:textSize="14sp"/>

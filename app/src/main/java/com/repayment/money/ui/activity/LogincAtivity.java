@@ -35,7 +35,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
 
     @Override
     protected int addRootView() {
-        return R.layout.activity_main;
+        return R.layout.login_main;
     }
 
   //  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -70,11 +70,22 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
     protected void success(LoginEntity entity) {
         mEntityLogin = entity;
         if (entity.getCode()==1) {
+
             Intent intent=new Intent(mBaseActivitySelf,HomeActivity.class);
             startActivity(intent);
             System.out.println("entity = ======" + entity);
+
             if (!isHaveUser()) {
                 doSaveUserMsg();
+            }
+            TableUser user=null;
+            try {
+                user = LogincAtivity.mDbManager.selector(TableUser.class).where("phone", "=",mEdtUserLoginActivity.getText().toString().trim() ).findFirst();
+                Constant.PHONE_NUM_USER_NOW=user.getPhone();
+                Constant.USERNO_NUM_USER_NOW=user.getUserNo();
+                System.out.println("===="+Constant.USERNO_NUM_USER_NOW);
+            } catch (DbException e) {
+                e.printStackTrace();
             }
             finish();
 

@@ -9,6 +9,9 @@ public class Constant {
 
     public static final String LOGIN_URL="http://101.200.128.107:10028/repayment/user/"+"login";
 
+    public static  String PHONE_NUM_USER_NOW="";
+    public static  String USERNO_NUM_USER_NOW="";
+
     //http://open.lianlianpay.com/
 
     public static final String BASE_URL_CODE=BASE_URL+"sendCode";
