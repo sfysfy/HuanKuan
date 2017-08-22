@@ -1,16 +1,11 @@
 package com.repayment.money.ui.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.IdRes;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 

@@ -1,15 +1,10 @@
 package com.repayment.money.ui.activity;
 
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +15,6 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mylibrary.base.BaseActivity;
 import com.example.mylibrary.base.BaseActivityWithNet;
 import com.repayment.money.R;
 import com.repayment.money.common.utils.NetForBankCard;
@@ -32,11 +26,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import static android.R.attr.order;
-import static com.repayment.money.common.Constant.BASE_URL;
 import static com.repayment.money.common.Constant.BASE_URL_NEWBILL;
 import static org.greenrobot.eventbus.ThreadMode.MAIN;
 
@@ -152,6 +143,8 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
         mSpAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mRepayDate);
         mSpAdapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
         mSpDateNewbill.setAdapter((SpinnerAdapter) mSpAdapter);
+
+
 
     }
 

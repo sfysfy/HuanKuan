@@ -73,11 +73,20 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
         mEntityLogin = entity;
         if (entity.getCode()==1) {
             Intent intent=new Intent(mBaseActivitySelf,MainActivity.class);
-
             startActivity(intent);
             System.out.println("entity = ======" + entity);
+
             if (!isHaveUser()) {
                 doSaveUserMsg();
+            }
+            TableUser user=null;
+            try {
+                user = LogincAtivity.mDbManager.selector(TableUser.class).where("phone", "=",mEdtUserLoginActivity.getText().toString().trim() ).findFirst();
+                Constant.PHONE_NUM_USER_NOW=user.getPhone();
+                Constant.USERNO_NUM_USER_NOW=user.getUserNo();
+                System.out.println("===="+Constant.USERNO_NUM_USER_NOW);
+            } catch (DbException e) {
+                e.printStackTrace();
             }
             finish();
 
