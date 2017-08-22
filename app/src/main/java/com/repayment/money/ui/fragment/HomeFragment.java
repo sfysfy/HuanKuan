@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,10 +27,10 @@ import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 import static com.yintong.secure.e.m.i.G;
 
 public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
-    private Button mBtLoginLoginActivity;
     private List<BillListEntity.ResultObjBean> mProductlist;
     private ListView mLvMsgActivityHome;
     private ItemBillAdapter mItemBillAdapter;
+    private LinearLayout mBtNewBillActivity;
 
 
     private ImageView mImgShoutu;
@@ -74,6 +75,9 @@ public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
         mTvShowActivityHome1.setVisibility(View.GONE);
         mTvShowActivityHome2.setVisibility(View.GONE);
 
+        if (entity.getResultObj().size()>0) {
+            mBtNewBillActivity.setVisibility(View.GONE);
+        }
         mProductlist =  entity.getResultObj();
         mItemBillAdapter = new ItemBillAdapter(mBaseActivitySelf,mProductlist);
         mLvMsgActivityHome.setAdapter(mItemBillAdapter);
@@ -92,18 +96,18 @@ public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
 
     @Override
     protected void initView() {
-        mBtLoginLoginActivity = (Button) findViewById(R.id.bt_login_login_activity);
         mLvMsgActivityHome = (ListView) findViewById(R.id.lv_msg_activity_home);
 
         mImgShoutu = (ImageView) findViewById(R.id.img_shoutu);
         mTvShowActivityHome1 = (TextView) findViewById(R.id.tv_show_activity_home1);
         mTvShowActivityHome2 = (TextView) findViewById(R.id.tv_show_activity_home2);
+        mBtNewBillActivity = (LinearLayout) findViewById(R.id.bt_new_bill_activity);
 
     }
 
     @Override
     protected void initListener() {
-        mBtLoginLoginActivity.setOnClickListener(new View.OnClickListener() {
+        mBtNewBillActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(mBaseActivitySelf, NewBillActivity.class);

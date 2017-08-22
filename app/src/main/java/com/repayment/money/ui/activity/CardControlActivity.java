@@ -11,6 +11,7 @@ import com.example.mylibrary.base.BaseActivity;
 import com.repayment.money.R;
 
 public class CardControlActivity extends BaseActivity implements View.OnClickListener {
+
     private Button mBtAddCardActivity;
     private ListView mLvCardMsg;
     private LinearLayout mLayoutHideCardActivity;

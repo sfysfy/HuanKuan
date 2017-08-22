@@ -13,11 +13,11 @@ import android.widget.Toast;
 
 import com.example.mylibrary.base.BaseFragment;
 import com.repayment.money.R;
+import com.repayment.money.ui.activity.CardControlActivity;
 import com.repayment.money.ui.activity.SettingActivity;
 
 public class UserCenterFragment extends BaseFragment {
     private LinearLayout mItemBankcardUserFragment;
-    private LinearLayout mItemBillUserFragment;
     private LinearLayout mItemSettingUserFragment;
 
 
@@ -34,7 +34,6 @@ public class UserCenterFragment extends BaseFragment {
     @Override
     protected void initView() {
         mItemBankcardUserFragment = (LinearLayout) findViewById(R.id.item_bankcard_user_fragment);
-        mItemBillUserFragment = (LinearLayout) findViewById(R.id.item_bill_user_fragment);
         mItemSettingUserFragment = (LinearLayout) findViewById(R.id.item_setting_user_fragment);
 
     }
@@ -44,13 +43,8 @@ public class UserCenterFragment extends BaseFragment {
         mItemBankcardUserFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mBaseActivitySelf, "我是银行卡管理", Toast.LENGTH_SHORT).show();
-            }
-        });
-        mItemBillUserFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(mBaseActivitySelf, "我是账单管理", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(mBaseActivitySelf, CardControlActivity.class);
+                startActivity(intent);
             }
         });
         mItemSettingUserFragment.setOnClickListener(new View.OnClickListener() {

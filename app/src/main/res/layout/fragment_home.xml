@@ -49,19 +49,60 @@
         android:visibility="visible"/>
 
 
-    <Button
-        android:id="@+id/bt_login_login_activity"
-        android:layout_width="match_parent"
-        android:layout_height="39dp"
-        android:layout_below="@+id/edt_code_login_activity"
-        android:layout_gravity="center"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
+    <!--<Button-->
+        <!--android:id="@+id/bt_login_login_activity"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="39dp"-->
+        <!--android:layout_below="@+id/edt_code_login_activity"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginLeft="60dp"-->
+        <!--android:layout_marginRight="60dp"-->
+        <!--android:layout_marginTop="95dp"-->
+        <!--android:background="@drawable/bt_val"-->
+        <!--android:textColor="#ff5300"-->
+        <!--android:text="新增账单"-->
+        <!--android:textSize="15sp"/>-->
+    <LinearLayout
         android:layout_marginTop="95dp"
-        android:background="@drawable/bt_val"
-        android:textColor="#ff5300"
-        android:text="新增账单"
-        android:textSize="15sp"/>
+        android:id="@+id/bt_new_bill_activity"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/shape_bt"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <View
+
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+        />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/add_circle"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:gravity="left|center_vertical"
+            android:text="新增账单"
+            android:textColor="#ff5300"
+            android:textSize="15sp"/>
+        <View
+
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+        />
+    </LinearLayout>
 
 
 </LinearLayout>
