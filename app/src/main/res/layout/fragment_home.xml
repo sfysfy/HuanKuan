@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,14 +15,15 @@
         android:layout_height="300dp"
         android:src="@drawable/home"
         android:visibility="visible"/>
-    <ScrollView
+    <ListView
+        android:background="@color/colorBack"
         android:visibility="gone"
         android:id="@+id/lv_msg_activity_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
-    </ScrollView>
+    </ListView>
 
     <TextView
         android:visibility="visible"

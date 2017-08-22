@@ -1,6 +1,7 @@
 package com.repayment.money.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.mylibrary.base.BaseFragment;
 import com.repayment.money.R;
+import com.repayment.money.ui.activity.SettingActivity;
 
 public class UserCenterFragment extends BaseFragment {
     private LinearLayout mItemBankcardUserFragment;
@@ -54,7 +56,8 @@ public class UserCenterFragment extends BaseFragment {
         mItemSettingUserFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mBaseActivitySelf, "我是设置", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(mBaseActivitySelf, SettingActivity.class);
+                startActivity(intent);
             }
         });
     }

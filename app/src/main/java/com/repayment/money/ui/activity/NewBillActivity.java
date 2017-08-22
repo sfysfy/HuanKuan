@@ -189,7 +189,6 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
             boolean isEmpty=!(orderType.isEmpty()||periodesType.isEmpty()||periodes.isEmpty()||monthMoney.isEmpty()||hkDay.isEmpty()||bankCard.isEmpty());
             if (isEmpty) {
                 new NetForBankCard().yzBankCard(bankCard);
-
                 if (mCount) {
                     addParam("userNo",userNo);
                     addParam("userNo",userNo);
