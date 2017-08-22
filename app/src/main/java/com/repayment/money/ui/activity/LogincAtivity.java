@@ -22,6 +22,8 @@ import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
+import static org.xutils.http.HttpMethod.HEAD;
+
 public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
 
     private EditText mEdtUserLoginActivity;
@@ -35,7 +37,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
 
     @Override
     protected int addRootView() {
-        return R.layout.login_main;
+        return R.layout.activity_login;
     }
 
   //  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -70,8 +72,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
     protected void success(LoginEntity entity) {
         mEntityLogin = entity;
         if (entity.getCode()==1) {
-
-            Intent intent=new Intent(mBaseActivitySelf,HomeActivity.class);
+            Intent intent=new Intent(mBaseActivitySelf,MainActivity.class);
             startActivity(intent);
             System.out.println("entity = ======" + entity);
 
