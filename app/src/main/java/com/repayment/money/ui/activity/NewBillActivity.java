@@ -20,6 +20,7 @@ import com.repayment.money.R;
 import com.repayment.money.common.utils.NetForBankCard;
 import com.repayment.money.db.TableUser;
 import com.repayment.money.entity.NewBillEntity;
+import com.repayment.money.ui.fragment.HomeFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -49,7 +50,6 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
     private ArrayAdapter mSpAdapter;
     private List<String> mRepayType=new ArrayList<>();
     private List<String> mRepayDate=new ArrayList<>();
-    private boolean mCount;
 
     @Override
     protected int addRootView() {
@@ -64,11 +64,6 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
 
     @Override
     protected void initLocalData() {
-        EventBus.getDefault().register(this);
-    }
-    @Subscribe(threadMode=MAIN)
-    public void onEvent(boolean count){
-        mCount = count;
     }
 
 
@@ -78,6 +73,8 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
         Log.d("qq", "entity:" + entity);
         if (entity.getCode()==1) {
             Toast.makeText(mBaseActivitySelf, "添加成功", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(mBaseActivitySelf,MainActivity.class);
+            startActivity(intent);
         }else{
             Toast.makeText(mBaseActivitySelf, "添加失败,请检查输入信息", Toast.LENGTH_SHORT).show();
         }
@@ -182,7 +179,7 @@ public class NewBillActivity extends BaseActivityWithNet<NewBillEntity> implemen
             boolean isEmpty=!(orderType.isEmpty()||periodesType.isEmpty()||periodes.isEmpty()||monthMoney.isEmpty()||hkDay.isEmpty()||bankCard.isEmpty());
             if (isEmpty) {
                 new NetForBankCard().yzBankCard(bankCard);
-                if (mCount) {
+                if (true) {
                     addParam("userNo",userNo);
                     addParam("userNo",userNo);
                     addParam("orderType",orderType);

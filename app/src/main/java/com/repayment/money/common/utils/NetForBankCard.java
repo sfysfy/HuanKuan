@@ -34,11 +34,8 @@ public class NetForBankCard {
                 Log.d("qq", "bankCardEntity:" + bankCardEntity);
                 if (bankCardEntity.getCode()==1) {
                     for (int i = 0; i < bankBin.size(); i++) {
-                        Log.e("qq", "success: ------------------------"+bankBin.get(i) );
-                        Log.e("qq", "success: ------------------------"+bankCardEntity.getResultObj().getBank_code() );
                         if (bankBin.get(i).equals( bankCardEntity.getResultObj().getBank_code())) {
                             NewBillActivity.isyzBankCard = true;
-                            EventBus.getDefault().post(1);
                             return;
                         }
                     }

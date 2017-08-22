@@ -5,6 +5,8 @@
     <string name="benqihuankuan">本期还款 (元)</string>
     <string name="tdq">天到期</string>
     <string name="ljhk">立即还款</string>
+    <string name="surepay">确认支付</string>
+    <string name="repay">还款</string>
 
     <string-array name="more_items">
         <item>我的账户</item>

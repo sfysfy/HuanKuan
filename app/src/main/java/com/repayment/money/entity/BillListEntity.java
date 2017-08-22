@@ -126,5 +126,18 @@ public class BillListEntity {
         public void setBankCard(String bankCard) {
             this.bankCard = bankCard;
         }
+
+        @Override
+        public String toString() {
+            return "ResultObjBean{" +
+                    "orderNo='" + orderNo + '\'' +
+                    ", userNo='" + userNo + '\'' +
+                    ", orderType=" + orderType +
+                    ", periodsType='" + periodsType + '\'' +
+                    ", periods=" + periods +
+                    ", monthMoney=" + monthMoney +
+                    ", bankCard='" + bankCard + '\'' +
+                    '}';
+        }
     }
 }

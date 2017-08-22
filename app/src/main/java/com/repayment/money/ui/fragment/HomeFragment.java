@@ -4,6 +4,7 @@ package com.repayment.money.ui.fragment;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -77,7 +78,10 @@ public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
 
         if (entity.getResultObj().size()>0) {
             mBtNewBillActivity.setVisibility(View.GONE);
+
         }
+
+
         mProductlist =  entity.getResultObj();
         mItemBillAdapter = new ItemBillAdapter(mBaseActivitySelf,mProductlist);
         mLvMsgActivityHome.setAdapter(mItemBillAdapter);
@@ -114,7 +118,11 @@ public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
                 startActivity(intent);
             }
         });
+
+
+
     }
+
 
     @Override
     protected boolean isNotUseTitle() {

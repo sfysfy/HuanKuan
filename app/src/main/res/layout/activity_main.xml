@@ -28,7 +28,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:gravity="center" android:text="绑定银行卡"
+                android:gravity="center" android:text="还款王"
                 android:textColor="#000" android:textSize="18dp"/>
             <Button
                 android:id="@+id/bt_title_right_main"
@@ -40,7 +40,7 @@
                 android:background="@drawable/add"/>
         </RelativeLayout>
         <FrameLayout
-
+            android:layout_above="@+id/rg_tabs_activity_main"
             android:id="@+id/layout_frag_activity_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
