@@ -1,12 +1,6 @@
 package com.repayment.money.ui.fragment;
 
-import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -43,6 +37,17 @@ public class UserCenterFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(mBaseActivitySelf, "我是银行卡管理", Toast.LENGTH_SHORT).show();
+               /* final ConfirmDialog c = new ConfirmDialog(mBaseActivitySelf,"现在就去","稍后再说");
+                c.setBtConfirmClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(mBaseActivitySelf, "我要跳转", Toast.LENGTH_SHORT).show();
+                        c.cancel();
+                    }
+                });
+                c.show();*/
+
+
             }
         });
         mItemBillUserFragment.setOnClickListener(new View.OnClickListener() {

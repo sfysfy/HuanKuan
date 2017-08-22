@@ -1,13 +1,10 @@
 package com.repayment.money.common.utils;
 
-import android.util.EventLog;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.mylibrary.net.NetForJson;
 import com.example.mylibrary.net.NetOverListener;
 import com.repayment.money.entity.BankCardEntity;
-import com.repayment.money.entity.SendCodeEntity;
 import com.repayment.money.ui.activity.NewBillActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -15,15 +12,12 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
-import static com.repayment.money.common.Constant.BASE_URL_CODE;
-
 /**
  * Created by 11250 on 2017/8/19.
  */
 
 public class NetForBankCard {
-    public NetForJson mNetForJson;
+    private NetForJson mNetForJson;
 
     public  void yzBankCard(String card) {
 
@@ -32,20 +26,22 @@ public class NetForBankCard {
             @Override
             public void success(BankCardEntity bankCardEntity) {
                 Log.d("qq", "bankCardEntity:" + bankCardEntity);
-                if (bankCardEntity.getCode()==1) {
+
+                EventBus.getDefault().post(bankCardEntity.getResultObj().getCard_type());
+               /* if (bankCardEntity.getCode()==1) {
                     for (int i = 0; i < bankBin.size(); i++) {
                         Log.e("qq", "success: ------------------------"+bankBin.get(i) );
                         Log.e("qq", "success: ------------------------"+bankCardEntity.getResultObj().getBank_code() );
                         if (bankBin.get(i).equals( bankCardEntity.getResultObj().getBank_code())) {
                             NewBillActivity.isyzBankCard = true;
-                            EventBus.getDefault().post(1);
+                           // EventBus.getDefault().post(1);
                             return;
                         }
                     }
                     NewBillActivity.isyzBankCard = false;
                 }else{
-                    EventBus.getDefault().post(2);
-                }
+                   // EventBus.getDefault().post(2);
+                }*/
             }
 
             @Override

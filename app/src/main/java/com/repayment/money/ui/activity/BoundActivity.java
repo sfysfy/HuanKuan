@@ -16,15 +16,20 @@ import android.widget.Toast;
 import com.example.mylibrary.base.BaseActivityWithNet;
 import com.example.mylibrary.net.NetForJson;
 import com.example.mylibrary.net.NetOverListener;
+import com.example.mylibrary.util.SPUtils;
 import com.repayment.money.R;
 import com.repayment.money.common.Constant;
+import com.repayment.money.common.utils.NetForBankCard;
 import com.repayment.money.common.utils.pay.BaseHelper;
 import com.repayment.money.common.utils.pay.Constants;
 import com.repayment.money.common.utils.pay.MobileSecurePayer;
 import com.repayment.money.db.TableUser;
+import com.repayment.money.entity.BankCardEntity;
 import com.repayment.money.entity.BindBankCardEntity;
 import com.repayment.money.entity.CheckBankCardEntity;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.ex.DbException;
@@ -32,7 +37,7 @@ import org.xutils.ex.DbException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
+public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
 
     private EditText mEdtNameActivityBound;
     private EditText mEdtIdCardBoundActivity;
@@ -58,6 +63,13 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
     private TableUser mTableUser;
     private String mName;
     private NetForJson mNetForJson1;
+    private NetForJson mNetForJson2;
+    private String mBankCardType; //2   储蓄卡    3,信用卡
+
+    boolean isDoPostCardBind=false;
+
+
+
 
     public ArrayAdapter<String> getAdapter() {
         return mAdapter;
@@ -73,6 +85,7 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                     case Constants.RQF_PAY:
                     case Constants.RQF_SIGN:
                     {
+
                         JSONObject objContent = BaseHelper.string2JSON(strRet);
                         System.out.println("strRet = " + strRet);
                         String retCode = objContent.optString("ret_code");
@@ -99,31 +112,23 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                             // noAgree=2017082086681269&
                             // name=%E9%9A%8B%E5%B2%A9
 
-                           /* addParam("mobile",mPhoneNum);
-                            addParam("bankCard",mBankCardNum);
-                            addParam("bankName",mSelectBankName);
-                            addParam("idCard",mIdCard);
-                            addParam("userNo",mTableUser.getUserNo());
-                            addParam("channel",mTableUser.getChannel());
-                            addParam("noAgree",mNo_agree);
-                            addParam("name",mName);
-                            execute();*/
-                            mNetForJson1.addParam("mobile",mPhoneNum);
-                            mNetForJson1.addParam("bankCard",mBankCardNum);
-                            mNetForJson1.addParam("bankName",mSelectBankName);
-                            mNetForJson1.addParam("idCard",mIdCard);
-                            mNetForJson1.addParam("userNo",mTableUser.getUserNo());
-                            mNetForJson1.addParam("channel",mTableUser.getChannel());
-                            mNetForJson1.addParam("noAgree",mNo_agree);
-                            mNetForJson1.addParam("name",mName);
-                            mNetForJson1.execute();
-                            Toast.makeText(mBaseActivitySelf, "值执行完了啊啊啊", Toast.LENGTH_SHORT).show();
+                           if (isDoPostCardBind){
+                               mNetForJson1.addParam("mobile",mPhoneNum);
+                               mNetForJson1.addParam("bankCard",mBankCardNum);
+                               mNetForJson1.addParam("bankName",mSelectBankName);
+                               mNetForJson1.addParam("idCard",mIdCard);
+                               mNetForJson1.addParam("userNo",mTableUser.getUserNo());
+                               mNetForJson1.addParam("channel",mTableUser.getChannel());
+                               mNetForJson1.addParam("noAgree",mNo_agree);
+                               mNetForJson1.addParam("name",mName);
+                               mNetForJson1.execute();
+                               Toast.makeText(mBaseActivitySelf, "值执行完了啊啊啊", Toast.LENGTH_SHORT).show();
+                           }
                         }  else {
                             // TODO 失败
                             BaseHelper.showDialog(BoundActivity.this, "错误提示", retMsg
                                             + "，交易状态码:" + retCode+" 返回报文:"+strRet,
                                     android.R.drawable.ic_dialog_alert);
-                            System.out.println("retMsg =++++++++===== " + retMsg);
                         }
                     }
                     break;
@@ -172,6 +177,15 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
 
     }
 
+    @Subscribe()
+      public void onEvent(String bankCardType){
+        System.out.println("bankCardType = " + bankCardType);
+        if (bankCardType != null) {
+            isDoPostCardBind=true;
+        }
+
+      }
+
     private void addSpinner() {
         mBankName.add("中国农业银行");
         mBankName.add("交通银行");
@@ -218,6 +232,7 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                 mIdCard=mEdtIdCardBoundActivity.getText().toString().trim();
                 mName=mEdtNameActivityBound.getText().toString().trim();
 
+
                 try {
                      mTableUser = LogincAtivity.mDbManager.selector(TableUser.class).where("phone", "=", mPhoneNum).findFirst();
                     System.out.println("user ======== " + mPhoneNum);
@@ -225,6 +240,8 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                     e.printStackTrace();
                 }
 //
+                NetForBankCard n=new NetForBankCard();
+                n.yzBankCard(mBankCardNum);
                 if (mTableUser!=null){
                     addParam("mobile",mPhoneNum);
                     addParam("bankCard",mBankCardNum);
@@ -240,34 +257,63 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
         });
 
         mSpinnerNameBankBoundActivity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mSelectBankName = mBankName.get(position);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }
 
     @Override
     protected void initNetData() {
-
          mPayer= new MobileSecurePayer();
-        mNetForJson1=new NetForJson("http://101.200.128.107:10028/repayment/bank/bindBankCard", new NetOverListener<BindBankCardEntity>() {
+        //获取银行卡类型的回调
+        mNetForJson2=new NetForJson("http://101.200.128.107:10028/repayment/bank/bankCardBin", new NetOverListener<BankCardEntity>(){
             @Override
-            public void success(BindBankCardEntity bindBankCardEntity) {
-                System.out.println("bindBankCardEntity ===========++++= " + bindBankCardEntity);
+            public void success(BankCardEntity bankCardEntity){
+
+                System.out.println("bankCardEntity =%%%%%%%% " + bankCardEntity);
 
             }
 
             @Override
             public void failed(Throwable throwable) {
+                System.out.println("throwable ====== " + throwable);
+            }
 
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
+
+        //绑卡的回调
+        mNetForJson1=new NetForJson("http://101.200.128.107:10028/repayment/bank/bindBankCard", new NetOverListener<BindBankCardEntity>() {
+            @Override
+            public void success(BindBankCardEntity bindBankCardEntity) {
+                System.out.println("bindBankCardEntity ===========++++= " + bindBankCardEntity);
+                if (bindBankCardEntity.getCode()==1){
+                    Toast.makeText(mBaseActivitySelf, "绑定成功", Toast.LENGTH_SHORT).show();
+                    //将当前账户的   用户姓名   和  身份证号码  存储
+                    SPUtils.getInstance(Constant.SP_USER_MSG).put("name",mName);
+                    SPUtils.getInstance(Constant.SP_USER_MSG).put("idCard",mIdCard);
+                }else{
+                    Toast.makeText(mBaseActivitySelf, "此卡已经绑定", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void failed(Throwable throwable) {
+                Toast.makeText(mBaseActivitySelf, "服务器异常", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -287,18 +333,20 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
 
     @Override
     protected void initLocalData() {
+        EventBus.getDefault().register(mBaseActivitySelf);
 
     }
 
     @Override
     protected void success(CheckBankCardEntity entity) {
+        //检卡成功
         System.out.println("entity = " + entity);
         Toast.makeText(mBaseActivitySelf, "提交信息成功", Toast.LENGTH_SHORT).show();
         String resultObj = entity.getResultObj();
 
         try {
             JSONObject jsonObject=new JSONObject(resultObj);
-            System.out.println("jsonObject = " + jsonObject);
+//            System.out.println("jsonObject = " + jsonObject);
             mPayer.setCallbackHandler(mHandler, Constants.RQF_PAY);
             mPayer.setTestMode(isTestServer);
             mPayer.doTokenSign(jsonObject,mBaseActivitySelf);
@@ -311,7 +359,6 @@ public class BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
     @Override
     protected void failed(Throwable throwable) {
         Toast.makeText(mBaseActivitySelf, "服务器异常", Toast.LENGTH_SHORT).show();
-
 
     }
 

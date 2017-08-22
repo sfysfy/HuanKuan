@@ -9,6 +9,8 @@ public class Constant {
 
     public static final String LOGIN_URL="http://101.200.128.107:10028/repayment/user/"+"login";
 
+    public static final String SP_USER_MSG="USER";
+
     public static  String PHONE_NUM_USER_NOW="";
     public static  String USERNO_NUM_USER_NOW="";
 
@@ -20,6 +22,7 @@ public class Constant {
 
 //    http://101.200.128.107:10028/repayment/order/addOrder?userNo=2017081911412784240032&orderType=0&periodsType=M&periods=12&monthMoney=200&h
     public static final String BASE_URL_NEWBILL="http://101.200.128.107:10028/repayment/order/addOrder";
+
 
 
 
