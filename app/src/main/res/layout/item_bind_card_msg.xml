@@ -3,10 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:background="@drawable/pink"
+    android:id="@+id/rea_layout_item_card"
     android:padding="10dp"
     >
-
             <ImageView
                 android:layout_gravity="center"
                 android:id="@+id/img_icon_bank_bind"
@@ -38,8 +37,6 @@
                     android:layout_below="@+id/tv_bank_name_bing"
                     android:id="@+id/tv_bank_type_bing"
                     android:layout_toRightOf="@+id/img_icon_bank_bind"
-                    android:text=""
-                    android:gravity=""
                     android:textSize="15dp"
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
@@ -50,6 +47,7 @@
             </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_card_num_item"
         android:textColor="#fff"
         android:gravity="center_vertical"
         android:layout_marginLeft="15dp"

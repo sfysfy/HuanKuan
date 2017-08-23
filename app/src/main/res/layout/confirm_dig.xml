@@ -16,6 +16,7 @@
         android:layout_height="60dp"/>
 
     <TextView
+        android:layout_marginBottom="42dp"
         android:layout_marginTop="25dp"
         android:id="@+id/tv_dig_confirm"
         android:textSize="15dp"
@@ -24,29 +25,48 @@
         android:text="您还没绑定还款卡,建议您先绑定还款银行卡"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    
+
+
+    <View
+        android:background="#ccc"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+
+    </View>
     <LinearLayout
-        android:layout_marginTop="42dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <Button
-            android:textColor="#2f2b08"
-            android:textSize="17dp"
+
             android:id="@+id/bt_do_dig_confirm"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_height="match_parent"/>
+
+            android:textSize="17dp"/>
+
+        <View
+            android:background="#ccc"
+            android:layout_width="1dp"
+            android:layout_height="match_parent">
+
+        </View>
 
         <Button
-            android:textSize="17dp"
-            android:textColor="#2f2b08"
             android:id="@+id/bt_cancel_dig_confirm"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_height="match_parent"/>
+            android:textSize="17dp"/>
     </LinearLayout>
 
-    
+    <View
+        android:background="#ccc"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+
+    </View>
 
 </LinearLayout>

@@ -28,6 +28,7 @@ public class ConfirmDialog extends Dialog{
         this.getWindow().setLayout(550,300);
         this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.confirm_dig);
+
         mBtConfirmText=btConfirmText;
         mBtCancelText=cancelText;
         mTvDigConfirm = (TextView) findViewById(R.id.tv_dig_confirm);
@@ -36,6 +37,7 @@ public class ConfirmDialog extends Dialog{
 
         mBtDoDigConfirm.setText(mBtConfirmText);
         mBtCancelDigConfirm.setText(mBtCancelText);
+
 
         mBtCancelDigConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
