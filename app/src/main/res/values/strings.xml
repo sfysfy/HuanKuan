@@ -7,6 +7,9 @@
     <string name="ljhk">立即还款</string>
     <string name="surepay">确认支付</string>
     <string name="repay">还款</string>
+    <string name="select_bank">选择银行卡</string>
+    <string name="linshi_">建设银行 (3443)</string>
+    <string name="addcard">添加银行卡</string>
 
     <string-array name="more_items">
         <item>我的账户</item>

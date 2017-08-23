@@ -9,6 +9,7 @@ public class UtilForBankCardNum {
         String substring = num.substring(num.length() - 4, num.length());
         return substring;
     }
+    //带括号
     public static String fourCardNumkh(String num){
         String substring = num.substring(num.length() - 4, num.length());
         String card="("+substring+")";

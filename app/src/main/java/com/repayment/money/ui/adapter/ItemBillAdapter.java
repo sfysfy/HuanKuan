@@ -1,7 +1,6 @@
 package com.repayment.money.ui.adapter;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -17,14 +16,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Button;
 
+import com.example.mylibrary.net.NetForJson;
+import com.example.mylibrary.net.NetOverListener;
 import com.repayment.money.R;
-import com.repayment.money.common.utils.UtilForBankCardNum;
+import com.repayment.money.common.utils.BankNameUtil;
+import com.repayment.money.common.utils.UtilForItemBill;
+import com.repayment.money.entity.BankCardEntity;
 import com.repayment.money.entity.BillListEntity;
+import com.repayment.money.entity.RepayPopwindowEntity;
 import com.repayment.money.ui.activity.DetailsActivity;
-import com.repayment.money.ui.fragment.HomeFragment;
 import com.repayment.money.ui.views.RepayPopupWindow;
-
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 public class ItemBillAdapter extends BaseAdapter {
 
@@ -38,7 +39,6 @@ public class ItemBillAdapter extends BaseAdapter {
         this.layoutInflater = LayoutInflater.from(context);
         this.mEntities = entities;
     }
-
 
 
     @Override
@@ -66,33 +66,19 @@ public class ItemBillAdapter extends BaseAdapter {
         return convertView;
     }
 
+    private NetForJson mNetForJson;
+    private ViewHolder mViewHolder;
+    private BillListEntity.ResultObjBean mResultObjBean;
     private void initializeViews(final BillListEntity.ResultObjBean entities, final ViewHolder holder) {
         //TODO implement
+        mViewHolder=holder;
+        mResultObjBean=entities;
+        mNetForJson=new NetForJson("http://101.200.128.107:10028/repayment/bank/bankCardBin",new NetForCardName());
+        mNetForJson.addParam("bankCard",entities.getBankCard());
+        mNetForJson.execute();
+
+
         Log.d("qq", "entities:" + entities);
-        holder.imgBankiconItem.setImageResource(R.drawable.zhonghang);
-//        holder.tvBankinfoItem.setText("中国银行    3443");
-        holder.tvBankinfoItem.setText(UtilForBankCardNum.fourCardNumkh(entities.getBankCard()));
-        holder.tvBilltypeItem.setText("房贷");
-        holder.tvMoneyzItem.setText(entities.getMonthMoney()+"");
-        holder.tvMoneyxItem.setText("00");
-        holder.tvDayItem.setText("7");
-        holder.tvBilldayItem.setText("8-19");
-        holder.btRepayItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new RepayPopupWindow((Activity) context).showPopupWindow(holder.mLayoutBillList);
-            }
-        });
-        holder.mLayoutBillList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String orderNo = entities.getOrderNo();
-                Log.e("qq", "-我是订单号-----------------"+orderNo );
-                Intent intent=new Intent(context,DetailsActivity.class);
-                intent.putExtra("orderNo",orderNo);
-                context.startActivity(intent);
-            }
-        });
 
 
     }
@@ -118,6 +104,59 @@ public class ItemBillAdapter extends BaseAdapter {
             tvDayItem = (TextView) view.findViewById(R.id.tv_day_item);
             tvBilldayItem = (TextView) view.findViewById(R.id.tv_billday_item);
             btRepayItem = (Button) view.findViewById(R.id.bt_repay_item);
+        }
+    }
+
+    private class NetForCardName extends NetOverListener<BankCardEntity> {
+        @Override
+        public void success(final BankCardEntity bankCardEntity) {
+            if (bankCardEntity.getResultObj()!=null){
+                mViewHolder.imgBankiconItem.setImageResource(R.drawable.zhonghang);
+//        holder.tvBankinfoItem.setText("中国银行    3443");
+                mViewHolder.tvBankinfoItem.setText(BankNameUtil.bankNameFormat(bankCardEntity.getResultObj().getBank_name(),mResultObjBean.getBankCard()));
+                mViewHolder.tvBilltypeItem.setText(UtilForItemBill.getBillType(mResultObjBean.getOrderType()));
+                mViewHolder.tvMoneyzItem.setText(UtilForItemBill.moneyZSFormat(mResultObjBean.getMonthMoney()));
+                mViewHolder.tvMoneyxItem.setText(UtilForItemBill.moneyXSFormat(mResultObjBean.getMonthMoney()));
+                mViewHolder.tvDayItem.setText("7");
+                mViewHolder.tvBilldayItem.setText("8-19");
+                mViewHolder.btRepayItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RepayPopwindowEntity entity=new RepayPopwindowEntity();
+                        entity.setBankName(bankCardEntity.getResultObj().getBank_name());
+                        entity.setMoneyNum(mResultObjBean.getMonthMoney()+"");
+                        RepayPopupWindow repayPopupWindow = new RepayPopupWindow((Activity) context,entity);
+                        repayPopupWindow.showPopupWindow(mViewHolder.mLayoutBillList);
+                    }
+                });
+                mViewHolder.mLayoutBillList.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String orderNo = mResultObjBean.getOrderNo();
+                        Log.e("qq", "-我是订单号-----------------"+orderNo );
+                        Intent intent=new Intent(context,DetailsActivity.class);
+                        intent.putExtra("orderNo",orderNo);
+                        context.startActivity(intent);
+                    }
+                });
+            }
+
+
+        }
+
+        @Override
+        public void failed(Throwable throwable) {
+
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onFinish() {
+
         }
     }
 }

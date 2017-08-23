@@ -68,7 +68,7 @@ public class BillListEntity {
         private int orderType;
         private String periodsType;
         private int periods;
-        private int monthMoney;
+        private float monthMoney;
         private String bankCard;
 
         public String getOrderNo() {
@@ -111,7 +111,7 @@ public class BillListEntity {
             this.periods = periods;
         }
 
-        public int getMonthMoney() {
+        public float getMonthMoney() {
             return monthMoney;
         }
 

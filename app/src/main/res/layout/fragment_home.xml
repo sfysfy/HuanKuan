@@ -20,8 +20,7 @@
         android:visibility="gone"
         android:id="@+id/lv_msg_activity_home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="wrap_content">
 
     </ListView>
 
@@ -48,20 +47,6 @@
         android:textSize="15sp"
         android:visibility="visible"/>
 
-
-    <!--<Button-->
-        <!--android:id="@+id/bt_login_login_activity"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="39dp"-->
-        <!--android:layout_below="@+id/edt_code_login_activity"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_marginLeft="60dp"-->
-        <!--android:layout_marginRight="60dp"-->
-        <!--android:layout_marginTop="95dp"-->
-        <!--android:background="@drawable/bt_val"-->
-        <!--android:textColor="#ff5300"-->
-        <!--android:text="新增账单"-->
-        <!--android:textSize="15sp"/>-->
     <LinearLayout
         android:layout_marginTop="95dp"
         android:id="@+id/bt_new_bill_activity"

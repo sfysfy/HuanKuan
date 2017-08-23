@@ -115,6 +115,7 @@
         android:background="#dbdbdb"
     />
     <LinearLayout
+        android:id="@+id/layout_fukuancard"
         android:focusable="true"
         android:background="#fff"
         android:layout_width="match_parent"

@@ -1,44 +1,53 @@
 package com.repayment.money.ui.views;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.mylibrary.net.NetForJson;
+import com.example.mylibrary.net.NetOverListener;
 import com.repayment.money.R;
-import com.repayment.money.entity.RepayPopwindowEntity;
+import com.repayment.money.common.Constant;
+import com.repayment.money.entity.BankCardListItemEntity;
+import com.repayment.money.ui.adapter.ItemBillAdapter;
+import com.repayment.money.ui.adapter.PopupwindowSelectcardAdapter;
 
-import static com.repayment.money.R.id.layout_billList;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * Created by 11250 on 2017/8/22.
  */
 
-public class RepayPopupWindow extends PopupWindow {
+public class ChangeCardPopupWindow extends PopupWindow {
     private View conentView;
     private Activity context;
 
-
-    private RepayPopwindowEntity mRepayPopwindowEntity;
-
-    public RepayPopupWindow(final Activity context,RepayPopwindowEntity repayPopwindowEntity){
+    private PopupwindowSelectcardAdapter mItemCardAdapter;
+    public ChangeCardPopupWindow(final Activity context){
         super(context);
         this.context=context;
-        mRepayPopwindowEntity=repayPopwindowEntity;
         this.initPopupWindow();
     }
 
+    ListView bankList;
     private void initPopupWindow() {
         //使用View来引入布局
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        conentView = inflater.inflate(R.layout.popupwindow_repay, null);
+        conentView = inflater.inflate(R.layout.popupwindow_selectcard, null);
 
         //获取popupwindow的高度与宽度
         int height = context.getWindowManager().getDefaultDisplay().getHeight();
@@ -59,34 +68,20 @@ public class RepayPopupWindow extends PopupWindow {
         //点back键和其他地方使其消失,设置了这个才能触发OnDismisslistener,设置其他控件变化等操作
         this.setBackgroundDrawable(colorDrawable);
         this.setAnimationStyle(R.style.repaypopwindow_anim_style);
-        Button bt_close = (Button) conentView.findViewById(R.id.bt_close_popw);
-        Button bt_truepay = (Button) conentView.findViewById(R.id.bt_true_pay_popw);
-        LinearLayout fkcard = (LinearLayout) conentView.findViewById(R.id.layout_fukuancard);
-        TextView daozhangBank = (TextView) conentView.findViewById(R.id.tv_daozhangBank_popw);
-        TextView huankuanmoney = (TextView) conentView.findViewById(R.id.tv_repaymoney_popw);
-        ImageView daozhangImag= (ImageView) conentView.findViewById(R.id.img_daozheng_popw);
-        daozhangBank.setText(mRepayPopwindowEntity.getBankName());
-        huankuanmoney.setText(mRepayPopwindowEntity.getMoneyNum());
+        bankList = (ListView) conentView.findViewById(R.id.lv_banklist_selectcard);
+        doNetForCardList();
 
-        bt_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        bt_truepay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        fkcard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ChangeCardPopupWindow((Activity) context).showPopupWindow(context.findViewById(R.id.layout_billList));
-            }
-        });
     }
+
+
+    private NetForJson mNetForCardListJson;
+    private void doNetForCardList() {
+        mNetForCardListJson=new NetForJson("http://101.200.128.107:10028/repayment/bank/findBankList",new NetForCardList());
+        mNetForCardListJson.addParam("userNo", Constant.getTableuser().getUserNo());
+        mNetForCardListJson.execute();
+
+    }
+
     public void showPopupWindow(View parent){
         if (parent.getVisibility()== View.GONE) {
             this.showAtLocation(parent,0,0,0);
@@ -94,6 +89,31 @@ public class RepayPopupWindow extends PopupWindow {
             int[] location = new int[2];
             parent.getLocationOnScreen(location);
             this.showAtLocation(parent,Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,0);
+        }
+    }
+
+    private class NetForCardList extends NetOverListener<BankCardListItemEntity> {
+
+        @Override
+        public void success(BankCardListItemEntity bankCardListItemEntity) {
+            List<BankCardListItemEntity.ResultObjBean> resultObj = bankCardListItemEntity.getResultObj();
+            mItemCardAdapter = new PopupwindowSelectcardAdapter(context,resultObj);
+            bankList.setAdapter(mItemCardAdapter);
+        }
+
+        @Override
+        public void failed(Throwable throwable) {
+
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onFinish() {
+
         }
     }
 

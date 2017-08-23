@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/layout_bankList"
+    android:background="@color/colorBack"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="47dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/item_seleclt"
+        android:focusable="true"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_bankicon_seletitem"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="14dp"
+            android:src="@drawable/jianhang"/>
+
+        <TextView
+            android:id="@+id/tv_bankinfo_seletitem"
+            android:layout_marginRight="14dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:text="@string/linshi_"
+            android:textColor="#2f2b08"
+            android:textSize="15dp"/>
+        <ImageView
+            android:id="@+id/img_select_selectitem"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="18dp"
+            android:src="@drawable/checked"/>
+
+    </LinearLayout>
+    <View
+        android:layout_marginLeft="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dbdbdb"
+    />
+</LinearLayout>
