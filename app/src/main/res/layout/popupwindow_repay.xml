@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="#fff"
+              android:layout_width="match_parent"
+              android:layout_height="350dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#fff"
+        android:focusable="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_close_popw"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:background="@drawable/close"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="@string/repay"
+            android:textColor="#2f2b08"
+            android:textSize="16dp" android:textStyle="bold"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignBottom="@+id/tv_zhandan"
+        android:background="#dbdbdb"
+    />
+    <LinearLayout
+        android:focusable="true"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="13dp"
+            android:layout_weight="1"
+            android:text="到账银行卡"
+            android:textColor="#666" android:textSize="15dp"/>
+
+        <ImageView
+            android:id="@+id/img_daozheng_popw"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="14dp"
+            android:src="@drawable/jianhang"/>
+
+        <TextView
+            android:id="@+id/tv_daozhangBank_popw"
+            android:layout_marginRight="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:text="建设银行"
+            android:textColor="#2f2b08"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+    <View
+        android:layout_marginLeft="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignBottom="@+id/tv_zhandan"
+        android:background="#dbdbdb"
+    />
+    <LinearLayout
+        android:focusable="true"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="13dp"
+            android:layout_weight="1"
+            android:text="还款金额"
+            android:textColor="#666" android:textSize="15dp"/>
+
+
+        <TextView
+            android:id="@+id/tv_repaymoney_popw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="14dp"
+            android:text="3500"
+            android:textColor="#2f2b08" android:textSize="15dp"/>
+
+    </LinearLayout>
+    <View
+        android:layout_marginLeft="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignBottom="@+id/tv_zhandan"
+        android:background="#dbdbdb"
+    />
+    <LinearLayout
+        android:id="@+id/layout_fukuancard"
+        android:focusable="true"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="13dp"
+            android:layout_weight="1"
+            android:text="付款银行卡" android:textColor="#666" android:textSize="15dp"/>
+
+        <ImageView
+            android:id="@+id/img_fukuan_popw"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="14dp"
+            android:src="@drawable/jianhang"/>
+
+        <TextView
+            android:id="@+id/tv_fukuanbank_popw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:text="建设银行 (3443)"
+            android:textColor="#2f2b08"
+            android:textSize="15dp"/>
+
+
+        <ImageView
+            android:layout_marginRight="14dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/arrowrightqian"/>
+
+    </LinearLayout>
+    <View
+        android:layout_marginLeft="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignBottom="@+id/tv_zhandan"
+        android:background="#dbdbdb"
+    />
+
+    <Button
+        android:layout_marginBottom="50dp"
+        android:id="@+id/bt_true_pay_popw"
+        android:layout_width="255dp"
+        android:layout_height="39dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/bt_reg"
+        android:text="@string/surepay"/>
+</LinearLayout>

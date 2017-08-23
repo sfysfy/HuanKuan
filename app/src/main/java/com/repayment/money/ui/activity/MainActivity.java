@@ -1,8 +1,10 @@
 package com.repayment.money.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +27,10 @@ public class MainActivity extends BaseActivity {
     private FrameLayout mLayoutFragActivityMain;
     private LinearLayout mTabBillActivityMain;
     private LinearLayout mTabUsercenterActivityMain;
+    private TextView mTvTitleCenterMain;
+    private Button mBtTitleRightMain;
+
+
 
 
     private HomeFragment mHomeFragment=new HomeFragment();
@@ -55,7 +61,6 @@ public class MainActivity extends BaseActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
 
-        mActivityMain = (RelativeLayout) findViewById(R.id.activity_main);
         mLayoutFragActivityMain = (FrameLayout) findViewById(R.id.layout_frag_activity_main);
         mTabBillActivityMain = (LinearLayout) findViewById(R.id.tab_bill_activity_main);
         mTabUsercenterActivityMain = (LinearLayout) findViewById(R.id.tab_usercenter_activity_main);
@@ -64,7 +69,8 @@ public class MainActivity extends BaseActivity {
         mTvBillActivityMain = (TextView) findViewById(R.id.tv_bill_activity_main);
         mImgUserActivityMain = (ImageView) findViewById(R.id.img_user_activity_main);
         mTvUserActivityMain = (TextView) findViewById(R.id.tv_user_activity_main);
-
+        mTvTitleCenterMain = (TextView) findViewById(R.id.tv_title_center_main);
+        mBtTitleRightMain = (Button) findViewById(R.id.bt_title_right_main);
 
 
         changeFrag(mHomeFragment);
@@ -72,7 +78,8 @@ public class MainActivity extends BaseActivity {
         mTvBillActivityMain.setTextColor(Color.rgb(253,206,0));
         mImgUserActivityMain.setImageResource(R.drawable.usercenterw);
         mTvUserActivityMain.setTextColor(Color.rgb(255,255,255));
-        setTitleCenter("还款王");
+        mTvTitleCenterMain.setText("还款王");
+        mBtTitleRightMain.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -86,7 +93,8 @@ public class MainActivity extends BaseActivity {
                 mTvBillActivityMain.setTextColor(Color.rgb(253,206,0));
                 mImgUserActivityMain.setImageResource(R.drawable.usercenterw);
                 mTvUserActivityMain.setTextColor(Color.rgb(255,255,255));
-                setTitleCenter("还款王");
+                mTvTitleCenterMain.setText("还款王");
+                mBtTitleRightMain.setVisibility(View.VISIBLE);
 
             }
         });
@@ -98,8 +106,17 @@ public class MainActivity extends BaseActivity {
                 mTvBillActivityMain.setTextColor(Color.rgb(255,255,255));
                 mImgUserActivityMain.setImageResource(R.drawable.usercentery);
                 mTvUserActivityMain.setTextColor(Color.rgb(253,206,0));
-                setTitleCenter("个人中心");
+                mTvTitleCenterMain.setText("个人中心");
+                mBtTitleRightMain.setVisibility(View.GONE);
 
+            }
+        });
+
+        mBtTitleRightMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(mBaseActivitySelf, NewBillActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -121,4 +138,8 @@ public class MainActivity extends BaseActivity {
         showFragment(baseFragmentNow);
     }
 
+    @Override
+    protected boolean isNotUseTitle() {
+        return true;
+    }
 }

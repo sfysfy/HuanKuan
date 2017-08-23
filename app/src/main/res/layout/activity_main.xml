@@ -1,72 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <FrameLayout
-        android:id="@+id/layout_frag_activity_main"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:fitsSystemWindows="true"
+        android:background="@color/titleBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></LinearLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/rg_tabs_activity_main">
-    </FrameLayout>
-            
-    <LinearLayout
-        android:id="@+id/rg_tabs_activity_main"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="#1b1b1b"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_marginTop="5dp"
-            android:id="@+id/tab_bill_activity_main"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+        >
+        <RelativeLayout
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@color/titleBack"
             android:orientation="vertical">
-            <ImageView
-                android:id="@+id/img_bill_activity_main"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:src="@drawable/bar_home_selector"/>
             <TextView
-                android:id="@+id/tv_bill_activity_main"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="账单"
-                android:textColor="#fff"
-                android:textSize="11sp"/>
-        </LinearLayout>
-
+                android:id="@+id/tv_title_center_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:gravity="center" android:text="还款王"
+                android:textColor="#000" android:textSize="18dp"/>
+            <Button
+                android:id="@+id/bt_title_right_main"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/add"/>
+        </RelativeLayout>
+        <FrameLayout
+            android:layout_above="@+id/rg_tabs_activity_main"
+            android:id="@+id/layout_frag_activity_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/title"
+        >
+        </FrameLayout>
+                
         <LinearLayout
-            android:layout_marginTop="5dp"
-            android:id="@+id/tab_usercenter_activity_main"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/img_user_activity_main"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:src="@drawable/bar_usercenter_selector"/>
-            <TextView
-                android:id="@+id/tv_user_activity_main"
-                android:layout_width="wrap_content"
+            android:id="@+id/rg_tabs_activity_main"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="#1b1b1b"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/tab_bill_activity_main"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="个人中心"
-                android:textSize="11sp"
-                android:textColor="#fff"/>
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/img_bill_activity_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/bar_home_selector"/>
+                <TextView
+                    android:id="@+id/tv_bill_activity_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="账单"
+                    android:textColor="#fff"
+                    android:textSize="11sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tab_usercenter_activity_main"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/img_user_activity_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/bar_usercenter_selector"/>
+                <TextView
+                    android:id="@+id/tv_user_activity_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="个人中心"
+                    android:textColor="#fff"
+                    android:textSize="11sp"/>
+            </LinearLayout>
+
         </LinearLayout>
+    </RelativeLayout>
 
-    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

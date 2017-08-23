@@ -3,7 +3,11 @@ package com.repayment.money.entity;
 import java.util.List;
 
 /**
+ * <<<<<<< HEAD
+ * Created by 11250 on 2017/8/23.
+ * =======
  * Created by 马彦虎 on 2017/8/23.
+ * >>>>>>> origin/MaYanHu
  */
 
 public class BankCardListItemEntity {
@@ -28,6 +32,7 @@ public class BankCardListItemEntity {
         this.code = code;
     }
 
+
     @Override
     public String toString() {
         return "BankCardListItemEntity{" +
@@ -38,11 +43,14 @@ public class BankCardListItemEntity {
                 '}';
     }
 
+
     public long getTimestamp() {
         return timestamp;
     }
 
+
     public void setTimestamp(long timestamp) {
+
         this.timestamp = timestamp;
     }
 
@@ -63,17 +71,6 @@ public class BankCardListItemEntity {
     }
 
     public static class ResultObjBean {
-        @Override
-        public String toString() {
-            return "ResultObjBean{" +
-                    "userNo='" + userNo + '\'' +
-                    ", bankCard='" + bankCard + '\'' +
-                    ", bankName='" + bankName + '\'' +
-                    ", mobile='" + mobile + '\'' +
-                    ", noAgree='" + noAgree + '\'' +
-                    ", cardType=" + cardType +
-                    '}';
-        }
 
         /**
          * userNo :
@@ -138,5 +135,20 @@ public class BankCardListItemEntity {
         public void setCardType(int cardType) {
             this.cardType = cardType;
         }
+
+        @Override
+        public String toString() {
+            return "ResultObjBean{" +
+                    "userNo='" + userNo + '\'' +
+                    ", bankCard='" + bankCard + '\'' +
+                    ", bankName='" + bankName + '\'' +
+                    ", mobile='" + mobile + '\'' +
+                    ", noAgree='" + noAgree + '\'' +
+                    ", cardType=" + cardType +
+                    '}';
+        }
     }
+
 }
+
+
