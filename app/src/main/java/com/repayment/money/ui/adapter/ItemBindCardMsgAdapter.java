@@ -77,6 +77,7 @@ public class ItemBindCardMsgAdapter extends BaseAdapter {
 
     public void setEntities(List<BankCardListItemEntity.ResultObjBean> entities) {
         mEntities = entities;
+        notifyDataSetChanged();
     }
 
     protected class ViewHolder {
