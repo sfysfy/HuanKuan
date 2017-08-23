@@ -54,4 +54,5 @@ dependencies {
     compile 'com.teprinciple:updateapputils:1.2'
     compile 'org.greenrobot:eventbus:3.0.0'
     testCompile 'junit:junit:4.12'
+    compile 'com.orhanobut:logger:2.1.1'
 }

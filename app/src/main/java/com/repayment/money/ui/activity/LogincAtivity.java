@@ -22,8 +22,6 @@ import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
-import static org.xutils.http.HttpMethod.HEAD;
-
 public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
 
     private EditText mEdtUserLoginActivity;
@@ -33,15 +31,13 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
     private TextView mTvWjActivityMain;
     private LoginEntity mEntityLogin;
     public static DbManager mDbManager;
+    public static TableUser sTableUserNow;
 
 
     @Override
     protected int addRootView() {
         return R.layout.activity_login;
     }
-
-  //  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-
 
     @Override
     protected void initNetData() {
@@ -75,15 +71,13 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
             Intent intent=new Intent(mBaseActivitySelf,MainActivity.class);
             startActivity(intent);
             System.out.println("entity = ======" + entity);
-
             if (!isHaveUser()) {
                 doSaveUserMsg();
             }
-            TableUser user=null;
             try {
-                user = LogincAtivity.mDbManager.selector(TableUser.class).where("phone", "=",mEdtUserLoginActivity.getText().toString().trim() ).findFirst();
-                Constant.PHONE_NUM_USER_NOW=user.getPhone();
-                Constant.USERNO_NUM_USER_NOW=user.getUserNo();
+                 sTableUserNow= LogincAtivity.mDbManager.selector(TableUser.class).where("phone", "=",mEdtUserLoginActivity.getText().toString().trim() ).findFirst();
+                Constant.PHONE_NUM_USER_NOW=sTableUserNow.getPhone();
+                Constant.USERNO_NUM_USER_NOW=sTableUserNow.getUserNo();
                 System.out.println("===="+Constant.USERNO_NUM_USER_NOW);
             } catch (DbException e) {
                 e.printStackTrace();
@@ -170,8 +164,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
                     addParam("password",userPwd);
                     execute();
                 }else{
-                    Toast.makeText(mBaseActivitySelf, "账号错误", Toast.LENGTH_SHORT).show();
-                    mEdtPwdLoginActivity.setText("");
+                    Toast.makeText(mBaseActivitySelf, "输入的账号和密码位数不够,请检查", Toast.LENGTH_SHORT).show();
                 }
             }
         });

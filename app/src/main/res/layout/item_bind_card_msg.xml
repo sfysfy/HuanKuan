@@ -1,46 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    
-    <LinearLayout
-        android:padding="15dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="150dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    android:layout_height="150dp"
+    android:id="@+id/rea_layout_item_card"
+    android:padding="10dp"
+    >
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/img_icon_bank_bind"
+                android:src="@drawable/jianhang"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
 
             <LinearLayout
-
-                android:id="@+id/ll"
-                android:orientation="horizontal"
+                android:id="@+id/layout_item_bind"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/img_icon_bank_bind"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="60dp">
+                <TextView
+                    android:textColor="#fff"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/tv_bank_name_bing"
+                    android:layout_toRightOf="@+id/img_icon_bank_bind"
+                    android:text=""
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:textSize="18dp"
+                    android:layout_height="0dp"/>
 
-                >
+                <TextView
+                    android:textColor="#fff"
+                    android:layout_below="@+id/tv_bank_name_bing"
+                    android:id="@+id/tv_bank_type_bing"
+                    android:layout_toRightOf="@+id/img_icon_bank_bind"
+                    android:textSize="15dp"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
 
-                <ImageView
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"/>
             </LinearLayout>
 
-            <TextView
-                android:layout_below="@+id/ll"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="1234567890-098765432"
-                android:textColor="#000"/>
-        </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_card_num_item"
+        android:textColor="#fff"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/layout_item_bind"
+        android:layout_toRightOf="@id/img_icon_bank_bind"
+        android:layout_width="match_parent"
+        android:text=""
+        android:layout_height="match_parent"/>
 
-    </LinearLayout>
+</RelativeLayout>
 
 
-</LinearLayout>

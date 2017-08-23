@@ -1,24 +1,30 @@
 package com.repayment.money.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.example.mylibrary.base.BaseActivity;
+import com.example.mylibrary.base.BaseActivityWithNet;
 import com.repayment.money.R;
+import com.repayment.money.common.Constant;
+import com.repayment.money.entity.BankCardListItemEntity;
+import com.repayment.money.ui.adapter.ItemBindCardMsgAdapter;
 
-public class CardControlActivity extends BaseActivity implements View.OnClickListener {
 
+import java.util.List;
+
+public class CardControlActivity extends BaseActivityWithNet<BankCardListItemEntity> implements View.OnClickListener {
     private Button mBtAddCardActivity;
     private ListView mLvCardMsg;
     private LinearLayout mLayoutHideCardActivity;
     private LinearLayout mLayoutAddCardActivity;
-
-
-
+    private ItemBindCardMsgAdapter mItemBindCardMsgAdapter;
+    private List<BankCardListItemEntity.ResultObjBean> mResultCardList;
 
 
     @Override
@@ -26,10 +32,6 @@ public class CardControlActivity extends BaseActivity implements View.OnClickLis
         return R.layout.activity_card_control;
     }
 
-    @Override
-    protected void initData() {
-
-    }
 
     @Override
     protected void initView() {
@@ -42,7 +44,6 @@ public class CardControlActivity extends BaseActivity implements View.OnClickLis
 
         }
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
@@ -52,6 +53,11 @@ public class CardControlActivity extends BaseActivity implements View.OnClickLis
         mLayoutHideCardActivity = (LinearLayout) findViewById(R.id.layout_hide_card_activity);
         mLayoutAddCardActivity = (LinearLayout) findViewById(R.id.layout_add_card_activity);
 
+        mLayoutHideCardActivity.setVisibility(View.GONE);
+        mLvCardMsg.setVisibility(View.VISIBLE);
+        //先拉取数据   ?userNo=2017081913230826210005
+        addParam("userNo", LogincAtivity.sTableUserNow.getUserNo());
+        execute();
 
 
     }
@@ -59,6 +65,7 @@ public class CardControlActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void initListener() {
         mBtAddCardActivity.setOnClickListener(this);
+        mLayoutAddCardActivity.setOnClickListener(this);
 
     }
 
@@ -69,9 +76,37 @@ public class CardControlActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.bt_add_card_activity:
-                mLayoutHideCardActivity.setVisibility(View.GONE);
-        }
+        Intent intent=new Intent(mBaseActivitySelf,BoundActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void initNetData() {
+
+    }
+
+    @Override
+    protected void initLocalData() {
+
+    }
+
+    @Override
+    protected void success(BankCardListItemEntity entity) {
+        Log.d("qq", "entity===========================:" + entity);
+        mResultCardList = entity.getResultObj();
+        mItemBindCardMsgAdapter = new ItemBindCardMsgAdapter(mBaseActivitySelf,entity.getResultObj());
+        mLvCardMsg.setAdapter(mItemBindCardMsgAdapter);
+
+    }
+
+
+    @Override
+    protected void failed(Throwable throwable) {
+        Log.d("qq", "throwable:" + throwable);
+    }
+
+    @Override
+    protected String gerUrl() {
+        return Constant.CARD_BIND_LIST;
     }
 }
