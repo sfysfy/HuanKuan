@@ -241,6 +241,7 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                 }
                 NetForBankCard n=new NetForBankCard();
                 n.yzBankCard(mBankCardNum);
+                System.out.println("mBankCardNum = " + mBankCardNum);
             }
         });
 

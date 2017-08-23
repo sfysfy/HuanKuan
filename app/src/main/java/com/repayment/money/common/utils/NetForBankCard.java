@@ -5,12 +5,8 @@ import android.util.Log;
 import com.example.mylibrary.net.NetForJson;
 import com.example.mylibrary.net.NetOverListener;
 import com.repayment.money.entity.BankCardEntity;
-import com.repayment.money.ui.activity.NewBillActivity;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by 11250 on 2017/8/19.
@@ -22,12 +18,9 @@ public class NetForBankCard {
     public  void yzBankCard(String card) {
 
         mNetForJson = new NetForJson("http://101.200.128.107:10028/repayment/bank/bankCardBin", new NetOverListener<BankCardEntity>() {
-
             @Override
             public void success(BankCardEntity bankCardEntity) {
-
-                Log.d("qq", "bankCardEntity:" + bankCardEntity);
-
+                Log.d("NetForBankCard", "bankCardEntity:" + bankCardEntity);
                 EventBus.getDefault().post(bankCardEntity.getResultObj().getCard_type());
             }
 
@@ -45,6 +38,9 @@ public class NetForBankCard {
 
             }
         });
+
+        mNetForJson.addParam("bankCard",card);
+        mNetForJson.execute();
     }
 
 
