@@ -279,7 +279,7 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                     SPUtils.getInstance(Constant.SP_USER_MSG).put("name",mName);
                     SPUtils.getInstance(Constant.SP_USER_MSG).put("idCard",mIdCard);
                 }else{
-                    Toast.makeText(mBaseActivitySelf, "此卡已经绑定", Toast.LENGTH_SHORT).show();
+
                 }
 
             }
@@ -315,18 +315,22 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
         //检卡成功
         System.out.println("entity = " + entity);
         Toast.makeText(mBaseActivitySelf, "提交信息成功", Toast.LENGTH_SHORT).show();
-        String resultObj = entity.getResultObj();
-
-        try {
-            JSONObject jsonObject=new JSONObject(resultObj);
+        if (entity.getCode()==1){
+            String resultObj = entity.getResultObj();
+            try {
+                JSONObject jsonObject=new JSONObject(resultObj);
 //            System.out.println("jsonObject = " + jsonObject);
-            mPayer.setCallbackHandler(mHandler, Constants.RQF_PAY);
-            mPayer.setTestMode(isTestServer);
-            mPayer.doTokenSign(jsonObject,mBaseActivitySelf);
+                mPayer.setCallbackHandler(mHandler, Constants.RQF_PAY);
+                mPayer.setTestMode(isTestServer);
+                mPayer.doTokenSign(jsonObject,mBaseActivitySelf);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }else {
+            Toast.makeText(mBaseActivitySelf, "该银行卡已经绑定了", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     @Override

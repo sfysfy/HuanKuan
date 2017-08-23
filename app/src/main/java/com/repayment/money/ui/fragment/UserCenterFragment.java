@@ -1,12 +1,13 @@
 package com.repayment.money.ui.fragment;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.mylibrary.base.BaseFragment;
 import com.repayment.money.R;
-import com.repayment.money.ui.dialog.ConfirmDialog;
+import com.repayment.money.ui.activity.CardControlActivity;
 
 public class UserCenterFragment extends BaseFragment {
     private LinearLayout mItemBankcardUserFragment;
@@ -37,17 +38,8 @@ public class UserCenterFragment extends BaseFragment {
         mItemBankcardUserFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mBaseActivitySelf, "我是银行卡管理", Toast.LENGTH_SHORT).show();
-                final ConfirmDialog c = new ConfirmDialog(mBaseActivitySelf,"现在就去","稍后再说");
-                c.setCancelable(false);
-                c.setBtConfirmClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(mBaseActivitySelf, "我要跳转", Toast.LENGTH_SHORT).show();
-                        c.cancel();
-                    }
-                });
-                c.show();
+                Intent intent=new Intent(mBaseActivitySelf,CardControlActivity.class);
+                startActivity(intent);
             }
         });
         mItemBillUserFragment.setOnClickListener(new View.OnClickListener() {

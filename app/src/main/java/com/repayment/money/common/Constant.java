@@ -23,6 +23,8 @@ public class Constant {
 //    http://101.200.128.107:10028/repayment/order/addOrder?userNo=2017081911412784240032&orderType=0&periodsType=M&periods=12&monthMoney=200&h
     public static final String BASE_URL_NEWBILL="http://101.200.128.107:10028/repayment/order/addOrder";
 
+    public static final String CARD_BIND_LIST="http://101.200.128.107:10028/repayment/bank/findBankList";
+
 
 
 

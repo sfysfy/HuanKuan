@@ -16,7 +16,7 @@ public class BankCardListItemEntity {
      */
 
     private int code;
-    private int timestamp;
+    private long timestamp;
     private String message;
     private List<ResultObjBean> resultObj;
 
@@ -28,11 +28,21 @@ public class BankCardListItemEntity {
         this.code = code;
     }
 
-    public int getTimestamp() {
+    @Override
+    public String toString() {
+        return "BankCardListItemEntity{" +
+                "code=" + code +
+                ", timestamp=" + timestamp +
+                ", message='" + message + '\'' +
+                ", resultObj=" + resultObj +
+                '}';
+    }
+
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(int timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -53,6 +63,18 @@ public class BankCardListItemEntity {
     }
 
     public static class ResultObjBean {
+        @Override
+        public String toString() {
+            return "ResultObjBean{" +
+                    "userNo='" + userNo + '\'' +
+                    ", bankCard='" + bankCard + '\'' +
+                    ", bankName='" + bankName + '\'' +
+                    ", mobile='" + mobile + '\'' +
+                    ", noAgree='" + noAgree + '\'' +
+                    ", cardType=" + cardType +
+                    '}';
+        }
+
         /**
          * userNo :
          * bankCard :

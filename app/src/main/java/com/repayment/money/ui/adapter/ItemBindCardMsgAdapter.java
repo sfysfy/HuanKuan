@@ -27,11 +27,13 @@ public class ItemBindCardMsgAdapter extends BaseAdapter {
         this.mContext = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.mEntities=entities;
+
     }
 
     @Override
     public int getCount() {
         return mEntities.size();
+        
     }
 
     @Override
@@ -46,6 +48,8 @@ public class ItemBindCardMsgAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        System.out.println("======================================================2");
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.item_bind_card_msg, parent,false);
             convertView.setTag(new ViewHolder(convertView));
@@ -55,6 +59,8 @@ public class ItemBindCardMsgAdapter extends BaseAdapter {
     }
 
     private void initializeViews(BankCardListItemEntity.ResultObjBean entity, ViewHolder holder,int position) {
+        holder.reaLayoutItemCard.setBackgroundResource(R.drawable.pink);
+        System.out.println("entity =--------+++++++ " + entity);
         //TODO implement
         holder.imgIconBankBind.setImageResource(IconUtil.getIcon(entity.getBankName()));
         holder.tvBankNameBing.setText(entity.getBankName());
@@ -65,7 +71,12 @@ public class ItemBindCardMsgAdapter extends BaseAdapter {
             cardType="信用卡";
         }
         holder.tvBankTypeBing.setText(cardType);
+        System.out.println("cardType = " + cardType);
         holder.mTvCardNumItem.setText(entity.getBankCard());
+    }
+
+    public void setEntities(List<BankCardListItemEntity.ResultObjBean> entities) {
+        mEntities = entities;
     }
 
     protected class ViewHolder {
