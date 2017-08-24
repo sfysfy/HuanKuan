@@ -67,11 +67,10 @@ public class ItemBillAdapter extends BaseAdapter {
     }
 
     private NetForJson mNetForCardListJson;
-    private BillListEntity.ResultObjBean mEntitie;
+    ;
     private ViewHolder mHolder;
 
     private void initializeViews(final BillListEntity.ResultObjBean entities, final ViewHolder holder) {
-        mEntitie=entities;
         mHolder=holder;
         //TODO implement
         holder.imgBankiconItem.setImageResource(R.drawable.zhonghang);
@@ -85,7 +84,7 @@ public class ItemBillAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 //这里判断是否有银行卡,如果没有,先添加银行卡
-                mNetForCardListJson = new NetForJson("http://101.200.128.107:10028/repayment/bank/findBankList", new NetForCardList());
+                mNetForCardListJson = new NetForJson("http://101.200.128.107:10028/repayment/bank/findBankList", new NetForCardList(entities));
                 mNetForCardListJson.addParam("userNo", Constant.getTableuser().getUserNo());
                 mNetForCardListJson.execute();
                 //------------------------------------------------
@@ -96,7 +95,6 @@ public class ItemBillAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 String orderNo = entities.getOrderNo();
-                Log.e("qq", "-我是订单号-----------------" + orderNo);
                 Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra("entity", entities);
                 context.startActivity(intent);
@@ -130,11 +128,14 @@ public class ItemBillAdapter extends BaseAdapter {
     }
 
     private class NetForCardList extends NetOverListener<BankCardListItemEntity> {
-
+       BillListEntity.ResultObjBean mEntity;
+        public NetForCardList( BillListEntity.ResultObjBean entity){
+            mEntity=entity;
+        }
         @Override
         public void success(BankCardListItemEntity bankCardListItemEntity) {
             if (bankCardListItemEntity.getResultObj() != null) {
-                RepayPopupWindow repayPopupWindow = new RepayPopupWindow((Activity) context, mEntitie);
+                RepayPopupWindow repayPopupWindow = new RepayPopupWindow((Activity) context, mEntity,bankCardListItemEntity);
                 repayPopupWindow.showPopupWindow(mHolder.mLayoutBillList);
             } else {
                 Toast.makeText(context, "请先添加银行卡", Toast.LENGTH_SHORT).show();

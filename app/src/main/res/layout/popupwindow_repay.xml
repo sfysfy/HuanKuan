@@ -144,7 +144,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
-            android:text="建设银行 (3443)"
             android:textColor="#2f2b08"
             android:textSize="15dp"/>
 
