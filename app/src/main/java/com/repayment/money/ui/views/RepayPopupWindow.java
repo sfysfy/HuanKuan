@@ -109,6 +109,7 @@ public class RepayPopupWindow extends PopupWindow {
         TextView daozhangBank = (TextView) conentView.findViewById(R.id.tv_daozhangBank_popw);
         TextView huankuanmoney = (TextView) conentView.findViewById(R.id.tv_repaymoney_popw);
         ImageView daozhangImag= (ImageView) conentView.findViewById(R.id.img_daozheng_popw);
+        ImageView fukuanImg = (ImageView) conentView.findViewById(R.id.img_fukuan_popw);
         daozhangImag.setImageResource(IconUtil.getIcon(mRepayPopwindowEntity.getBankName()));
         daozhangBank.setText(mRepayPopwindowEntity.getBankName());
         huankuanmoney.setText(mRepayPopwindowEntity.getMonthMoney()+"");
