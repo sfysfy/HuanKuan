@@ -2,20 +2,26 @@ package com.repayment.money.ui.activity;
 
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
-import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.mylibrary.base.BaseActivity;
+import com.example.mylibrary.base.BaseActivityWithNet;
 import com.repayment.money.R;
+import com.repayment.money.common.Constant;
+import com.repayment.money.entity.BillDetailEntity;
 
-public class DetailsActivity extends BaseActivity {
+public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
+    private TextView mTvMoneyActivityDetail;
+    private TextView mTvMoney2ActivityDetail;
+    private TextView mTvRepayDateActivityDetail;
+    private ImageView mImgIconActivityDetail;
+    private TextView mTvBankNameBankActivityDetail;
+    private TextView mTvMoneyDetailActivity;
+    private TextView mTvStateDetailActivity;
+    private TextView mTvTimeActivityDetail;
+
+
 
 
     @Override
@@ -24,8 +30,28 @@ public class DetailsActivity extends BaseActivity {
     }
 
     @Override
-    protected void initData() {
+    protected void initNetData() {
 
+    }
+
+    @Override
+    protected void initLocalData() {
+
+    }
+
+    @Override
+    protected void success(BillDetailEntity entity) {
+
+    }
+
+    @Override
+    protected void failed(Throwable throwable) {
+
+    }
+
+    @Override
+    protected String gerUrl() {
+        return Constant.BILL_DETAIL_URL;
     }
 
     @Override
@@ -43,6 +69,14 @@ public class DetailsActivity extends BaseActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
 
+        mTvMoneyActivityDetail = (TextView) findViewById(R.id.tv_money_activity_detail);
+        mTvMoney2ActivityDetail = (TextView) findViewById(R.id.tv_money2_activity_detail);
+        mTvRepayDateActivityDetail = (TextView) findViewById(R.id.tv_repay_date_activity_detail);
+        mImgIconActivityDetail = (ImageView) findViewById(R.id.img_icon_activity_detail);
+        mTvBankNameBankActivityDetail = (TextView) findViewById(R.id.tv_bank_name_bank_activity_detail);
+        mTvMoneyDetailActivity = (TextView) findViewById(R.id.tv_money_detail_activity);
+        mTvStateDetailActivity = (TextView) findViewById(R.id.tv_state_detail_activity);
+        mTvTimeActivityDetail = (TextView) findViewById(R.id.tv_time_activity_detail);
 
 
         setTitleLeft("", new View.OnClickListener() {
@@ -52,7 +86,13 @@ public class DetailsActivity extends BaseActivity {
             }
         });
         setTitleCenter("账单明细");
+        doGetDetial();
 
+    }
+
+    private void doGetDetial() {
+//        addParam("orderNo",);
+        execute();
     }
 
     @Override

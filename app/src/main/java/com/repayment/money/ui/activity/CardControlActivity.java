@@ -15,7 +15,6 @@ import com.repayment.money.common.Constant;
 import com.repayment.money.entity.BankCardListItemEntity;
 import com.repayment.money.ui.adapter.ItemBindCardMsgAdapter;
 
-
 import java.util.List;
 
 public class CardControlActivity extends BaseActivityWithNet<BankCardListItemEntity> implements View.OnClickListener {

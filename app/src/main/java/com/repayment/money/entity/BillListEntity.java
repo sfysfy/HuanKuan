@@ -12,7 +12,7 @@ public class BillListEntity {
      * code : 0
      * timestamp : 0
      * message :
-     * resultObj : [{"orderNo":"","userNo":"4","orderType":0,"periodsType":"","periods":0,"monthMoney":0,"bankCard":""}]
+     * resultObj : [{"orderType":false,"orderNo":"","bankCard":"","userNo":"","periods":0,"bankName":"","periodsType":"","latelyDate":"","monthMoney":0,"latelyDay":0}]
      */
 
     private int code;
@@ -32,7 +32,7 @@ public class BillListEntity {
         return timestamp;
     }
 
-    public void setTimestamp(int timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -54,38 +54,28 @@ public class BillListEntity {
 
     public static class ResultObjBean {
         /**
+         * orderType : false
          * orderNo :
-         * userNo : 4
-         * orderType : 0
-         * periodsType :
-         * periods : 0
-         * monthMoney : 0
          * bankCard :
+         * userNo :
+         * periods : 0
+         * bankName :
+         * periodsType :
+         * latelyDate :
+         * monthMoney : 0
+         * latelyDay : 0
          */
 
-        private String orderNo;
-        private String userNo;
         private int orderType;
-        private String periodsType;
-        private int periods;
-        private float monthMoney;
+        private String orderNo;
         private String bankCard;
-
-        public String getOrderNo() {
-            return orderNo;
-        }
-
-        public void setOrderNo(String orderNo) {
-            this.orderNo = orderNo;
-        }
-
-        public String getUserNo() {
-            return userNo;
-        }
-
-        public void setUserNo(String userNo) {
-            this.userNo = userNo;
-        }
+        private String userNo;
+        private int periods;
+        private String bankName;
+        private String periodsType;
+        private String latelyDate;
+        private float monthMoney;
+        private int latelyDay;
 
         public int getOrderType() {
             return orderType;
@@ -95,28 +85,12 @@ public class BillListEntity {
             this.orderType = orderType;
         }
 
-        public String getPeriodsType() {
-            return periodsType;
+        public String getOrderNo() {
+            return orderNo;
         }
 
-        public void setPeriodsType(String periodsType) {
-            this.periodsType = periodsType;
-        }
-
-        public int getPeriods() {
-            return periods;
-        }
-
-        public void setPeriods(int periods) {
-            this.periods = periods;
-        }
-
-        public float getMonthMoney() {
-            return monthMoney;
-        }
-
-        public void setMonthMoney(int monthMoney) {
-            this.monthMoney = monthMoney;
+        public void setOrderNo(String orderNo) {
+            this.orderNo = orderNo;
         }
 
         public String getBankCard() {
@@ -127,17 +101,60 @@ public class BillListEntity {
             this.bankCard = bankCard;
         }
 
-        @Override
-        public String toString() {
-            return "ResultObjBean{" +
-                    "orderNo='" + orderNo + '\'' +
-                    ", userNo='" + userNo + '\'' +
-                    ", orderType=" + orderType +
-                    ", periodsType='" + periodsType + '\'' +
-                    ", periods=" + periods +
-                    ", monthMoney=" + monthMoney +
-                    ", bankCard='" + bankCard + '\'' +
-                    '}';
+        public String getUserNo() {
+            return userNo;
+        }
+
+        public void setUserNo(String userNo) {
+            this.userNo = userNo;
+        }
+
+        public int getPeriods() {
+            return periods;
+        }
+
+        public void setPeriods(int periods) {
+            this.periods = periods;
+        }
+
+        public String getBankName() {
+            return bankName;
+        }
+
+        public void setBankName(String bankName) {
+            this.bankName = bankName;
+        }
+
+        public String getPeriodsType() {
+            return periodsType;
+        }
+
+        public void setPeriodsType(String periodsType) {
+            this.periodsType = periodsType;
+        }
+
+        public String getLatelyDate() {
+            return latelyDate;
+        }
+
+        public void setLatelyDate(String latelyDate) {
+            this.latelyDate = latelyDate;
+        }
+
+        public float getMonthMoney() {
+            return monthMoney;
+        }
+
+        public void setMonthMoney(int monthMoney) {
+            this.monthMoney = monthMoney;
+        }
+
+        public int getLatelyDay() {
+            return latelyDay;
+        }
+
+        public void setLatelyDay(int latelyDay) {
+            this.latelyDay = latelyDay;
         }
     }
 }
