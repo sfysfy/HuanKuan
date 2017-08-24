@@ -22,9 +22,9 @@
             android:layout_height="60dp"
             android:src="@drawable/touxiang"/>
         <TextView
+            android:id="@+id/tv_username_fragment"
             android:layout_gravity="center_vertical"
             android:textColor="#2f2d08"
-            android:text="15731660437"
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

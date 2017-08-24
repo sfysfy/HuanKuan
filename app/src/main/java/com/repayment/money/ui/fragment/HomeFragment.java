@@ -77,7 +77,6 @@ public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
 
     @Override
     protected void success(BillListEntity entity) {
-        Log.e("qq", "success: 我成功了----");
         if (entity.getResultObj()!=null){
             mLvMsgActivityHome.setVisibility(View.VISIBLE);
             mImgShoutu.setVisibility(View.GONE);
