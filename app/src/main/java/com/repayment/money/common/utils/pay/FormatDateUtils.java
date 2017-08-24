@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 public class FormatDateUtils {
     public static String formatDate(long time) {
+
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);

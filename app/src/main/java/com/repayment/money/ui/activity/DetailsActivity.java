@@ -1,15 +1,23 @@
 package com.repayment.money.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mylibrary.base.BaseActivityWithNet;
 import com.repayment.money.R;
 import com.repayment.money.common.Constant;
+import com.repayment.money.common.utils.BankNameUtil;
+import com.repayment.money.common.utils.IconUtil;
+import com.repayment.money.common.utils.UtilForItemBill;
+import com.repayment.money.common.utils.pay.FormatDateUtils;
 import com.repayment.money.entity.BillDetailEntity;
+import com.repayment.money.entity.BillListEntity;
 
 public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
     private TextView mTvMoneyActivityDetail;
@@ -20,8 +28,11 @@ public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
     private TextView mTvMoneyDetailActivity;
     private TextView mTvStateDetailActivity;
     private TextView mTvTimeActivityDetail;
-
-
+    private Intent mIntent;
+    private BillListEntity.ResultObjBean mEntitie;
+    private long mRepayMentTime;
+    private int mHkStatus;
+    private float mMonthMoney;
 
 
     @Override
@@ -36,17 +47,60 @@ public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
 
     @Override
     protected void initLocalData() {
+        mIntent = this.getIntent();
+        mEntitie = (BillListEntity.ResultObjBean) mIntent.getSerializableExtra("entity");
 
     }
 
     @Override
     protected void success(BillDetailEntity entity) {
+        Toast.makeText(mBaseActivitySelf, "成了", Toast.LENGTH_SHORT).show();
 
+        Log.d("DetailsActivity", "entity===++++++++++++++++++++++:" + entity);
+
+        mMonthMoney = entity.getResultObj().get(0).getMonthMoney();
+        mRepayMentTime = entity.getResultObj().get(0).getRepayMentTime();
+        mHkStatus = entity.getResultObj().get(0).getHkStatus();
+        doShowMsg();
+    }
+
+    private void doShowMsg() {
+        String moneyZSFormat = UtilForItemBill.moneyZSFormat(mEntitie.getMonthMoney());
+        String moneyXSFormat = UtilForItemBill.moneyXSFormat(mEntitie.getMonthMoney());
+        mTvMoneyActivityDetail.setText(moneyZSFormat);
+        mTvMoney2ActivityDetail.setText(moneyXSFormat);
+        mTvRepayDateActivityDetail.setText(mEntitie.getLatelyDate());
+        int icon = IconUtil.getIcon(mEntitie.getBankName());
+        mImgIconActivityDetail.setImageResource(icon);
+        String nameFormat = BankNameUtil.bankNameFormat(mEntitie.getBankName(), mEntitie.getBankCard());
+        mTvBankNameBankActivityDetail.setText(nameFormat);
+
+        mTvMoneyDetailActivity.setText(mMonthMoney + "");
+        String formatDate = FormatDateUtils.formatDate(mRepayMentTime);
+        mTvTimeActivityDetail.setText(formatDate);
+
+        String getStatue = doGetStatue(mHkStatus);
+        mTvStateDetailActivity.setText(getStatue);
+
+    }
+
+    private String doGetStatue(int hkStatus) {
+        if (hkStatus == 0) {
+            return "未还款";
+        }else if (hkStatus==1){
+            return "已还款";
+        }else if (hkStatus==3){
+            return "还款处理中";
+        }else if (hkStatus==4){
+            return "还款失败";
+        }
+        return "";
     }
 
     @Override
     protected void failed(Throwable throwable) {
-
+        Toast.makeText(mBaseActivitySelf, "失败了", Toast.LENGTH_SHORT).show();
+        Log.e("DetailsActivity", "throwable:=====================" + throwable);
     }
 
     @Override
@@ -66,7 +120,7 @@ public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
 
         mTvMoneyActivityDetail = (TextView) findViewById(R.id.tv_money_activity_detail);
@@ -86,12 +140,16 @@ public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
             }
         });
         setTitleCenter("账单明细");
-        doGetDetial();
+        if (mEntitie != null) {
+            doGetDetial();
+        }
+
 
     }
 
     private void doGetDetial() {
-//        addParam("orderNo",);
+        addParam("orderNo", mEntitie.getOrderNo());
+        System.out.println("mEntitie.getOrderNo() ===========_____++++ " + mEntitie.getOrderNo());
         execute();
     }
 
