@@ -70,11 +70,13 @@ public class BillDetailEntity {
         private String orderNo;
         private String userNo;
         private float monthMoney;
+
         private int stage;
         private long repayMentTime;
         private long realRepayMentTime;
         private int hkStatus;
         private float realPayMoney;
+
 
         public String getHkNo() {
             return hkNo;
@@ -101,6 +103,7 @@ public class BillDetailEntity {
         }
 
         public float getMonthMoney() {
+
             return monthMoney;
         }
 
@@ -141,6 +144,7 @@ public class BillDetailEntity {
         }
 
         public float getRealPayMoney() {
+
             return realPayMoney;
         }
 

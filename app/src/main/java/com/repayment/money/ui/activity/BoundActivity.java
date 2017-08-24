@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -176,9 +175,10 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
 
     @Subscribe()
       public void onEvent(String bankCardType){
-        System.out.println("bankCardType = " + bankCardType);
+        System.out.println("bankCardType ===================== " + bankCardType);
         mBankCardType=bankCardType;
         if (bankCardType != null) {
+            System.out.println(" =---------------------------------====== " );
            doCheckCard();
         }
 
@@ -230,27 +230,18 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
         mBtDoActivityBound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//          http://101.200.128.107:10028/repayment/bank/checkBankCard
-// mobile=17733478684&
-// bankCard=6228481006488020062&
-// bankName=%E4%B8%AD%E5%9B%BD%E5%86%9C%E4%B8%9A%E9%93%B6%E8%A1%8C&
-// idCard=130529199302101318
-// &userNo=2017081911412784810001&
-// channel=0&
-// name=%E9%A9%AC%E5%BD%A6%E8%99%8E
                 mBankCardNum = mEdtNumCardBoundActivity.getText().toString().trim();
                 mPhoneNum = mEdtNumPhoneBoundActivity.getText().toString().trim();
                 mIdCard=mEdtIdCardBoundActivity.getText().toString().trim();
                 mName=mEdtNameActivityBound.getText().toString().trim();
                 try {
                      mTableUser = LogincAtivity.mDbManager.selector(TableUser.class).where("phone", "=", mPhoneNum).findFirst();
-                    System.out.println("user ======== " + mPhoneNum);
                 } catch (DbException e) {
                     e.printStackTrace();
                 }
                 NetForBankCard n=new NetForBankCard();
                 n.yzBankCard(mBankCardNum);
-                Log.d("BoundActivity", "我执行了");
+                System.out.println("mBankCardNum = " + mBankCardNum);
             }
         });
 
@@ -278,6 +269,7 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                     //将当前账户的   用户姓名   和  身份证号码  存储
                     SPUtils.getInstance(Constant.SP_USER_MSG).put("name",mName);
                     SPUtils.getInstance(Constant.SP_USER_MSG).put("idCard",mIdCard);
+                    finish();
                 }else{
 
                 }
@@ -330,7 +322,6 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
         }else {
             Toast.makeText(mBaseActivitySelf, "该银行卡已经绑定了", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override

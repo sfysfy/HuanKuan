@@ -10,7 +10,7 @@ public class IconUtil {
             return R.drawable.nonghang;
         }
         if ("交通银行".equals(bangName)){
-            return R.mipmap.ic_launcher;
+            return R.drawable.jiaotong;
         }
         if ("中国工商银行".equals(bangName)){
             return R.drawable.gonghang;
@@ -29,7 +29,7 @@ public class IconUtil {
             return R.drawable.pufa;
         }
         if ("招商银行".equals(bangName)){
-            return R.mipmap.ic_launcher;
+            return R.drawable.zhaoshang;
         }
         if ("中国银行".equals(bangName)){
             return R.drawable.zhonghang;
@@ -41,7 +41,7 @@ public class IconUtil {
             return R.drawable.xingye;
         }
         if ("中信银行".equals(bangName)){
-            return R.mipmap.ic_launcher;
+            return R.drawable.zhongxin;
         }
 
 
@@ -50,19 +50,19 @@ public class IconUtil {
             return R.drawable.huaxia;
         }
         if ("杭州银行".equals(bangName)){
-            return R.mipmap.ic_launcher;
+            return R.drawable.hangzhou;
         }
         if ("北京银行".equals(bangName)){
-            return R.mipmap.ic_launcher;
+            return R.drawable.beijingyinhang;
         }
         if ("浙商银行".equals(bangName)){
-            return R.mipmap.ic_launcher;
+            return R.drawable.zheshang;
         }
         if ("上海银行".equals(bangName)){
             return R.drawable.shanghaiyinhang;
         }
         if ("宁波银行".equals(bangName)){
-            return R.mipmap.ic_launcher;
+            return R.drawable.ningbo;
         }
         return R.drawable.bankcard;
     }
