@@ -167,6 +167,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
                     Toast.makeText(mBaseActivitySelf, "输入的账号和密码位数不够,请检查", Toast.LENGTH_SHORT).show();
                 }
             }
+
         });
         //注册监听
         mTvRegActivityMain.setOnClickListener(new View.OnClickListener() {

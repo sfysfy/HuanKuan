@@ -89,6 +89,7 @@
         />
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:orientation="horizontal">
@@ -125,56 +126,65 @@
         android:layout_marginTop="10dp"
         android:background="#fff"
         android:orientation="vertical">
-        <LinearLayout
+        <RelativeLayout
+            android:padding="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="55dp"
+           >
+            <ImageView
+                android:id="@+id/img_detail_activity"
+                android:layout_marginLeft="25dp"
+                android:src="@drawable/confirmt"
+                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
             <TextView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/tv_money_detail_activity"
+                android:layout_toRightOf="@id/img_detail_activity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="14dp"
-                android:text="07月已还"
+                android:layout_centerVertical="true"
+                android:text="2000.00"
                 android:textColor="#2f2b08"
-                android:textSize="15dp"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-            />
+                android:textSize="16dp"/>
+
             <TextView
+                android:layout_marginBottom="3dp"
+                android:id="@+id/tv_state_detail_activity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="14dp"
-                android:text="20000.00元"
+                android:layout_toLeftOf="@+id/img_arraw_right_detail_activity"
+                android:text="还款成功"
+                android:textColor="#88e3f1"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:layout_marginTop="3dp"
+                android:layout_below="@+id/tv_state_detail_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/img_arraw_right_detail_activity"
+                android:text="2017-02-17 10:30"
                 android:textColor="#2f2b08"
-                android:textSize="15dp"/>
-        </LinearLayout>
-        <LinearLayout
+                android:textSize="13dp"/>
+
+            <ImageView
+                android:id="@+id/img_arraw_right_detail_activity"
+                android:layout_alignParentRight="true"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/arrowright999"/>
+        </RelativeLayout>
+
+        <View
+            android:background="#ccc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="14dp"
-                android:text="8月应还"
-                android:textColor="#2f2b08"
-                android:textSize="15dp"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-            />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="14dp"
-                android:text="20000.00元"
-                android:textColor="#2f2b08"
-                android:textSize="15dp"/>
-        </LinearLayout>
-
-
+            android:layout_height="1dp"/>
     </LinearLayout>
 
 
