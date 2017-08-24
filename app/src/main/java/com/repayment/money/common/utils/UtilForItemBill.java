@@ -23,10 +23,9 @@ public class UtilForItemBill {
     public static String moneyXSFormat(float money){
         String smoney=money+"";
         String[] split = smoney.split("\\.");
-        if (split[1]!="0") {
+        if (!split[1].equals("0")) {
             return split[1];
         }
-
         return "00";
     }
     public static String getBillType(int type){

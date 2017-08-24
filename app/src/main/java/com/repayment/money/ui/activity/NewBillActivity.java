@@ -22,10 +22,12 @@ import com.example.mylibrary.base.BaseActivityWithNet;
 import com.example.mylibrary.net.NetForJson;
 import com.example.mylibrary.net.NetOverListener;
 import com.repayment.money.R;
+import com.repayment.money.common.Constant;
 import com.repayment.money.common.utils.NetForBankCard;
 import com.repayment.money.db.TableUser;
 import com.repayment.money.entity.BankCardEntity;
 import com.repayment.money.entity.NewBillEntity;
+import com.repayment.money.ui.adapter.ItemBillAdapter;
 import com.repayment.money.ui.fragment.HomeFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -151,7 +153,7 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-    TableUser user = null;
+    TableUser user = Constant.getTableuser();
     String userNo;
     String orderType;
     String periodesType;
@@ -159,18 +161,20 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
     String monthMoney;
     String hkDay;
     String bankCard;
+    String bankName;
 
     @Override
     public void onClick(View view) {
-        initUser();
+
         if (user != null) {
-            userNo = user.getUserNo();
+            userNo = Constant.getTableuser().getUserNo();
             orderType = "0";//mSpTypeNewbill.getSelectedItem().toString();
             periodesType = "M";
             periodes = mEdtRepayNumber.getText().toString();
             monthMoney = mEdtRepayNewbill.getText().toString();
             hkDay = mSpDateNewbill.getSelectedItem().toString();
             bankCard = mEdtCardNewbill.getText().toString();
+            bankName = mEdtBankNewbill.getText().toString();
             //内容是否有空
             boolean isEmpty = !(orderType.isEmpty() || periodesType.isEmpty() || periodes.isEmpty() || monthMoney.isEmpty() || hkDay.isEmpty() || bankCard.isEmpty());
             if (isEmpty) {
@@ -199,32 +203,32 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
         mNetForBillJson.addParam("monthMoney", monthMoney);
         mNetForBillJson.addParam("hkDay", hkDay);
         mNetForBillJson.addParam("bankCard", bankCard);
-       mHandler.sendEmptyMessage(NET_BILL);
-    }
-
-    public void initUser() {
-        try {
-            user = LogincAtivity.mDbManager.selector(TableUser.class).where("phone", "=", "15731660437").findFirst();
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
+        mNetForBillJson.addParam("bankName", bankName);
     }
 
     private class NetForCard extends NetOverListener<BankCardEntity> {
 
         @Override
         public void success(BankCardEntity bankCardEntity) {
-            if (bankCardEntity.getCode()==1) {
-                for (int i = 0; i < bankBin.size(); i++) {
-                    if (bankBin.get(i).equals( bankCardEntity.getResultObj().getBank_code())) {
-                        mHandler.sendEmptyMessage(NET_BILL);
-                        return;
+            if (bankCardEntity.getResultObj().getBank_name().equals(bankName)) {
+                if (bankCardEntity.getCode()==1) {
+                    for (int i = 0; i < bankBin.size(); i++) {
+                        if (bankBin.get(i).equals( bankCardEntity.getResultObj().getBank_code())) {
+                            mHandler.sendEmptyMessage(NET_BILL);
+                            return;
+                        }
                     }
+                }else{
+                    Toast.makeText(mBaseActivitySelf, "不支持该银行卡", Toast.LENGTH_SHORT).show();
+
                 }
             }else{
-                Toast.makeText(mBaseActivitySelf, "不支持该银行卡", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(mBaseActivitySelf, "银行名称与银行卡号不符", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+
+
         }
 
         @Override
@@ -251,8 +255,8 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
             Log.d("qq", "entity:" + newBillEntity);
             if (newBillEntity.getCode() == 1) {
                 Toast.makeText(mBaseActivitySelf, "添加成功", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mBaseActivitySelf, MainActivity.class);
-                startActivity(intent);
+                NewBillActivity.this.finish();
+                EventBus.getDefault().post("刷新");
             } else {
                 Toast.makeText(mBaseActivitySelf, "添加失败,请检查输入信息", Toast.LENGTH_SHORT).show();
             }

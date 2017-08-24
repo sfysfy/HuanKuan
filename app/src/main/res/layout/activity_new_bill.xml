@@ -110,7 +110,7 @@
                 android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/biankuang"
-                android:inputType="number"
+                android:inputType="number|numberDecimal"
                 android:maxLength="19"
                 android:singleLine="true"
                 android:textSize="16sp"/>

@@ -38,6 +38,6 @@ public class Constant {
 
     public static final String CARD_BIND_LIST="http://101.200.128.107:10028/repayment/bank/findBankList";
 
-
+    public static String MRFKBankCard="";
 
 }

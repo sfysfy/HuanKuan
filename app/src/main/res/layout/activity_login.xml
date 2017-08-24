@@ -29,7 +29,7 @@
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:paddingTop="15dp"
-        >
+    >
 
         <ImageView
             android:layout_width="30dp"
@@ -37,7 +37,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
             android:src="@drawable/phone_num"
-            />
+        />
 
         <View
             android:layout_width="8dp"
@@ -48,7 +48,6 @@
         </View>
 
         <EditText
-            android:text="15731660437"
             android:id="@+id/edt_user_login_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -59,6 +58,7 @@
             android:inputType="number"
             android:maxLength="11"
             android:singleLine="true"
+            android:text="15731660437"
             android:textSize="14sp"/>
     </LinearLayout>
     <View

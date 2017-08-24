@@ -57,8 +57,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="14dp"
-            android:src="@drawable/jianhang"/>
+            android:layout_marginLeft="14dp"/>
 
         <TextView
             android:id="@+id/tv_daozhangBank_popw"
@@ -116,10 +115,10 @@
     />
     <LinearLayout
         android:id="@+id/layout_fukuancard"
-        android:focusable="true"
-        android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="46dp"
+        android:background="#fff"
+        android:focusable="true"
         android:orientation="horizontal">
 
         <TextView
@@ -151,11 +150,11 @@
 
 
         <ImageView
-            android:layout_marginRight="14dp"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
+            android:layout_marginRight="14dp"
             android:src="@drawable/arrowrightqian"/>
 
     </LinearLayout>

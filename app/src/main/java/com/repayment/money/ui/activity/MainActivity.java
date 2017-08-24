@@ -142,4 +142,6 @@ public class MainActivity extends BaseActivity {
     protected boolean isNotUseTitle() {
         return true;
     }
+
+
 }

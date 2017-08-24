@@ -18,6 +18,7 @@ import com.repayment.money.ui.adapter.ItemBindCardMsgAdapter;
 
 import java.util.List;
 
+
 public class CardControlActivity extends BaseActivityWithNet<BankCardListItemEntity> implements View.OnClickListener {
     private Button mBtAddCardActivity;
     private ListView mLvCardMsg;
@@ -94,9 +95,9 @@ public class CardControlActivity extends BaseActivityWithNet<BankCardListItemEnt
     protected void success(BankCardListItemEntity entity) {
         Log.d("qq", "entity===========================:" + entity);
         mResultCardList = entity.getResultObj();
-        mItemBindCardMsgAdapter = new ItemBindCardMsgAdapter(mBaseActivitySelf,entity.getResultObj());
+        Constant.MRFKBankCard=mResultCardList.get(0).getBankCard();
+                mItemBindCardMsgAdapter = new ItemBindCardMsgAdapter(mBaseActivitySelf,entity.getResultObj());
         mLvCardMsg.setAdapter(mItemBindCardMsgAdapter);
-
     }
 
 

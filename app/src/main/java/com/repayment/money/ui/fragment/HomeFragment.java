@@ -14,12 +14,15 @@ import android.widget.Toast;
 
 import com.example.mylibrary.base.BaseFragmentWithNet;
 import com.repayment.money.R;
+import com.repayment.money.common.Constant;
 import com.repayment.money.db.TableUser;
 import com.repayment.money.entity.BillListEntity;
 import com.repayment.money.ui.activity.LogincAtivity;
 import com.repayment.money.ui.activity.NewBillActivity;
 import com.repayment.money.ui.adapter.ItemBillAdapter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.xutils.ex.DbException;
 
 import java.util.List;
@@ -38,6 +41,12 @@ public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
     private TextView mTvShowActivityHome1;
     private TextView mTvShowActivityHome2;
 
+    @Subscribe
+    public void onEvent(String sx){
+        if ("刷新".equals(sx)) {
+            this.execute();
+        }
+    }
 
 
     @Override
@@ -47,13 +56,11 @@ public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
 
     @Override
     protected void initNetData() {
-        TableUser user= null;
-        try {
-            user = LogincAtivity.mDbManager.selector(TableUser.class).where("phone","=","15731660437").findFirst();
-            Log.e("qq", "initNetData: "+user );
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
+
+        EventBus.getDefault().register(this);
+
+        TableUser user=Constant.getTableuser();
+
         if (user!=null) {
             String userNo=user.getUserNo();
             addParam("userNo",userNo);
@@ -71,20 +78,19 @@ public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
     @Override
     protected void success(BillListEntity entity) {
         Log.e("qq", "success: 我成功了----");
-        mLvMsgActivityHome.setVisibility(View.VISIBLE);
-        mImgShoutu.setVisibility(View.GONE);
-        mTvShowActivityHome1.setVisibility(View.GONE);
-        mTvShowActivityHome2.setVisibility(View.GONE);
+        if (entity.getResultObj()!=null){
+            mLvMsgActivityHome.setVisibility(View.VISIBLE);
+            mImgShoutu.setVisibility(View.GONE);
+            mTvShowActivityHome1.setVisibility(View.GONE);
+            mTvShowActivityHome2.setVisibility(View.GONE);
 
-        if (entity.getResultObj().size()>0) {
-            mBtNewBillActivity.setVisibility(View.GONE);
-
+            if (entity.getResultObj().size()>0) {
+                mBtNewBillActivity.setVisibility(View.GONE);
+            }
+            mProductlist =  entity.getResultObj();
+            mItemBillAdapter = new ItemBillAdapter(mBaseActivitySelf,mProductlist);
+            mLvMsgActivityHome.setAdapter(mItemBillAdapter);
         }
-
-
-        mProductlist =  entity.getResultObj();
-        mItemBillAdapter = new ItemBillAdapter(mBaseActivitySelf,mProductlist);
-        mLvMsgActivityHome.setAdapter(mItemBillAdapter);
 
     }
 

@@ -96,9 +96,14 @@ public class ChangeCardPopupWindow extends PopupWindow {
 
         @Override
         public void success(BankCardListItemEntity bankCardListItemEntity) {
-            List<BankCardListItemEntity.ResultObjBean> resultObj = bankCardListItemEntity.getResultObj();
-            mItemCardAdapter = new PopupwindowSelectcardAdapter(context,resultObj);
-            bankList.setAdapter(mItemCardAdapter);
+            if (bankCardListItemEntity.getResultObj()!=null) {
+                List<BankCardListItemEntity.ResultObjBean> resultObj = bankCardListItemEntity.getResultObj();
+                mItemCardAdapter = new PopupwindowSelectcardAdapter(context,resultObj);
+                bankList.setAdapter(mItemCardAdapter);
+            }else{
+                Toast.makeText(context, "请先添加银行卡", Toast.LENGTH_SHORT).show();
+            }
+
         }
 
         @Override

@@ -3,6 +3,9 @@ package com.repayment.money.ui.views;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +14,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.mylibrary.net.NetForJson;
+import com.example.mylibrary.net.NetOverListener;
 import com.repayment.money.R;
-import com.repayment.money.entity.RepayPopwindowEntity;
+import com.repayment.money.common.Constant;
+import com.repayment.money.common.utils.IconUtil;
+import com.repayment.money.entity.BankCardListItemEntity;
+import com.repayment.money.entity.BillDetailEntity;
+import com.repayment.money.entity.BillListEntity;
+import com.repayment.money.entity.RepayEntity;
+import com.repayment.money.ui.dialog.HintDiglog;
 
-import static com.repayment.money.R.id.layout_billList;
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * Created by 11250 on 2017/8/22.
@@ -24,11 +36,44 @@ import static com.repayment.money.R.id.layout_billList;
 public class RepayPopupWindow extends PopupWindow {
     private View conentView;
     private Activity context;
+    private BillListEntity.ResultObjBean mResultObjBean;
+    private NetForJson mNetForHKJson;
+    private NetForJson mNetForKKJson;
+    private NetForJson mNetForCardJson;
+    public void setBillListEntity_R(BillListEntity.ResultObjBean resultObjBean){
+        mResultObjBean=resultObjBean;
+    }
 
 
-    private RepayPopwindowEntity mRepayPopwindowEntity;
+    public static final int NET_HK= 1101;
+    public static final int NET_KK = 120;
+    public static final int NET_Card = 130;
 
-    public RepayPopupWindow(final Activity context,RepayPopwindowEntity repayPopwindowEntity){
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            switch (msg.what) {
+                case NET_Card:
+                    mNetForCardJson.execute();
+                    break;
+                case NET_HK:
+                    mNetForHKJson.execute();
+                    break;
+                case NET_KK:
+                    mNetForKKJson.execute();
+                    break;
+            }
+        }
+    };
+
+
+
+
+    private BillListEntity.ResultObjBean mRepayPopwindowEntity;
+
+    public RepayPopupWindow(final Activity context,BillListEntity.ResultObjBean repayPopwindowEntity){
         super(context);
         this.context=context;
         mRepayPopwindowEntity=repayPopwindowEntity;
@@ -39,7 +84,6 @@ public class RepayPopupWindow extends PopupWindow {
         //使用View来引入布局
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         conentView = inflater.inflate(R.layout.popupwindow_repay, null);
-
         //获取popupwindow的高度与宽度
         int height = context.getWindowManager().getDefaultDisplay().getHeight();
         int width = context.getWindowManager().getDefaultDisplay().getWidth();
@@ -65,19 +109,21 @@ public class RepayPopupWindow extends PopupWindow {
         TextView daozhangBank = (TextView) conentView.findViewById(R.id.tv_daozhangBank_popw);
         TextView huankuanmoney = (TextView) conentView.findViewById(R.id.tv_repaymoney_popw);
         ImageView daozhangImag= (ImageView) conentView.findViewById(R.id.img_daozheng_popw);
+        daozhangImag.setImageResource(IconUtil.getIcon(mRepayPopwindowEntity.getBankName()));
         daozhangBank.setText(mRepayPopwindowEntity.getBankName());
-        huankuanmoney.setText(mRepayPopwindowEntity.getMoneyNum());
-
+        huankuanmoney.setText(mRepayPopwindowEntity.getMonthMoney()+"");
         bt_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                RepayPopupWindow.this.dismiss();
             }
         });
         bt_truepay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+
+//                doCard();
             }
         });
         fkcard.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +132,28 @@ public class RepayPopupWindow extends PopupWindow {
                 new ChangeCardPopupWindow((Activity) context).showPopupWindow(context.findViewById(R.id.layout_billList));
             }
         });
+    }
+
+    private void doCard() {
+        mNetForCardJson=new NetForJson("http://101.200.128.107:10028/repayment/bank/findBankList", new NetForCardList());
+        mNetForCardJson.addParam("userNo",Constant.getTableuser().getUserNo());
+        mHandler.sendEmptyMessage(NET_Card);
+    }
+
+    private void doKK(String hkNo,String bankCard) {
+//        http://101.200.128.107:10028/repayment/huankuan/recoup?hkNo=2017082316215306610002&bankCard=6217855000001243443
+        mNetForKKJson=new NetForJson("http://101.200.128.107:10028/repayment/huankuan/recoup", new NetForKK());
+        mNetForKKJson.addParam("hkNo",hkNo);
+        mNetForKKJson.addParam("bankCard",bankCard);
+        mHandler.sendEmptyMessage(NET_KK);
+    }
+
+    public void doHK(){
+        mNetForHKJson=new NetForJson("http://101.200.128.107:10028/repayment/order/findHuankuan",new NetForhk());
+        Log.e("qq", "mNetForHKJson-------------->"+mNetForHKJson );
+        Log.e("qq", "mResultObjBean.getOrderNo()-------------->"+mResultObjBean.getOrderNo() );
+        mNetForHKJson.addParam("orderNo",mResultObjBean.getOrderNo());
+       mHandler.sendEmptyMessage(NET_HK);
     }
     public void showPopupWindow(View parent){
         if (parent.getVisibility()== View.GONE) {
@@ -98,4 +166,96 @@ public class RepayPopupWindow extends PopupWindow {
     }
 
 
+
+
+    private String fkbandcard;
+    private class NetForhk extends NetOverListener<BillDetailEntity> {
+
+        @Override
+        public void success(BillDetailEntity billDetailEntity) {
+            String hkNo = billDetailEntity.getResultObj().get(0).getHkNo();
+            for (BillDetailEntity.ResultObjBean resultObjBean : billDetailEntity.getResultObj()) {
+                if (resultObjBean.getHkStatus()==0) {
+                    hkNo=resultObjBean.getHkNo();
+                    break;
+                }
+            }
+            doKK(hkNo,fkbandcard);
+            Log.e("qq", "hkNo-----NetForhk================================================"+hkNo);
+            Log.e("qq", "fkbandcard-----NetForhk================================================"+fkbandcard);
+        }
+
+        @Override
+        public void failed(Throwable throwable) {
+            Toast.makeText(context, "HK网络访问失败", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onFinish() {
+
+        }
+    }
+
+    private class NetForKK extends NetOverListener<RepayEntity>{
+
+        @Override
+        public void success(RepayEntity repayEntity) {
+//            Toast.makeText(context, "支付请求已发送", Toast.LENGTH_SHORT).show();
+            final HintDiglog hintDiglog = new HintDiglog(context);
+            hintDiglog.show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    hintDiglog.dismiss();
+                    RepayPopupWindow.this.dismiss();
+                }
+            },3000);
+        }
+
+        @Override
+        public void failed(Throwable throwable) {
+            Toast.makeText(context, "KK网络访问失败", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onFinish() {
+
+        }
+    }
+    private class NetForCardList extends NetOverListener<BankCardListItemEntity>{
+
+        @Override
+        public void success(BankCardListItemEntity bankCardListItemEntity) {
+            Log.d(TAG, "银行卡获取成功");
+            doHK();
+
+            fkbandcard=bankCardListItemEntity.getResultObj().get(0).getBankCard();
+
+        }
+
+        @Override
+        public void failed(Throwable throwable) {
+
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onFinish() {
+
+        }
+    }
 }
