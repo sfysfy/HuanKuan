@@ -32,6 +32,8 @@ public class MainActivity extends BaseActivity {
     private Button mBtTitleRightMain;
     private long mTimeFirstBack=0;
 
+    private BaseFragment mBaseFragmentNow;
+
     private HomeFragment mHomeFragment=new HomeFragment();
     private UserCenterFragment mUserCenterFragment=new UserCenterFragment();
     private BaseFragment[] mFragments={mHomeFragment,mUserCenterFragment};
@@ -44,7 +46,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        mBaseFragmentNow=mHomeFragment;
     }
 
     @Override
@@ -93,6 +95,7 @@ public class MainActivity extends BaseActivity {
                 mImgUserActivityMain.setImageResource(R.drawable.usercenterw);
                 mTvUserActivityMain.setTextColor(Color.rgb(255,255,255));
                 mTvTitleCenterMain.setText("还款王");
+                mBaseFragmentNow=mHomeFragment;
                 mBtTitleRightMain.setVisibility(View.VISIBLE);
 
 
@@ -107,6 +110,7 @@ public class MainActivity extends BaseActivity {
                 mImgUserActivityMain.setImageResource(R.drawable.usercentery);
                 mTvUserActivityMain.setTextColor(Color.rgb(253,206,0));
                 mTvTitleCenterMain.setText("个人中心");
+                mBaseFragmentNow=mUserCenterFragment;
                 mBtTitleRightMain.setVisibility(View.GONE);
 
             }
@@ -124,6 +128,7 @@ public class MainActivity extends BaseActivity {
 
 
     private void changeFrag(BaseFragment baseFragmentNow) {
+
 
         for (BaseFragment fragment : mFragments) {
             if (fragment!=baseFragmentNow) {
@@ -145,18 +150,22 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-
+            if (mBaseFragmentNow!=mHomeFragment){
+                changeFrag(mHomeFragment);
+              //  return;
+            }
 
         long timeTwoBack= System.currentTimeMillis();
         if ((timeTwoBack-mTimeFirstBack)>2000){
-            //如果第二次和第一次点击back的时间差<2s  则退出
-
-            Toast.makeText(mBaseActivitySelf, "再点击一次可推出", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mBaseActivitySelf, "再点击一次可退出程序", Toast.LENGTH_SHORT).show();
         }else {
             super.onBackPressed();
         }
-        //此次点击的结束时间是下一次的上一次
         mTimeFirstBack=timeTwoBack;
+
+
+
+
 
     }
 

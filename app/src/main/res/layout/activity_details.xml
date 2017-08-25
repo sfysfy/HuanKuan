@@ -33,7 +33,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="33dp"
                 android:layout_gravity="center"
-                android:text="2000"
                 android:textColor="#f66"
                 android:textSize="30dp"/>
 
@@ -49,7 +48,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text="00"
                 android:textColor="#f66"
                 android:textSize="20dp"/>
         </LinearLayout>
@@ -70,7 +68,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="15"
                 android:textColor="#666"
                 android:textSize="15dp"/>
                <TextView
@@ -103,7 +100,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="14dp"
-                android:src="@drawable/jianhang"/>
+                />
 
             <TextView
                 android:id="@+id/tv_bank_name_bank_activity_detail"
@@ -112,7 +109,6 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="中国建设银行  (6060)"
                 android:textColor="#2f2b08" android:textSize="15dp"/>
             <ImageView
                 android:layout_width="20dp"
@@ -132,22 +128,22 @@
         <RelativeLayout
             android:padding="5dp"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="match_parent"
            >
             <ImageView
                 android:id="@+id/img_detail_activity"
-                android:layout_marginLeft="22dp"
-                android:src="@drawable/confirmt"
+                android:src="@drawable/bankcard"
                 android:layout_gravity="center"
                 android:layout_centerVertical="true"
                 android:layout_width="20dp"
                 android:layout_marginRight="3dp"
-                android:layout_height="20dp"/>
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
             <TextView
                 android:id="@+id/tv_money_detail_activity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2000.00"
                 android:textColor="#2f2b08"
                 android:textSize="16dp"
                 android:layout_centerVertical="true"
@@ -160,7 +156,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/img_arraw_right_detail_activity"
-                android:text="还款成功"
                 android:textColor="#88e3f1"
                 android:textSize="16dp"/>
 
@@ -171,7 +166,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/img_arraw_right_detail_activity"
-                android:text="2017-02-17 10:30"
                 android:textColor="#2f2b08"
                 android:textSize="13dp"/>
 

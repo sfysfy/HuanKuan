@@ -5,9 +5,9 @@ import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.mylibrary.base.BaseActivity;
-import com.example.mylibrary.control.ActivityControl;
 import com.repayment.money.R;
 
 public class SettingActivity extends BaseActivity{
@@ -46,12 +46,16 @@ public class SettingActivity extends BaseActivity{
         mLayoutRegSetActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent=new Intent(mBaseActivitySelf,LogincAtivity.class);
+                /*Intent intent=new Intent(mBaseActivitySelf,LogincAtivity.class);
                 startActivity(intent);
                 ActivityControl.killAll();
+                mBaseActivitySelf.finish();*/
+
+                Intent intent = new Intent(mBaseActivitySelf, LogincAtivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                Toast.makeText(mBaseActivitySelf, "执行了finifish", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 }

@@ -264,7 +264,7 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                     EventBus.getDefault().post(isOk);
                     finish();
                 }else{
-
+                    Toast.makeText(mBaseActivitySelf, "此卡已经绑定了", Toast.LENGTH_SHORT).show();
                 }
 
             }
