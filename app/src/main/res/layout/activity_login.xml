@@ -32,7 +32,6 @@
             android:layout_height="50dp"
             android:padding="5dp" android:src="@drawable/phone_num"/>
         <EditText
-            android:text="15731660437"
             android:id="@+id/edt_user_login_activity"
             android:layout_width="match_parent"
             android:layout_height="51dp"
@@ -65,7 +64,6 @@
             android:padding="5dp"
             android:src="@drawable/pwd"/>
         <EditText
-            android:text="123456"
             android:inputType="textPassword"
             android:id="@+id/edt_pwd_login_activity"
             android:layout_width="match_parent"
