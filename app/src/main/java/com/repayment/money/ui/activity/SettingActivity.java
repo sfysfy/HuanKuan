@@ -1,15 +1,19 @@
 package com.repayment.money.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.example.mylibrary.base.BaseActivity;
+import com.example.mylibrary.control.ActivityControl;
 import com.repayment.money.R;
 
 public class SettingActivity extends BaseActivity{
+    private LinearLayout mLayoutRegSetActivity;
+
+
     @Override
     protected int addRootView() {
         return R.layout.activity_setting;
@@ -33,11 +37,21 @@ public class SettingActivity extends BaseActivity{
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
         setTitleCenter("设置");
+        mLayoutRegSetActivity = (LinearLayout) findViewById(R.id.layout_reg_set_activity);
+
     }
 
     @Override
     protected void initListener() {
+        mLayoutRegSetActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent=new Intent(mBaseActivitySelf,LogincAtivity.class);
+                startActivity(intent);
+                ActivityControl.killAll();
+            }
+        });
     }
 
 }

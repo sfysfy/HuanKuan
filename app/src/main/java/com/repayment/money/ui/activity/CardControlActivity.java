@@ -15,7 +15,12 @@ import com.repayment.money.common.Constant;
 import com.repayment.money.entity.BankCardListItemEntity;
 import com.repayment.money.ui.adapter.ItemBindCardMsgAdapter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.List;
+
+import static org.greenrobot.eventbus.ThreadMode.MAIN;
 
 
 public class CardControlActivity extends BaseActivityWithNet<BankCardListItemEntity> implements View.OnClickListener {
@@ -82,6 +87,7 @@ public class CardControlActivity extends BaseActivityWithNet<BankCardListItemEnt
 
     @Override
     protected void initNetData() {
+        EventBus.getDefault().register(this);
 
     }
 
@@ -95,9 +101,16 @@ public class CardControlActivity extends BaseActivityWithNet<BankCardListItemEnt
         Log.d("qq", "entity===========================:" + entity);
         mResultCardList = entity.getResultObj();
         Constant.MRFKBankCard=mResultCardList.get(0).getBankCard();
-                mItemBindCardMsgAdapter = new ItemBindCardMsgAdapter(mBaseActivitySelf,entity.getResultObj());
+        mItemBindCardMsgAdapter = new ItemBindCardMsgAdapter(mBaseActivitySelf,entity.getResultObj());
         mLvCardMsg.setAdapter(mItemBindCardMsgAdapter);
     }
+
+    @Subscribe(threadMode=MAIN)
+      public void onEvent(Boolean isOK){
+          if (isOK){
+              this.execute();
+          }
+      }
 
 
     @Override

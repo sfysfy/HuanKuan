@@ -65,9 +65,7 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
     private NetForJson mNetForJson2;
     private String mBankCardType; //2   储蓄卡    3,信用卡
 
-    boolean isDoPostCardBind=false;
-
-
+    private boolean  isOk=false;
 
 
     public ArrayAdapter<String> getAdapter() {
@@ -85,20 +83,15 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                     case Constants.RQF_SIGN:
                     {
                         JSONObject objContent = BaseHelper.string2JSON(strRet);
-                        System.out.println("strRet = " + strRet);
+                        System.out.println("strRet = ===================++++" + strRet);
                         String retCode = objContent.optString("ret_code");
                         String retMsg = objContent.optString("ret_msg");
-
                         // 成功
                         if (Constants.RET_CODE_SUCCESS.equals(retCode)) {
-
-                            BaseHelper.showDialog(BoundActivity.this, "提示",
-                                    "支付成功，交易状态码：" + retCode+" 返回报文:"+strRet,
-                                    android.R.drawable.ic_dialog_alert);
                             String[] split = strRet.split(",");
                             String[] split1 = split[split.length - 1].split(":");
                              mNo_agree = split1[1].substring(1, split1[1].length() - 2);
-                            System.out.println("no_agree = " + mNo_agree);
+                            System.out.println("no_agree ============= " + mNo_agree);
                             //http://101.200.128.107:10028/repayment/bank/bindBankCard?
                             // mobile=15731660437&
                             // bankCard=6217855000001243443&
@@ -119,7 +112,6 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                                mNetForJson1.addParam("name",mName);
                                mNetForJson1.addParam("cardType",2);
                                mNetForJson1.execute();
-                               Toast.makeText(mBaseActivitySelf, "值执行完了啊啊啊", Toast.LENGTH_SHORT).show();
                         }  else {
                             // TODO 失败
                             BaseHelper.showDialog(BoundActivity.this, "错误提示", retMsg
@@ -204,7 +196,6 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
         mBankName.add("中国邮政储蓄银行");
         mBankName.add("上海浦发银行");
         mBankName.add("平安银行");
-
         mBankName.add("广东发展银行");
         mBankName.add("招商银行");
         mBankName.add("中国银行");
@@ -269,6 +260,8 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                     //将当前账户的   用户姓名   和  身份证号码  存储
                     SPUtils.getInstance(Constant.SP_USER_MSG).put("name",mName);
                     SPUtils.getInstance(Constant.SP_USER_MSG).put("idCard",mIdCard);
+                    isOk=true;
+                    EventBus.getDefault().post(isOk);
                     finish();
                 }else{
 
@@ -320,7 +313,7 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                 e.printStackTrace();
             }
         }else {
-            Toast.makeText(mBaseActivitySelf, "该银行卡已经绑定了", Toast.LENGTH_SHORT).show();
+
         }
     }
 

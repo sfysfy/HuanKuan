@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mylibrary.base.BaseActivity;
 import com.example.mylibrary.base.BaseFragment;
@@ -29,9 +30,7 @@ public class MainActivity extends BaseActivity {
     private LinearLayout mTabUsercenterActivityMain;
     private TextView mTvTitleCenterMain;
     private Button mBtTitleRightMain;
-
-
-
+    private long mTimeFirstBack=0;
 
     private HomeFragment mHomeFragment=new HomeFragment();
     private UserCenterFragment mUserCenterFragment=new UserCenterFragment();
@@ -96,6 +95,7 @@ public class MainActivity extends BaseActivity {
                 mTvTitleCenterMain.setText("还款王");
                 mBtTitleRightMain.setVisibility(View.VISIBLE);
 
+
             }
         });
         mTabUsercenterActivityMain.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +141,23 @@ public class MainActivity extends BaseActivity {
     @Override
     protected boolean isNotUseTitle() {
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+
+        long timeTwoBack= System.currentTimeMillis();
+        if ((timeTwoBack-mTimeFirstBack)>2000){
+            //如果第二次和第一次点击back的时间差<2s  则退出
+
+            Toast.makeText(mBaseActivitySelf, "再点击一次可推出", Toast.LENGTH_SHORT).show();
+        }else {
+            super.onBackPressed();
+        }
+        //此次点击的结束时间是下一次的上一次
+        mTimeFirstBack=timeTwoBack;
+
     }
 
 

@@ -3,7 +3,6 @@ package com.repayment.money.ui.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,10 +53,6 @@ public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
 
     @Override
     protected void success(BillDetailEntity entity) {
-        Toast.makeText(mBaseActivitySelf, "成了", Toast.LENGTH_SHORT).show();
-
-        Log.d("DetailsActivity", "entity===++++++++++++++++++++++:" + entity);
-
         mMonthMoney = entity.getResultObj().get(0).getMonthMoney();
         mRepayMentTime = entity.getResultObj().get(0).getRepayMentTime();
         mHkStatus = entity.getResultObj().get(0).getHkStatus();
@@ -99,8 +94,7 @@ public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
 
     @Override
     protected void failed(Throwable throwable) {
-        Toast.makeText(mBaseActivitySelf, "失败了", Toast.LENGTH_SHORT).show();
-        Log.e("DetailsActivity", "throwable:=====================" + throwable);
+        Toast.makeText(mBaseActivitySelf, "网络或者网络异常,拉取信息失败", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -111,9 +105,6 @@ public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
     @Override
     protected void initView() {
         if (Build.VERSION.SDK_INT >= 21) {
-//            int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-////                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             getWindow().setNavigationBarColor(getResources().getColor(R.color.statusBarColor));
             getWindow().setStatusBarColor(Color.TRANSPARENT);
 
@@ -136,7 +127,7 @@ public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
         setTitleLeft("", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                finish();
             }
         });
         setTitleCenter("账单明细");
