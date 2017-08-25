@@ -12,11 +12,14 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +44,10 @@ import java.util.List;
 import static com.repayment.money.common.Constant.BASE_URL_NEWBILL;
 
 public class NewBillActivity extends BaseActivity implements View.OnClickListener {
+    private Spinner mSpTypeNewbill;
+    private Spinner mSpDateNewbill;
+    private ArrayAdapter mSpAdapter;
+
 
     private EditText mEdtRepayNumber;
     private EditText mEdtRepayNewbill;
@@ -54,10 +61,7 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
 
     private List<String> mRepayType = new ArrayList<>();
     private List<String> mRepayDate = new ArrayList<>();
-    private LinearLayout mLvTypeNewbill;
-    private EditText mEdtTypeNewbill;
-    private LinearLayout mLvDateNewbill;
-    private EditText mEdtDateNewbill;
+
 
 
 
@@ -120,11 +124,9 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         }
+        mSpTypeNewbill = (Spinner) findViewById(R.id.sp_type_newbill);
+        mSpDateNewbill = (Spinner) findViewById(R.id.sp_date_newbill);
 
-        mLvTypeNewbill = (LinearLayout) findViewById(R.id.lv_type_newbill);
-        mEdtTypeNewbill = (EditText) findViewById(R.id.edt_type_newbill);
-        mLvDateNewbill = (LinearLayout) findViewById(R.id.lv_date_newbill);
-        mEdtDateNewbill = (EditText) findViewById(R.id.edt_date_newbill);
 
         mEdtRepayNumber = (EditText) findViewById(R.id.edt_repay_number);
         mEdtRepayNewbill = (EditText) findViewById(R.id.edt_repay_newbill);
@@ -141,6 +143,17 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
         mRepayType.add("现金贷");
         mRepayType.add("花呗");
         mRepayType.add("京东白条");
+
+        mSpAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mRepayType);
+        mSpAdapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
+        mSpTypeNewbill.setAdapter((SpinnerAdapter) mSpAdapter);
+        for (int i = 0; i < 31; i++) {
+            mRepayDate.add(i + 1 + "");
+        }
+        mSpAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mRepayDate);
+        mSpAdapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
+        mSpDateNewbill.setAdapter((SpinnerAdapter) mSpAdapter);
+
 
         mNetForCardListJson=new NetForJson("http://101.200.128.107:10028/repayment/bank/findBankList",new NetForCardlist());
         mNetForCardListJson.addParam("userNo", Constant.getTableuser().getUserNo());
@@ -170,20 +183,7 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
               }
           }
       });
-        mLvTypeNewbill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
-        mLvDateNewbill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("qq", "点到我 了吗a");
-                DatePopupwindow datePopupwindow = new DatePopupwindow(mBaseActivitySelf);
-
-            }
-        });
     }
 
     TableUser user = Constant.getTableuser();
@@ -205,7 +205,7 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
             periodesType = "M";
             periodes = mEdtRepayNumber.getText().toString();
             monthMoney = mEdtRepayNewbill.getText().toString();
-            hkDay = mEdtDateNewbill.getText().toString();
+            hkDay = mSpDateNewbill.getSelectedItem().toString();
             bankCard = mEdtCardNewbill.getText().toString();
             bankName=mEdtBankNewbill.getText().toString();
             Log.e("qq", "bankName"+bankName );

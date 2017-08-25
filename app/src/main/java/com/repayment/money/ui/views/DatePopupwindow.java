@@ -36,7 +36,7 @@ public class DatePopupwindow extends PopupWindow {
         //使用View来引入布局
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         conentView = inflater.inflate(R.layout.item_repaydatelist, null);
-        mDates= (ListView) conentView.findViewById(R.id.lv_date_newbill);
+//        mDates= (ListView) conentView.findViewById(R.id.lv_date_newbill);
         //获取popupwindow的高度与宽度
         int height = context.getWindowManager().getDefaultDisplay().getHeight();
         int width = context.getWindowManager().getDefaultDisplay().getWidth();
