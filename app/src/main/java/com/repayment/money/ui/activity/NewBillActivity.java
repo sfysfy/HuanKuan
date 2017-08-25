@@ -1,48 +1,54 @@
 package com.repayment.money.ui.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mylibrary.base.BaseActivity;
-import com.example.mylibrary.base.BaseActivityWithNet;
 import com.example.mylibrary.net.NetForJson;
 import com.example.mylibrary.net.NetOverListener;
 import com.repayment.money.R;
 import com.repayment.money.common.Constant;
-import com.repayment.money.common.utils.NetForBankCard;
+import com.repayment.money.common.utils.BankNameUtil;
+import com.repayment.money.common.utils.IconUtil;
 import com.repayment.money.db.TableUser;
 import com.repayment.money.entity.BankCardEntity;
+import com.repayment.money.entity.BankCardListItemEntity;
 import com.repayment.money.entity.NewBillEntity;
-import com.repayment.money.ui.adapter.ItemBillAdapter;
-import com.repayment.money.ui.fragment.HomeFragment;
+import com.repayment.money.ui.views.DatePopupwindow;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.repayment.money.common.Constant.BASE_URL_NEWBILL;
-import static org.greenrobot.eventbus.ThreadMode.MAIN;
 
 public class NewBillActivity extends BaseActivity implements View.OnClickListener {
     private Spinner mSpTypeNewbill;
     private Spinner mSpDateNewbill;
+    private ArrayAdapter mSpAdapter;
+
+
     private EditText mEdtRepayNumber;
     private EditText mEdtRepayNewbill;
     private EditText mEdtBankNewbill;
@@ -52,15 +58,20 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
     private ImageView mImgMoreNewbill;
     private Button mBtAddNewbill;
     private LinearLayout mXzNewbankBill;
-    private ArrayAdapter mSpAdapter;
+
     private List<String> mRepayType = new ArrayList<>();
     private List<String> mRepayDate = new ArrayList<>();
 
+
+
+
     private NetForJson mNetForCardJson;
     private NetForJson mNetForBillJson;
+    private NetForJson mNetForCardListJson;
 
-    public static final int NET_CARD = 110;
+    public static final int NET_CARD = 1112;
     public static final int NET_BILL = 120;
+    public static final int NET_LISTCARD = 130;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -68,6 +79,9 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
             super.handleMessage(msg);
 
             switch (msg.what) {
+                case NET_LISTCARD:
+                    mNetForCardListJson.execute();
+                    break;
                 case NET_CARD:
                     mNetForCardJson.execute();
                     break;
@@ -110,9 +124,10 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         }
-
         mSpTypeNewbill = (Spinner) findViewById(R.id.sp_type_newbill);
         mSpDateNewbill = (Spinner) findViewById(R.id.sp_date_newbill);
+
+
         mEdtRepayNumber = (EditText) findViewById(R.id.edt_repay_number);
         mEdtRepayNewbill = (EditText) findViewById(R.id.edt_repay_newbill);
         mEdtBankNewbill = (EditText) findViewById(R.id.edt_bank_newbill);
@@ -128,6 +143,7 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
         mRepayType.add("现金贷");
         mRepayType.add("花呗");
         mRepayType.add("京东白条");
+
         mSpAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mRepayType);
         mSpAdapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
         mSpTypeNewbill.setAdapter((SpinnerAdapter) mSpAdapter);
@@ -137,6 +153,12 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
         mSpAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mRepayDate);
         mSpAdapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item);
         mSpDateNewbill.setAdapter((SpinnerAdapter) mSpAdapter);
+
+
+        mNetForCardListJson=new NetForJson("http://101.200.128.107:10028/repayment/bank/findBankList",new NetForCardlist());
+        mNetForCardListJson.addParam("userNo", Constant.getTableuser().getUserNo());
+        mHandler.sendEmptyMessage(NET_LISTCARD);
+
 
     }
 
@@ -150,8 +172,19 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
                 startActivity(intent);
             }
         });
-    }
+      mEdtBankNewbill.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              boolean empty = mEdtCardNewbill.getText().toString().isEmpty();
+              if (!mEdtCardNewbill.getText().toString().isEmpty()) {
+                  doNetCard();
+              }else{
+                  Toast.makeText(mBaseActivitySelf, "请先输入银行卡号", Toast.LENGTH_SHORT).show();
+              }
+          }
+      });
 
+    }
 
     TableUser user = Constant.getTableuser();
     String userNo;
@@ -168,17 +201,18 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
 
         if (user != null) {
             userNo = Constant.getTableuser().getUserNo();
-            orderType = "0";//mSpTypeNewbill.getSelectedItem().toString();
+            orderType = "0";//---->暂时只有房贷
             periodesType = "M";
             periodes = mEdtRepayNumber.getText().toString();
             monthMoney = mEdtRepayNewbill.getText().toString();
             hkDay = mSpDateNewbill.getSelectedItem().toString();
             bankCard = mEdtCardNewbill.getText().toString();
-            bankName = mEdtBankNewbill.getText().toString();
+            bankName=mEdtBankNewbill.getText().toString();
+            Log.e("qq", "bankName"+bankName );
             //内容是否有空
-            boolean isEmpty = !(orderType.isEmpty() || periodesType.isEmpty() || periodes.isEmpty() || monthMoney.isEmpty() || hkDay.isEmpty() || bankCard.isEmpty());
+            boolean isEmpty = !(orderType.isEmpty() || periodesType.isEmpty() || periodes.isEmpty() || monthMoney.isEmpty() || hkDay.isEmpty() || bankCard.isEmpty()||bankName.isEmpty());
             if (isEmpty) {
-                doNetCard();
+//                doNetCard();
                 doNetBill();
             } else {
                 Toast.makeText(mBaseActivitySelf, "内容不可为空", Toast.LENGTH_SHORT).show();
@@ -190,6 +224,8 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
 
     public void doNetCard() {
         mNetForCardJson = new NetForJson("http://101.200.128.107:10028/repayment/bank/bankCardBin", new NetForCard());
+        bankCard=mEdtCardNewbill.getText().toString();
+        Log.d("qq", "----------------------------------------------------------"+bankCard);
         mNetForCardJson.addParam("bankCard", bankCard);
         mHandler.sendEmptyMessage(NET_CARD);
     }
@@ -204,30 +240,27 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
         mNetForBillJson.addParam("hkDay", hkDay);
         mNetForBillJson.addParam("bankCard", bankCard);
         mNetForBillJson.addParam("bankName", bankName);
+        mHandler.sendEmptyMessage(NET_BILL);
     }
 
     private class NetForCard extends NetOverListener<BankCardEntity> {
 
         @Override
         public void success(BankCardEntity bankCardEntity) {
-            if (bankCardEntity.getResultObj().getBank_name().equals(bankName)) {
-                if (bankCardEntity.getCode()==1) {
-                    for (int i = 0; i < bankBin.size(); i++) {
-                        if (bankBin.get(i).equals( bankCardEntity.getResultObj().getBank_code())) {
-                            mHandler.sendEmptyMessage(NET_BILL);
-                            return;
-                        }
+            Log.e("qq", "success: "+bankCardEntity );
+            if (bankCardEntity.getCode() == 1) {
+                for (int i = 0; i < bankBin.size(); i++) {
+                    if (bankBin.get(i).equals(bankCardEntity.getResultObj().getBank_code())) {
+                        bankCard=bankCardEntity.getResultObj().getBank_name();
+                        mEdtBankNewbill.setText(bankCard);
+                        return;
                     }
-                }else{
-                    Toast.makeText(mBaseActivitySelf, "不支持该银行卡", Toast.LENGTH_SHORT).show();
-
                 }
-            }else{
-                Toast.makeText(mBaseActivitySelf, "银行名称与银行卡号不符", Toast.LENGTH_SHORT).show();
-                return;
+            } else {
+                Toast.makeText(mBaseActivitySelf, "不支持该银行卡", Toast.LENGTH_SHORT).show();
+                mEdtBankNewbill.setText("");
+
             }
-
-
 
         }
 
@@ -247,12 +280,36 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
+    private class NetForCardlist extends NetOverListener<BankCardListItemEntity>{
+
+        @Override
+        public void success(BankCardListItemEntity bankCardListItemEntity) {
+            String bankName = bankCardListItemEntity.getResultObj().get(0).getBankName();
+            String bankCard = bankCardListItemEntity.getResultObj().get(0).getBankCard();
+            mTvBankinfoNewbill.setText(BankNameUtil.bankNameFormat(bankName,bankCard));
+            mImgAddNewbill.setImageResource(IconUtil.getIcon(bankName));
+        }
+
+        @Override
+        public void failed(Throwable throwable) {
+
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onFinish() {
+
+        }
+    }
+
     private class NetForNewBill extends NetOverListener<NewBillEntity> {
 
         @Override
         public void success(NewBillEntity newBillEntity) {
-            Log.d("qq", "NewBill成功了");
-            Log.d("qq", "entity:" + newBillEntity);
             if (newBillEntity.getCode() == 1) {
                 Toast.makeText(mBaseActivitySelf, "添加成功", Toast.LENGTH_SHORT).show();
                 NewBillActivity.this.finish();
@@ -277,6 +334,7 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
 
         }
     }
+
     private List<String> bankBin = new ArrayList<String>() {
         {
             add("01020000");
@@ -465,5 +523,6 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
             add("65675060");
         }
     };
+
 
 }

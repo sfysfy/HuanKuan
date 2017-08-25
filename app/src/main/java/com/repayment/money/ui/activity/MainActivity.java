@@ -3,6 +3,7 @@ package com.repayment.money.ui.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -39,6 +40,7 @@ public class MainActivity extends BaseActivity {
     private BaseFragment[] mFragments={mHomeFragment,mUserCenterFragment};
 
 
+    private  String Tag;
     @Override
     protected int addRootView() {
         return R.layout.activity_main;
@@ -89,6 +91,7 @@ public class MainActivity extends BaseActivity {
         mTabBillActivityMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Tag="bill";
                 changeFrag(mHomeFragment);
                 mImgBillActivityMain.setImageResource(R.drawable.billy);
                 mTvBillActivityMain.setTextColor(Color.rgb(253,206,0));
@@ -104,6 +107,7 @@ public class MainActivity extends BaseActivity {
         mTabUsercenterActivityMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Tag="user";
                 changeFrag(mUserCenterFragment);
                 mImgBillActivityMain.setImageResource(R.drawable.billw);
                 mTvBillActivityMain.setTextColor(Color.rgb(255,255,255));
@@ -150,6 +154,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+
             if (mBaseFragmentNow!=mHomeFragment){
                 changeFrag(mHomeFragment);
               //  return;
@@ -162,12 +167,6 @@ public class MainActivity extends BaseActivity {
             super.onBackPressed();
         }
         mTimeFirstBack=timeTwoBack;
-
-
-
-
-
+        
     }
-
-
 }

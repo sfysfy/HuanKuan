@@ -128,7 +128,7 @@ public class RepayPopupWindow extends PopupWindow {
         fkcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ChangeCardPopupWindow((Activity) context).showPopupWindow(context.findViewById(R.id.layout_billList));
+                new ChangeCardPopupWindow((Activity) context  ).showPopupWindow(context.findViewById(R.id.layout_billList));
             }
         });
     }
@@ -204,13 +204,14 @@ public class RepayPopupWindow extends PopupWindow {
         @Override
         public void success(RepayEntity repayEntity) {
 //            Toast.makeText(context, "支付请求已发送", Toast.LENGTH_SHORT).show();
+
+            RepayPopupWindow.this.dismiss();
             final HintDiglog hintDiglog = new HintDiglog(context);
             hintDiglog.show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     hintDiglog.dismiss();
-                    RepayPopupWindow.this.dismiss();
                 }
             }, 3000);
         }

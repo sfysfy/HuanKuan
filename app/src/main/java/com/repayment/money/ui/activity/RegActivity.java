@@ -47,7 +47,7 @@ public class RegActivity extends BaseActivityWithNet<RegEntity> implements View.
     private static final int CODE_ERROR=130;//验证动作失败
     private static final int COUNT_DONW=140;//倒数计时
     private static final int COUNT_DONW_OVER=150;//计时结束
-    private static final int COUNT_DONW_TIME=5;//倒计时总时间
+    private static final int COUNT_DONW_TIME=60;//倒计时总时间
     private static final int COUNT_DONW_TIMEOUT=1;//超时
 
     private static boolean isRegSuccess=false;
@@ -106,10 +106,23 @@ public class RegActivity extends BaseActivityWithNet<RegEntity> implements View.
     @Override
     protected void success(RegEntity entity) {
         mEntity = entity;
-        Toast.makeText(mBaseActivitySelf, "注册成功", Toast.LENGTH_SHORT).show();
-        Log.d("RegActivity", "entity:" + entity);
-        Intent intent=new Intent(mBaseActivitySelf,LogincAtivity.class);
-        startActivity(intent);
+        if (entity.getMessage().equals("该用户已注册")) {
+            Toast.makeText(mBaseActivitySelf, "该用户已注册请直接登录", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(mBaseActivitySelf,LogincAtivity.class);
+            startActivity(intent);
+            finish();
+        }else if( entity.getMessage().equals("注册失败")){
+            Toast.makeText(mBaseActivitySelf, "验证码输入错误", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(mBaseActivitySelf, "注册成功", Toast.LENGTH_SHORT).show();
+            Log.d("RegActivity", "entity:" + entity);
+            Intent intent=new Intent(mBaseActivitySelf,LogincAtivity.class);
+            intent.putExtra("username",mEdtRegnameReg.getText().toString());
+            intent.putExtra("userpwd",mEdtRegpwdReg.getText().toString());
+            startActivity(intent);
+        }
+
+
     }
 
     @Override

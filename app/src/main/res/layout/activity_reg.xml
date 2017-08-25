@@ -35,7 +35,7 @@
             android:layout_height="51dp"
             android:layout_gravity="center_horizontal"
             android:background="@null"
-            android:hint="请输入用户名"
+            android:hint="请输入您的手机号"
             android:textColor="#2f2b08"
             android:textColorHint="#666"/>
     </LinearLayout>
@@ -90,6 +90,7 @@
             android:padding="5dp"
             android:src="@drawable/pwd"/>
         <EditText
+            android:maxLength="16"
             android:id="@+id/edt_regpwd_reg"
             android:layout_width="match_parent"
             android:layout_height="51dp"

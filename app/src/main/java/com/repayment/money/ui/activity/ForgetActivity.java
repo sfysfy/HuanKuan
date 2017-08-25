@@ -41,7 +41,7 @@ public class ForgetActivity extends BaseActivityWithNet<ForgetEntity> implements
     private static final int CODE_ERROR = 130;//验证动作失败
     private static final int COUNT_DONW = 140;//倒数计时
     private static final int COUNT_DONW_OVER = 150;//计时结束
-    private static final int COUNT_DONW_TIME = 5;//倒计时总时间
+    private static final int COUNT_DONW_TIME = 60;//倒计时总时间
     private static final int COUNT_DONW_TIMEOUT = 1;//超时
 
     private static boolean isRegSuccess = false;
@@ -112,9 +112,18 @@ public class ForgetActivity extends BaseActivityWithNet<ForgetEntity> implements
         Log.e("qq", "success: 网络访问成功");
 //        Toast.makeText(mBaseActivitySelf, "entity:" + entity, Toast.LENGTH_SHORT).show();
         if (entity.getCode()==1) {
+            Toast.makeText(mBaseActivitySelf, "修改成功,请直接登录", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(mBaseActivitySelf,LogincAtivity.class);
+            intent.putExtra("username",mEdtFornameForget.getText().toString());
+            startActivity(intent);
             finish();
+        }else if ("密码重置失败".equals(entity.getMessage())){
+            Toast.makeText(mBaseActivitySelf, "没有该账号,请去注册", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(mBaseActivitySelf,LogincAtivity.class);
+            intent.putExtra("username",mEdtFornameForget.getText().toString());
+            startActivity(intent);
         }else{
-            Toast.makeText(mBaseActivitySelf, "修改失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mBaseActivitySelf, "验证码错误", Toast.LENGTH_SHORT).show();
         }
     }
 

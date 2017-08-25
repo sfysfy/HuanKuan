@@ -22,6 +22,7 @@ import com.example.mylibrary.net.NetOverListener;
 import com.repayment.money.R;
 import com.repayment.money.common.Constant;
 import com.repayment.money.common.utils.BankNameUtil;
+import com.repayment.money.common.utils.IconUtil;
 import com.repayment.money.common.utils.UtilForItemBill;
 import com.repayment.money.entity.BankCardListItemEntity;
 import com.repayment.money.entity.BillListEntity;
@@ -73,13 +74,16 @@ public class ItemBillAdapter extends BaseAdapter {
     private void initializeViews(final BillListEntity.ResultObjBean entities, final ViewHolder holder) {
         mHolder=holder;
         //TODO implement
-        holder.imgBankiconItem.setImageResource(R.drawable.zhonghang);
+        holder.imgBankiconItem.setImageResource(IconUtil.getIcon(entities.getBankName()));
         holder.tvBankinfoItem.setText(BankNameUtil.bankNameFormat(entities.getBankName(), entities.getBankCard()));
         holder.tvBilltypeItem.setText(UtilForItemBill.getBillType(entities.getOrderType()));
         holder.tvMoneyzItem.setText(UtilForItemBill.moneyZSFormat(entities.getMonthMoney()));
         holder.tvMoneyxItem.setText(UtilForItemBill.moneyXSFormat(entities.getMonthMoney()));
         holder.tvDayItem.setText(entities.getLatelyDay() + "");
         holder.tvBilldayItem.setText(entities.getLatelyDate());
+
+
+
         holder.btRepayItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
