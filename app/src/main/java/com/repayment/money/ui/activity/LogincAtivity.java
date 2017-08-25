@@ -56,7 +56,6 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
 
     @Override
     protected void initLocalData() {
-
         DbManager.DaoConfig daoConfig=new DbManager.DaoConfig()
                 .setDbName("HKW")
                 .setDbVersion(1);
@@ -148,6 +147,8 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
         mBtLoginLoginActivity = (Button) findViewById(R.id.bt_login_login_activity);
         mTvRegActivityMain = (TextView) findViewById(R.id.tv_reg_activity_main);
         mTvWjActivityMain = (TextView) findViewById(R.id.tv_wj_activity_main);
+        String username = getIntent().getStringExtra("username");
+        mEdtUserLoginActivity.setText(username);
     }
 
     @Override

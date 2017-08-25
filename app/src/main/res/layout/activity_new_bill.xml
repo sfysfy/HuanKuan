@@ -24,11 +24,9 @@
             android:textSize="15dp"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="2dp"
             android:layout_alignBottom="@+id/tv_zhandan"
-            android:background="#dbdbdb"
-        />
-
+            android:background="#dbdbdb"/>
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,37 +34,74 @@
             android:columnCount="2"
             android:rowCount="7">
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginBottom="12dp"
                 android:layout_marginLeft="14dp"
                 android:text="贷款类型:"
                 android:textColor="#2f2b08"/>
-            <Spinner
-                android:id="@+id/sp_type_newbill"
-                android:layout_width="167dp"
-                android:layout_height="wrap_content"
+
+            <LinearLayout
+                android:id="@+id/lv_type_newbill"
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:background="@drawable/edt_popup"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
             >
-            </Spinner>
+                <EditText
+                    android:id="@+id/edt_type_newbill"
+                    android:layout_width="162dp"
+                    android:layout_height="27dp"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textSize="16sp"/>
+                <ImageView
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:background="#dbdbdb"
+                    android:src="@drawable/arrowup"/>
+
+            </LinearLayout>
+
+
             <TextView
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginBottom="12dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="12dp"
                 android:text="每期还款日:"
                 android:textColor="#2f2b08"/>
             <LinearLayout
+                android:background="@drawable/edt_popup"
+                android:id="@+id/lv_date_newbill"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="27dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
             >
-                <Spinner
-                    android:id="@+id/sp_date_newbill"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content">
-                </Spinner>
+                <EditText
+                    android:id="@+id/edt_date_newbill"
+                    android:layout_width="42dp"
+                    android:layout_height="27dp"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:inputType="number"
+                    android:singleLine="true" android:textSize="16sp"/>
+                <ImageView
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:background="#dbdbdb"
+                    android:src="@drawable/arrowup"/>
+
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
@@ -114,21 +149,7 @@
                 android:maxLength="19"
                 android:singleLine="true"
                 android:textSize="16sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="14dp"
-                android:text="收款银行:"
-                android:textColor="#2f2b08"/>
-            <EditText
-                android:id="@+id/edt_bank_newbill"
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/biankuang"
-                android:maxLength="19"
-                android:singleLine="true"
-                android:textSize="16sp"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -144,9 +165,31 @@
                 android:maxLength="19"
                 android:singleLine="true"
                 android:textSize="16sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="14dp"
+                android:text="收款银行:"
+                android:textColor="#2f2b08"/>
+            <EditText
+                android:id="@+id/edt_bank_newbill"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/biankuang"
+                android:focusable="false"
+                android:maxLength="19"
+                android:singleLine="true"
+                android:textSize="16sp"/>
 
 
         </GridLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@+id/tv_zhandan"
+            android:background="#dbdbdb"
+        />
 
 
     </LinearLayout>
@@ -181,7 +224,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="14dp"
-                android:src="@drawable/jianhang"/>
+                android:src="@drawable/bankcard"/>
 
             <TextView
                 android:id="@+id/tv_bankinfo_newbill"
@@ -205,12 +248,12 @@
     </LinearLayout>
 
     <Button
-        android:background="@drawable/bt_reg"
         android:id="@+id/bt_add_newbill"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginTop="30dp"
+        android:background="@drawable/bt_reg"
         android:text="确认添加"/>
 </LinearLayout>

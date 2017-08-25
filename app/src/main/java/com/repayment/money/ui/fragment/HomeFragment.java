@@ -56,9 +56,7 @@ public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
 
     @Override
     protected void initNetData() {
-
         EventBus.getDefault().register(this);
-
         TableUser user=Constant.getTableuser();
 
         if (user!=null) {
@@ -111,7 +109,7 @@ public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
         mTvShowActivityHome1 = (TextView) findViewById(R.id.tv_show_activity_home1);
         mTvShowActivityHome2 = (TextView) findViewById(R.id.tv_show_activity_home2);
         mBtNewBillActivity = (LinearLayout) findViewById(R.id.bt_new_bill_activity);
-
+        Log.d("qq", "--------------------------------------"+Constant.getTableuser().getUserNo());
     }
 
     @Override
@@ -120,6 +118,7 @@ public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(mBaseActivitySelf, NewBillActivity.class);
+
                 startActivity(intent);
             }
         });

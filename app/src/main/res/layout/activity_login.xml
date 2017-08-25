@@ -4,134 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f6f6f6"
     android:orientation="vertical"
-    android:background="#fff"
     tools:context="com.repayment.money.ui.activity.LogincAtivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginTop="30dp"
-        android:background="#fff">
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="47dp"
+        android:background="#f6f6f6">
         <ImageView
-            android:layout_centerInParent="true"
             android:layout_width="114dp"
             android:layout_height="114dp"
+            android:layout_centerInParent="true"
             android:layout_marginLeft="48dp"
             android:layout_marginStart="48dp"
             android:src="@drawable/icon_hkw"/>
     </RelativeLayout>
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:paddingTop="15dp"
-    >
-
+        android:layout_width="250dp"
+        android:layout_height="51dp"
+        android:layout_gravity="center_horizontal">
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="30dp"
-            android:src="@drawable/phone_num"
-        />
-
-        <View
-            android:layout_width="8dp"
-            android:layout_height="16dp"
-            android:layout_gravity="center_vertical"
-            android:background="#fff">
-
-        </View>
-
+            android:id="@+id/imageView"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:padding="5dp" android:src="@drawable/phone_num"/>
         <EditText
+            android:text="15731660437"
             android:id="@+id/edt_user_login_activity"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="30dp"
+            android:layout_height="51dp"
+            android:layout_gravity="center_horizontal"
             android:background="@null"
-            android:gravity="center_vertical"
-            android:hint="请输入手机号"
+            android:hint="请输入用户名"
             android:inputType="number"
-            android:maxLength="11"
-            android:singleLine="true"
-            android:text="15731660437"
-            android:textSize="14sp"/>
+            android:textColor="#2f2b08"
+            android:textColorHint="#cccccc"/>
     </LinearLayout>
+
+
     <View
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#666"
         android:layout_gravity="center_vertical"
-        >
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:background="#cccccc"
+    >
     </View>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:paddingTop="15dp"
-        >
-
+        android:layout_width="250dp"
+        android:layout_height="51dp"
+        android:layout_gravity="center_horizontal">
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="30dp"
-            android:src="@drawable/phone_num"
-            />
-
-        <View
-            android:layout_width="8dp"
-            android:layout_height="16dp"
-            android:layout_gravity="center_vertical"
-            android:background="#fff">
-
-        </View>
-
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:padding="5dp"
+            android:src="@drawable/pwd"/>
         <EditText
             android:text="123456"
+            android:inputType="textPassword"
             android:id="@+id/edt_pwd_login_activity"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="30dp"
+            android:layout_height="51dp"
+            android:layout_gravity="center_horizontal"
             android:background="@null"
-            android:gravity="center_vertical"
             android:hint="请输入6-16位密码"
-            android:inputType="textPassword"
             android:maxLength="16"
-            android:singleLine="true"
-            android:textSize="14sp"/>
+            android:textColor="#2f2b08"
+            android:textColorHint="#cccccc"/>
     </LinearLayout>
 
-
     <View
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#666"
         android:layout_gravity="center_vertical"
-        >
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:background="#cccccc"
+    >
     </View>
 
     <Button
         android:id="@+id/bt_login_login_activity"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="255dp"
+        android:layout_height="39dp"
         android:layout_below="@+id/edt_code_login_activity"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/shape"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/bt_reg"
         android:text="登      录"
         android:textSize="20dp"
         android:textStyle="bold"/>
@@ -139,8 +105,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#fff"
+        android:layout_marginTop="16dp"
+        android:background="#f6f6f6"
         android:orientation="horizontal">
 
         <TextView
@@ -149,7 +115,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="60dp"
             android:layout_weight="1"
-            android:background="#fff"
             android:clickable="true"
             android:text="注册"
             android:textColor="#fead00"/>
@@ -160,7 +125,6 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="-50dp"
             android:layout_weight="1"
-            android:background="#fff"
             android:clickable="true"
             android:text="忘记密码?"
             android:textColor="#fead00"/>
