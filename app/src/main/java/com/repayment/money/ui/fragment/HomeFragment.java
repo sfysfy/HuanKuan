@@ -2,10 +2,7 @@ package com.repayment.money.ui.fragment;
 
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -17,18 +14,13 @@ import com.repayment.money.R;
 import com.repayment.money.common.Constant;
 import com.repayment.money.db.TableUser;
 import com.repayment.money.entity.BillListEntity;
-import com.repayment.money.ui.activity.LogincAtivity;
 import com.repayment.money.ui.activity.NewBillActivity;
 import com.repayment.money.ui.adapter.ItemBillAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.xutils.ex.DbException;
 
 import java.util.List;
-
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
-import static com.yintong.secure.e.m.i.G;
 
 public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
     private List<BillListEntity.ResultObjBean> mProductlist;
@@ -132,4 +124,5 @@ public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
     protected boolean isNotUseTitle() {
         return true;
     }
+
 }

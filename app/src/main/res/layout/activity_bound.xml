@@ -32,7 +32,6 @@
         <EditText
             android:id="@+id/edt_name_activity_bound"
             android:padding="10dp"
-            android:cursorVisible="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -67,11 +66,10 @@
         <EditText
             android:id="@+id/edt_id_card_bound_activity"
             android:padding="10dp"
+            android:background="@null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:background="@null"
-            android:cursorVisible="false"
             android:hint="请输入身份证号"
             android:maxLength="18"
             android:textSize="14sp"
@@ -100,12 +98,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
+
         <EditText
             android:id="@+id/edt_num_card_bound_activity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:cursorVisible="false"
             android:gravity="center_horizontal"
             android:hint="请输入银行卡号"
             android:inputType="number"
@@ -179,7 +177,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:cursorVisible="false"
             android:gravity="center_horizontal"
             android:hint="请输入预留手机号"
             android:inputType="number"

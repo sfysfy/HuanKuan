@@ -132,6 +132,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
     @Override
     protected void failed(Throwable throwable) {
         Toast.makeText(mBaseActivitySelf, "连接服务器异常", Toast.LENGTH_SHORT).show();
+        System.out.println("throwable ===================++++++++++++++++++ " + throwable);
 
     }
 

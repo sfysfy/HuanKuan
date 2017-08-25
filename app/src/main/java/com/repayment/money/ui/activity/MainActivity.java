@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mylibrary.base.BaseActivity;
 import com.example.mylibrary.base.BaseFragment;
@@ -30,9 +31,9 @@ public class MainActivity extends BaseActivity {
     private LinearLayout mTabUsercenterActivityMain;
     private TextView mTvTitleCenterMain;
     private Button mBtTitleRightMain;
+    private long mTimeFirstBack=0;
 
-
-
+    private BaseFragment mBaseFragmentNow;
 
     private HomeFragment mHomeFragment=new HomeFragment();
     private UserCenterFragment mUserCenterFragment=new UserCenterFragment();
@@ -47,7 +48,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        mBaseFragmentNow=mHomeFragment;
     }
 
     @Override
@@ -97,7 +98,9 @@ public class MainActivity extends BaseActivity {
                 mImgUserActivityMain.setImageResource(R.drawable.usercenterw);
                 mTvUserActivityMain.setTextColor(Color.rgb(255,255,255));
                 mTvTitleCenterMain.setText("还款王");
+                mBaseFragmentNow=mHomeFragment;
                 mBtTitleRightMain.setVisibility(View.VISIBLE);
+
 
             }
         });
@@ -111,6 +114,7 @@ public class MainActivity extends BaseActivity {
                 mImgUserActivityMain.setImageResource(R.drawable.usercentery);
                 mTvUserActivityMain.setTextColor(Color.rgb(253,206,0));
                 mTvTitleCenterMain.setText("个人中心");
+                mBaseFragmentNow=mUserCenterFragment;
                 mBtTitleRightMain.setVisibility(View.GONE);
 
             }
@@ -128,6 +132,7 @@ public class MainActivity extends BaseActivity {
 
 
     private void changeFrag(BaseFragment baseFragmentNow) {
+
 
         for (BaseFragment fragment : mFragments) {
             if (fragment!=baseFragmentNow) {
@@ -149,19 +154,19 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if ("bill".equals(Tag)){
+
+            if (mBaseFragmentNow!=mHomeFragment){
+                changeFrag(mHomeFragment);
+              //  return;
+            }
+
+        long timeTwoBack= System.currentTimeMillis();
+        if ((timeTwoBack-mTimeFirstBack)>2000){
+            Toast.makeText(mBaseActivitySelf, "再点击一次可退出程序", Toast.LENGTH_SHORT).show();
+        }else {
             super.onBackPressed();
-        }else{
-            Tag="bill";
-            changeFrag(mHomeFragment);
-            mImgBillActivityMain.setImageResource(R.drawable.billy);
-            mTvBillActivityMain.setTextColor(Color.rgb(253,206,0));
-            mImgUserActivityMain.setImageResource(R.drawable.usercenterw);
-            mTvUserActivityMain.setTextColor(Color.rgb(255,255,255));
-            mTvTitleCenterMain.setText("还款王");
-            mBtTitleRightMain.setVisibility(View.VISIBLE);
         }
-
-
+        mTimeFirstBack=timeTwoBack;
+        
     }
 }

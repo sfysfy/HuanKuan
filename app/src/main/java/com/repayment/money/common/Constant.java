@@ -9,7 +9,7 @@ public class Constant {
 
     public static final String BASE_URL="http://101.200.128.107:10028/repayment/user/";
 
-    public static final String LOGIN_URL="http://101.200.128.107:10028/repayment/user/"+"login";
+    public static final String LOGIN_URL="http://101.200.128.107:10028/repayment/user/login";
 
     public static final String SP_USER_MSG="USER";
 
