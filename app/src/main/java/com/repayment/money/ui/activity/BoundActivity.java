@@ -82,7 +82,13 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                     case Constants.RQF_PAY:
                     case Constants.RQF_SIGN:
                     {
+                        String ret_msg=null;
                         JSONObject objContent = BaseHelper.string2JSON(strRet);
+                        try {
+                            ret_msg = objContent.getString("ret_msg");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         System.out.println("strRet = ===================++++" + strRet);
                         String retCode = objContent.optString("ret_code");
                         String retMsg = objContent.optString("ret_msg");
@@ -114,9 +120,8 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                                mNetForJson1.execute();
                         }  else {
                             // TODO 失败
-                            BaseHelper.showDialog(BoundActivity.this, "错误提示", retMsg
-                                            + "，交易状态码:" + retCode+" 返回报文:"+strRet,
-                                    android.R.drawable.ic_dialog_alert);
+//                            "ret_code":"1114","ret_msg":"手机号有误","error_show_mode":"1","correlationID":"a1684032-4259-4589-9d39-88f930732af2"
+                            Toast.makeText(mBaseActivitySelf, ret_msg, Toast.LENGTH_SHORT).show();
                         }
                     }
                     break;
@@ -313,7 +318,7 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                 e.printStackTrace();
             }
         }else {
-
+            Toast.makeText(mBaseActivitySelf, entity.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
