@@ -42,6 +42,9 @@
      />
 
      <ListView
+         android:choiceMode="singleChoice"
+         android:focusable="false"
+         android:clickable="true"
          android:id="@+id/lv_banklist_selectcard"
          android:layout_width="match_parent"
          android:layout_height="wrap_content">

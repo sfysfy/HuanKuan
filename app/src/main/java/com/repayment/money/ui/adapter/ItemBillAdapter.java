@@ -140,6 +140,7 @@ public class ItemBillAdapter extends BaseAdapter {
         public void success(BankCardListItemEntity bankCardListItemEntity) {
             if (bankCardListItemEntity.getResultObj() != null) {
                 RepayPopupWindow repayPopupWindow = new RepayPopupWindow((Activity) context, mEntity,bankCardListItemEntity);
+                
                 repayPopupWindow.showPopupWindow(mHolder.mLayoutBillList);
             } else {
                 Toast.makeText(context, "请先添加银行卡", Toast.LENGTH_SHORT).show();
