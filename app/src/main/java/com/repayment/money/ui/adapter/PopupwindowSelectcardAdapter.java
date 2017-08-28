@@ -53,6 +53,9 @@ public class PopupwindowSelectcardAdapter extends BaseAdapter {
             convertView.setTag(new ViewHolder(convertView));
         }
         initializeViews((BankCardListItemEntity.ResultObjBean) getItem(position), (ViewHolder) convertView.getTag());
+
+
+
         return convertView;
     }
 

@@ -101,7 +101,6 @@ public class HomeFragment extends BaseFragmentWithNet<BillListEntity> {
         mTvShowActivityHome1 = (TextView) findViewById(R.id.tv_show_activity_home1);
         mTvShowActivityHome2 = (TextView) findViewById(R.id.tv_show_activity_home2);
         mBtNewBillActivity = (LinearLayout) findViewById(R.id.bt_new_bill_activity);
-        Log.d("qq", "--------------------------------------"+Constant.getTableuser().getUserNo());
     }
 
     @Override

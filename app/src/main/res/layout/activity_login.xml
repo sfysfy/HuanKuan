@@ -66,13 +66,13 @@
             android:src="@drawable/pwd"/>
         <EditText
             android:text="123456"
-            android:inputType="textPassword"
             android:id="@+id/edt_pwd_login_activity"
             android:layout_width="match_parent"
             android:layout_height="51dp"
             android:layout_gravity="center_horizontal"
             android:background="@null"
             android:hint="请输入6-16位密码"
+            android:inputType="textPassword"
             android:maxLength="16"
             android:textColor="#2f2b08"
             android:textColorHint="#cccccc"/>

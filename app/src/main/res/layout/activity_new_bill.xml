@@ -32,6 +32,7 @@
             android:columnCount="2"
             android:rowCount="7">
             <TextView
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -40,16 +41,38 @@
                 android:text="贷款类型:"
                 android:textColor="#2f2b08"/>
 
-            <Spinner
-                android:id="@+id/sp_type_newbill"
-                android:layout_width="167dp"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/lv_type_newbill"
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:background="@drawable/edt_popup"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
             >
-            </Spinner>
+                <EditText
+                    android:textColor="#2f2b08"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/edt_type_newbill"
+                    android:layout_width="147dp"
+                    android:layout_height="27dp"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:background="#dbdbdb"
+                    android:src="@drawable/arrowup"/>
+
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
-
+                android:textSize="14sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="12dp"
@@ -62,11 +85,33 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
             >
-                <Spinner
-                    android:id="@+id/sp_date_newbill"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content">
-                </Spinner>
+                <LinearLayout
+                    android:background="@drawable/edt_popup"
+                    android:id="@+id/lv_date_newbill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal"
+                >
+                    <EditText
+                        android:textColor="#2f2b08"
+                        android:layout_marginLeft="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/edt_date_newbill"
+                        android:layout_width="27dp"
+                        android:layout_height="27dp"
+                        android:background="@null"
+                        android:focusable="false"
+                        android:inputType="number"
+                        android:singleLine="true" android:textSize="14sp"/>
+                    <ImageView
+                        android:layout_width="27dp"
+                        android:layout_height="27dp"
+                        android:background="#dbdbdb"
+                        android:src="@drawable/arrowup"/>
+
+                </LinearLayout>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
