@@ -28,6 +28,8 @@ import com.repayment.money.entity.BillListEntity;
 import com.repayment.money.entity.RepayEntity;
 import com.repayment.money.ui.dialog.HintDiglog;
 
+import org.greenrobot.eventbus.EventBus;
+
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
@@ -40,7 +42,7 @@ public class RepayPopupWindow extends PopupWindow {
     private NetForJson mNetForHKJson;
     private NetForJson mNetForKKJson;
     private BankCardListItemEntity mBankCardListItemEntity;
-
+    public static int mChageBankR=0;
 
 
     public static final int NET_HK = 1101;
@@ -108,8 +110,8 @@ public class RepayPopupWindow extends PopupWindow {
         daozhangBank.setText(mRepayPopwindowEntity.getBankName());
         huankuanmoney.setText(mRepayPopwindowEntity.getMonthMoney() + "");
 
-        fkbandcard = mBankCardListItemEntity.getResultObj().get(0).getBankCard();
-        String bankName = mBankCardListItemEntity.getResultObj().get(0).getBankName();
+        fkbandcard = mBankCardListItemEntity.getResultObj().get(mChageBankR).getBankCard();
+        String bankName = mBankCardListItemEntity.getResultObj().get(mChageBankR).getBankName();
         mTvFkcard.setText(BankNameUtil.bankNameFormat(bankName, fkbandcard));
         mFukuanImg.setImageResource(IconUtil.getIcon(bankName));
 
@@ -122,13 +124,22 @@ public class RepayPopupWindow extends PopupWindow {
         bt_truepay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                doHK();
+                fkbandcard = mBankCardListItemEntity.getResultObj().get(mChageBankR).getBankCard();
+                if (fkbandcard.equals(mRepayPopwindowEntity.getBankCard())) {
+                    Toast.makeText(context, "收款卡与付款卡不可以相同", Toast.LENGTH_SHORT).show();
+                }else{
+                    doHK();
+                }
+
+
             }
         });
         fkcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ChangeCardPopupWindow((Activity) context  ).showPopupWindow(context.findViewById(R.id.layout_billList));
+                ChangeCardPopupWindow changeCardPopupWindow = new ChangeCardPopupWindow((Activity) context,mBankCardListItemEntity);
+                changeCardPopupWindow.setFkCard(mTvFkcard,mFukuanImg);
+                changeCardPopupWindow.showPopupWindow(context.findViewById(R.id.layout_billList));
             }
         });
     }
@@ -212,6 +223,7 @@ public class RepayPopupWindow extends PopupWindow {
                 @Override
                 public void run() {
                     hintDiglog.dismiss();
+                    EventBus.getDefault().post("刷新");
                 }
             }, 3000);
         }

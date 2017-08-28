@@ -1,11 +1,13 @@
 package com.repayment.money.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.ListPopupWindow;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
@@ -27,10 +29,13 @@ import com.repayment.money.R;
 import com.repayment.money.common.Constant;
 import com.repayment.money.common.utils.BankNameUtil;
 import com.repayment.money.common.utils.IconUtil;
+import com.repayment.money.common.utils.StringType2NumType;
 import com.repayment.money.db.TableUser;
 import com.repayment.money.entity.BankCardEntity;
 import com.repayment.money.entity.BankCardListItemEntity;
 import com.repayment.money.entity.NewBillEntity;
+import com.repayment.money.ui.views.ChangeCardPopupWindow;
+import com.repayment.money.ui.views.RepayPopupWindow;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -207,8 +212,9 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
         mXzNewbankBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mBaseActivitySelf, BoundActivity.class);
-                startActivity(intent);
+                ChangeCardPopupWindow changeCardPopupWindow = new ChangeCardPopupWindow(mBaseActivitySelf,mBankCardListItemEntity);
+                changeCardPopupWindow.setFkCard(mTvBankinfoNewbill,mImgAddNewbill);
+                changeCardPopupWindow.showPopupWindow(findViewById(R.id.xz_newbank_bill));
             }
         });
       mEdtBankNewbill.setOnClickListener(new View.OnClickListener() {
@@ -216,7 +222,8 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
           public void onClick(View view) {
               boolean empty = mEdtCardNewbill.getText().toString().isEmpty();
               if (!mEdtCardNewbill.getText().toString().isEmpty()) {
-                  doNetCard();
+                 doNetCard();
+
               }else{
                   Toast.makeText(mBaseActivitySelf, "请先输入银行卡号", Toast.LENGTH_SHORT).show();
               }
@@ -224,6 +231,7 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
       });
 
     }
+    private int changeCard=0;
 
     TableUser user = Constant.getTableuser();
     String userNo;
@@ -240,7 +248,8 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
 
         if (user != null) {
             userNo = Constant.getTableuser().getUserNo();
-            orderType = "0";//---->暂时只有房贷
+//            orderType = "0";//---->暂时只有房贷
+            orderType = StringType2NumType.stringType2NumType(mEdtTypeNewbill.getText().toString());
             periodesType = "M";
             periodes = mEdtRepayNumber.getText().toString();
             monthMoney = mEdtRepayNewbill.getText().toString();
@@ -251,8 +260,15 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
             //内容是否有空
             boolean isEmpty = !(orderType.isEmpty() || periodesType.isEmpty() || periodes.isEmpty() || monthMoney.isEmpty() || hkDay.isEmpty() || bankCard.isEmpty()||bankName.isEmpty());
             if (isEmpty) {
-//                doNetCard();
-                doNetBill();
+                String hkbankCard = mBankCardListItemEntity.getResultObj().get(changeCard).getBankCard();
+                String fkbankCard =mBankCardListItemEntity.getResultObj().get(RepayPopupWindow.mChageBankR).getBankCard();
+                Log.e("qq", "onClick: 付款卡"+fkbankCard+"还款卡"+hkbankCard );
+                if (!hkbankCard.equals(fkbankCard)){
+                    doNetBill();
+                }else{
+                    Toast.makeText(mBaseActivitySelf, "还款卡和付款卡不能相同,请重新选择", Toast.LENGTH_SHORT).show();
+                }
+
             } else {
                 Toast.makeText(mBaseActivitySelf, "内容不可为空", Toast.LENGTH_SHORT).show();
             }
@@ -318,13 +334,14 @@ public class NewBillActivity extends BaseActivity implements View.OnClickListene
 
         }
     }
-
+    private BankCardListItemEntity mBankCardListItemEntity;
     private class NetForCardlist extends NetOverListener<BankCardListItemEntity>{
 
         @Override
         public void success(BankCardListItemEntity bankCardListItemEntity) {
-            String bankName = bankCardListItemEntity.getResultObj().get(0).getBankName();
-            String bankCard = bankCardListItemEntity.getResultObj().get(0).getBankCard();
+            mBankCardListItemEntity=bankCardListItemEntity;
+            String bankName = bankCardListItemEntity.getResultObj().get(RepayPopupWindow.mChageBankR).getBankName();
+            String bankCard = bankCardListItemEntity.getResultObj().get(RepayPopupWindow.mChageBankR).getBankCard();
             mTvBankinfoNewbill.setText(BankNameUtil.bankNameFormat(bankName,bankCard));
             mImgAddNewbill.setImageResource(IconUtil.getIcon(bankName));
         }
