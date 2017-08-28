@@ -48,8 +48,6 @@ public class ItemBindCardMsgAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        System.out.println("======================================================2");
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.item_bind_card_msg, parent,false);
             convertView.setTag(new ViewHolder(convertView));

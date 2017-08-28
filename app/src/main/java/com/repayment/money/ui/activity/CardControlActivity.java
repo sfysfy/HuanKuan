@@ -58,12 +58,11 @@ public class CardControlActivity extends BaseActivityWithNet<BankCardListItemEnt
         mLayoutHideCardActivity = (LinearLayout) findViewById(R.id.layout_hide_card_activity);
         mLayoutAddCardActivity = (LinearLayout) findViewById(R.id.layout_add_card_activity);
 
-        mLayoutHideCardActivity.setVisibility(View.GONE);
-        mLvCardMsg.setVisibility(View.VISIBLE);
+//        mLayoutHideCardActivity.setVisibility(View.GONE);
+//        mLvCardMsg.setVisibility(View.VISIBLE);
         //先拉取数据   ?userNo=2017081913230826210005
         addParam("userNo", LogincAtivity.sTableUserNow.getUserNo());
         execute();
-
 
     }
 
@@ -98,8 +97,11 @@ public class CardControlActivity extends BaseActivityWithNet<BankCardListItemEnt
 
     @Override
     protected void success(BankCardListItemEntity entity) {
-        Log.d("qq", "entity===========================:" + entity);
         mResultCardList = entity.getResultObj();
+        if (entity.getResultObj().size()>=1){
+            mLayoutHideCardActivity.setVisibility(View.GONE);
+            mLvCardMsg.setVisibility(View.VISIBLE);
+        }
         Constant.MRFKBankCard=mResultCardList.get(0).getBankCard();
         mItemBindCardMsgAdapter = new ItemBindCardMsgAdapter(mBaseActivitySelf,entity.getResultObj());
         mLvCardMsg.setAdapter(mItemBindCardMsgAdapter);

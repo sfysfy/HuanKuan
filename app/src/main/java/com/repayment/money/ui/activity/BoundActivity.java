@@ -120,7 +120,9 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
                                mNetForJson1.execute();
                         }  else {
                             // TODO 失败
-//                            "ret_code":"1114","ret_msg":"手机号有误","error_show_mode":"1","correlationID":"a1684032-4259-4589-9d39-88f930732af2"
+//"ret_code":"1114","ret_msg":"手机号有误",
+// "error_show_mode":"1",
+// "correlationID":"a1684032-4259-4589-9d39-88f930732af2"
                             Toast.makeText(mBaseActivitySelf, ret_msg, Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -164,18 +166,13 @@ public class  BoundActivity extends BaseActivityWithNet<CheckBankCardEntity> {
         addSpinner();
         mAdapter=new ArrayAdapter<String>(mBaseActivitySelf,android.R.layout.simple_list_item_1,mBankName);
         mSpinnerNameBankBoundActivity.setAdapter(mAdapter);
-
-
         //mLayoutIdCardActivityBound.setVisibility(View.GONE);
-
     }
 
     @Subscribe()
       public void onEvent(String bankCardType){
-        System.out.println("bankCardType ===================== " + bankCardType);
         mBankCardType=bankCardType;
         if (bankCardType != null) {
-            System.out.println(" =---------------------------------====== " );
            doCheckCard();
         }
 
