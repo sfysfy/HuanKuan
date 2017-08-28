@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="100dp"
     android:id="@+id/rea_layout_item_card"
     android:padding="10dp"
     >
             <ImageView
                 android:layout_gravity="center"
                 android:id="@+id/img_icon_bank_bind"
-                android:src="@drawable/jianhang"
                 android:layout_width="60dp"
                 android:layout_height="60dp"/>
 

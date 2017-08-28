@@ -69,7 +69,9 @@ public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
         String moneyXSFormat = UtilForItemBill.moneyXSFormat(mEntitie.getMonthMoney());
         mTvMoneyActivityDetail.setText(moneyZSFormat);
         mTvMoney2ActivityDetail.setText(moneyXSFormat);
-        mTvRepayDateActivityDetail.setText(mEntitie.getLatelyDate());
+        String date = mEntitie.getLatelyDate();
+        String substring = date.substring(date.length() - 2);
+        mTvRepayDateActivityDetail.setText(substring);
         int icon = IconUtil.getIcon(mEntitie.getBankName());
         mImgIconActivityDetail.setImageResource(icon);
         String nameFormat = BankNameUtil.bankNameFormat(mEntitie.getBankName(), mEntitie.getBankCard());
