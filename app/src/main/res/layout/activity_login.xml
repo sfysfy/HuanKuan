@@ -34,11 +34,11 @@
         <EditText
             android:id="@+id/edt_user_login_activity"
             android:layout_width="match_parent"
-            android:layout_height="51dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:background="@null"
-            android:hint="请输入用户名"
-            android:inputType="number"
+            android:hint="请输入手机号"
+            android:maxLength="16"
             android:textColor="#2f2b08"
             android:textColorHint="#cccccc"/>
     </LinearLayout>

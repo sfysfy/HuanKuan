@@ -14,6 +14,7 @@ import com.repayment.money.R;
 import com.repayment.money.common.utils.IconUtil;
 import com.repayment.money.entity.BankCardListItemEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemBindCardMsgAdapter extends BaseAdapter {
@@ -22,6 +23,8 @@ public class ItemBindCardMsgAdapter extends BaseAdapter {
 
     private Context mContext;
     private LayoutInflater layoutInflater;
+
+    public static List<BankCardListItemEntity.ResultObjBean>  cardBoundList=new ArrayList<>();
 
     public ItemBindCardMsgAdapter(Context context, List<BankCardListItemEntity.ResultObjBean> entities) {
         this.mContext = context;
@@ -58,7 +61,6 @@ public class ItemBindCardMsgAdapter extends BaseAdapter {
 
     private void initializeViews(BankCardListItemEntity.ResultObjBean entity, ViewHolder holder,int position) {
         holder.reaLayoutItemCard.setBackgroundResource(R.drawable.pink);
-        System.out.println("entity =--------+++++++ " + entity);
         //TODO implement
         holder.imgIconBankBind.setImageResource(IconUtil.getIcon(entity.getBankName()));
         holder.tvBankNameBing.setText(entity.getBankName());
@@ -71,6 +73,7 @@ public class ItemBindCardMsgAdapter extends BaseAdapter {
         holder.tvBankTypeBing.setText(cardType);
         System.out.println("cardType = " + cardType);
         holder.mTvCardNumItem.setText(entity.getBankCard());
+        cardBoundList.add(entity);
     }
 
     public void setEntities(List<BankCardListItemEntity.ResultObjBean> entities) {

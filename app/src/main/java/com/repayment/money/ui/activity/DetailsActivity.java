@@ -54,8 +54,13 @@ public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
     @Override
     protected void success(BillDetailEntity entity) {
         mMonthMoney = entity.getResultObj().get(0).getMonthMoney();
-        mRepayMentTime = entity.getResultObj().get(0).getRepayMentTime();
+
         mHkStatus = entity.getResultObj().get(0).getHkStatus();
+        if (mHkStatus==0) {
+            mRepayMentTime = entity.getResultObj().get(0).getRepayMentTime();
+        }else{
+            mRepayMentTime = entity.getResultObj().get(0).getRealRepayMentTime();
+        }
         doShowMsg();
     }
 
@@ -122,8 +127,6 @@ public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
         mTvMoneyDetailActivity = (TextView) findViewById(R.id.tv_money_detail_activity);
         mTvStateDetailActivity = (TextView) findViewById(R.id.tv_state_detail_activity);
         mTvTimeActivityDetail = (TextView) findViewById(R.id.tv_time_activity_detail);
-
-
         setTitleLeft("", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,7 +143,6 @@ public class DetailsActivity extends BaseActivityWithNet<BillDetailEntity> {
 
     private void doGetDetial() {
         addParam("orderNo", mEntitie.getOrderNo());
-        System.out.println("mEntitie.getOrderNo() ===========_____++++ " + mEntitie.getOrderNo());
         execute();
     }
 

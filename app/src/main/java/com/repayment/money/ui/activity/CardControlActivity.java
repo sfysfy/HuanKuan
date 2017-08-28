@@ -61,6 +61,7 @@ public class CardControlActivity extends BaseActivityWithNet<BankCardListItemEnt
 //        mLayoutHideCardActivity.setVisibility(View.GONE);
 //        mLvCardMsg.setVisibility(View.VISIBLE);
         //先拉取数据   ?userNo=2017081913230826210005
+
         addParam("userNo", LogincAtivity.sTableUserNow.getUserNo());
         execute();
 
