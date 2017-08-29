@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mylibrary.base.BaseActivityWithNet;
+import com.example.mylibrary.util.SPUtils;
 import com.repayment.money.R;
 import com.repayment.money.common.Constant;
 import com.repayment.money.common.utils.UtilForUserAndPwd;
@@ -32,11 +33,15 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
     private LoginEntity mEntityLogin;
     public static DbManager mDbManager;
     public static TableUser sTableUserNow;
+    private String userNme;
+    private String userPwd;
+    private boolean mIsFirst=false;
+
 
 
     @Override
     protected int addRootView() {
-        return R.layout.activity_login;
+            return R.layout.activity_login;
     }
 
     @Override
@@ -52,6 +57,7 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
 
+
     }
 
     @Override
@@ -59,7 +65,10 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
         DbManager.DaoConfig daoConfig=new DbManager.DaoConfig()
                 .setDbName("HKW")
                 .setDbVersion(1);
+
         mDbManager = x.getDb(daoConfig);
+
+        mIsFirst=SPUtils.getInstance(Constant.SP_USER_MSG).getBoolean("isFirst");
 
     }
 
@@ -69,6 +78,9 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
         if (entity.getCode()==1) {
             Intent intent=new Intent(mBaseActivitySelf,MainActivity.class);
             startActivity(intent);
+            SPUtils.getInstance(Constant.SP_USER_MSG).put("phone",userNme);
+            SPUtils.getInstance(Constant.SP_USER_MSG).put("pwd",userPwd);
+            SPUtils.getInstance(Constant.SP_USER_MSG).put("isFirst",true);
             System.out.println("entity = ======" + entity);
             if (!isHaveUser()) {
                 doSaveUserMsg();
@@ -77,7 +89,6 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
                  sTableUserNow= LogincAtivity.mDbManager.selector(TableUser.class).where("phone", "=",mEdtUserLoginActivity.getText().toString().trim() ).findFirst();
                 Constant.PHONE_NUM_USER_NOW=sTableUserNow.getPhone();
                 Constant.USERNO_NUM_USER_NOW=sTableUserNow.getUserNo();
-                System.out.println("===="+Constant.USERNO_NUM_USER_NOW);
             } catch (DbException e) {
                 e.printStackTrace();
             }
@@ -132,7 +143,6 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
     @Override
     protected void failed(Throwable throwable) {
         Toast.makeText(mBaseActivitySelf, "连接服务器异常", Toast.LENGTH_SHORT).show();
-        System.out.println("throwable ===================++++++++++++++++++ " + throwable);
 
     }
 
@@ -150,6 +160,12 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
         mTvWjActivityMain = (TextView) findViewById(R.id.tv_wj_activity_main);
         String username = getIntent().getStringExtra("username");
         mEdtUserLoginActivity.setText(username);
+
+        if (mIsFirst){
+            userNme=SPUtils.getInstance(Constant.SP_USER_MSG).getString("phone");
+            userPwd=SPUtils.getInstance(Constant.SP_USER_MSG).getString("pwd");
+            doNet();
+        }
     }
 
     @Override
@@ -159,15 +175,9 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
 
             @Override
             public void onClick(View v) {
-                String userNme = mEdtUserLoginActivity.getText().toString().trim();
-                String userPwd = mEdtPwdLoginActivity.getText().toString().trim();
-                if (UtilForUserAndPwd.checkNameAndPwd(userNme, userPwd)) {
-                    addParam("mobile",userNme);
-                    addParam("password",userPwd);
-                    execute();
-                }else{
-                    Toast.makeText(mBaseActivitySelf, "输入的账号和密码位数不够,请检查", Toast.LENGTH_SHORT).show();
-                }
+                userNme= mEdtUserLoginActivity.getText().toString().trim();
+                userPwd= mEdtPwdLoginActivity.getText().toString().trim();
+               doNet();
             }
 
         });
@@ -216,7 +226,24 @@ public class LogincAtivity extends BaseActivityWithNet<LoginEntity> {
         });
 
     }
-    
+
+    private void doNet() {
+        if (UtilForUserAndPwd.checkNameAndPwd(userNme, userPwd)) {
+            addParam("mobile",userNme);
+            addParam("password",userPwd);
+            execute();
+           if (mIsFirst){
+               try {
+                   Thread.sleep(1500);
+               } catch (InterruptedException e) {
+                   e.printStackTrace();
+               }
+           }
+        }else{
+            Toast.makeText(mBaseActivitySelf, "输入的账号和密码位数不够,请检查", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     protected boolean isNotUseTitle() {

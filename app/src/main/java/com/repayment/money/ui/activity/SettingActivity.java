@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.mylibrary.base.BaseActivity;
+import com.example.mylibrary.util.SPUtils;
 import com.repayment.money.R;
+import com.repayment.money.common.Constant;
 
 public class SettingActivity extends BaseActivity{
     private LinearLayout mLayoutRegSetActivity;
@@ -45,13 +47,12 @@ public class SettingActivity extends BaseActivity{
         mLayoutRegSetActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent=new Intent(mBaseActivitySelf,LogincAtivity.class);
-                startActivity(intent);
-                ActivityControl.killAll();
-                mBaseActivitySelf.finish();*/
-
                 Intent intent = new Intent(mBaseActivitySelf, LogincAtivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                SPUtils.getInstance(Constant.SP_USER_MSG).remove("phone");
+                SPUtils.getInstance(Constant.SP_USER_MSG).remove("pwd");
+                SPUtils.getInstance(Constant.SP_USER_MSG).put("isFirst",false);
+
                 startActivity(intent);
             }
         });

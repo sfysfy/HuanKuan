@@ -3,7 +3,6 @@ package com.repayment.money.ui.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -156,8 +155,8 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
 
             if (mBaseFragmentNow!=mHomeFragment){
-                changeFrag(mHomeFragment);
-              //  return;
+                mTabBillActivityMain.performClick();
+                return;
             }
 
         long timeTwoBack= System.currentTimeMillis();
